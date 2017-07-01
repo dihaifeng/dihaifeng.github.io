@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[first.blog]]></title>
-    <url>%2F2017%2F07%2F01%2Ffirst-blog%2F</url>
-    <content type="text"><![CDATA[Hello,world!]]></content>
+    <title><![CDATA[Next主题配置]]></title>
+    <url>%2F2017%2F07%2F01%2FNext%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[Hexo Next 主题个性化配置 个性化配置 故障解决 上传到GitHub上hexo主题样式不全的问题?解决办法:必须创建和自己GitHub名一致的地址,如:dihaifeng.github.io]]></content>
       <tags>
-        <tag>test</tag>
+        <tag>hexo</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2017%2F07%2F01%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>
