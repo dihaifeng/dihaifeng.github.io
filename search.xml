@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>%2F2017%2F07%2F01%2F%20SaltStack%20Client%20API%2F</url>
+    <content type="text"><![CDATA[SaltStack Client API文件追加操作12345678#!/usr/bin/env pythonimport salt.clientimport sys local = salt.client.LocalClient() #/etc/sudoers文件末尾追加用户local.cmd(sys.argv[1], &apos;file.append&apos;,[&apos;/etc/sudoers&apos;,sys.argv[2] + &apos; ALL=(ALL) NOPASSWD: ALL&apos;],expr_form=&apos; list&apos;) 执行state.sls文件1234import salt.clientlocal = salt.client.LocalClient()local.cmd(&apos;test_server&apos;, &apos;state.sls&apos;, [&apos;django&apos;], expr_form=&apos;nodegroup&apos;) 对应命令行命令：salt -N ‘test_server’ state.sls django]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[Next主题配置]]></title>
     <url>%2F2017%2F07%2F01%2FNext%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[Next主题使用文档 使用文档 Hexo Next 主题个性化配置 个性化配置 故障解决 上传到GitHub上hexo主题样式不全的问题?解决办法:必须创建和自己GitHub名一致的地址,如:dihaifeng.github.io]]></content>
