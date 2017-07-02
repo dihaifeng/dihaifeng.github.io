@@ -1,0 +1,1160 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Docker," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="TemplatesTemplates define a single application configuration template.Templates are stored under the /etc/confd/templates directory by default. Templates are written in Go’s text/template. Template Fu">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Confd template 语法">
+<meta property="og:url" content="http://yoursite.com/2017/07/02/Confd_Template/index.html">
+<meta property="og:site_name" content="Herb,Blog">
+<meta property="og:description" content="TemplatesTemplates define a single application configuration template.Templates are stored under the /etc/confd/templates directory by default. Templates are written in Go’s text/template. Template Fu">
+<meta property="og:updated_time" content="2017-07-02T14:48:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Confd template 语法">
+<meta name="twitter:description" content="TemplatesTemplates define a single application configuration template.Templates are stored under the /etc/confd/templates directory by default. Templates are written in Go’s text/template. Template Fu">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/02/Confd_Template/"/>
+
+
+
+
+
+  <title>Confd template 语法 | Herb,Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Herb,Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/02/Confd_Template/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hai Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Herb,Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Confd template 语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T22:31:04+08:00">
+                2017-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Templates"><a href="#Templates" class="headerlink" title="Templates"></a>Templates</h1><p>Templates define a single application configuration template.<br>Templates are stored under the <code>/etc/confd/templates</code> directory by default.</p>
+<p>Templates are written in Go’s <a href="http://golang.org/pkg/text/template/" target="_blank" rel="external"><code>text/template</code></a>.</p>
+<h2 id="Template-Functions"><a href="#Template-Functions" class="headerlink" title="Template Functions"></a>Template Functions</h2><h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>creates a key-value map of string -&gt; interface{}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;$endpoint := map &quot;name&quot; &quot;elasticsearch&quot; &quot;private_port&quot; 9200 &quot;public_port&quot; 443&#125;&#125;</div><div class="line"></div><div class="line">name: &#123;&#123;index $endpoint &quot;name&quot;&#125;&#125;</div><div class="line">private-port: &#123;&#123;index $endpoint &quot;private_port&quot;&#125;&#125;</div><div class="line">public-port: &#123;&#123;index $endpoint &quot;public_port&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<p>specifically useful if you a sub-template and you want to pass multiple values to it.</p>
+<h3 id="base"><a href="#base" class="headerlink" title="base"></a>base</h3><p>Alias for the <a href="https://golang.org/pkg/path/#Base" target="_blank" rel="external">path.Base</a> function.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;with get &quot;/key&quot;&#125;&#125;</div><div class="line">    key: &#123;&#123;base .Key&#125;&#125;</div><div class="line">    value: &#123;&#123;.Value&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="exists"><a href="#exists" class="headerlink" title="exists"></a>exists</h3><p>Checks if the key exists. Return false if key is not found.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;if exists &quot;/key&quot;&#125;&#125;</div><div class="line">    value: &#123;&#123;getv &quot;/key&quot;&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>Returns the KVPair where key matches its argument. Returns an error if key is not found.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;with get &quot;/key&quot;&#125;&#125;</div><div class="line">    key: &#123;&#123;.Key&#125;&#125;</div><div class="line">    value: &#123;&#123;.Value&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="gets"><a href="#gets" class="headerlink" title="gets"></a>gets</h3><p>Returns all KVPair, []KVPair, where key matches its argument. Returns an error if key is not found.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range gets &quot;/*&quot;&#125;&#125;</div><div class="line">    key: &#123;&#123;.Key&#125;&#125;</div><div class="line">    value: &#123;&#123;.Value&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="getv"><a href="#getv" class="headerlink" title="getv"></a>getv</h3><p>Returns the value as a string where key matches its argument or an optional default value.<br>Returns an error if key is not found and no default value given.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">value: &#123;&#123;getv &quot;/key&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<h4 id="With-a-default-value"><a href="#With-a-default-value" class="headerlink" title="With a default value"></a>With a default value</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">value: &#123;&#123;getv &quot;/key&quot; &quot;default_value&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="getvs"><a href="#getvs" class="headerlink" title="getvs"></a>getvs</h3><p>Returns all values, []string, where key matches its argument. Returns an error if key is not found.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range getvs &quot;/*&quot;&#125;&#125;</div><div class="line">    value: &#123;&#123;.&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="getenv"><a href="#getenv" class="headerlink" title="getenv"></a>getenv</h3><p>Wrapper for <a href="https://golang.org/pkg/os/#Getenv" target="_blank" rel="external">os.Getenv</a>. Retrieves the value of the environment variable named by the key. It returns the value, which will be empty if the variable is not present. Optionally, you can give a default value that will be returned if the key is not present.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export HOSTNAME=`hostname`</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hostname: &#123;&#123;getenv &quot;HOSTNAME&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<h4 id="With-a-default-value-1"><a href="#With-a-default-value-1" class="headerlink" title="With a default value"></a>With a default value</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ipaddr: &#123;&#123;getenv &quot;HOST_IP&quot; &quot;127.0.0.1&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="datetime"><a href="#datetime" class="headerlink" title="datetime"></a>datetime</h3><p>Alias for <a href="https://golang.org/pkg/time/#Now" target="_blank" rel="external">time.Now</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># Generated by confd &#123;&#123;datetime&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Outputs:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># Generated by confd 2015-01-23 13:34:56.093250283 -0800 PST</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># Generated by confd &#123;&#123;datetime.Format &quot;Jan 2, 2006 at 3:04pm (MST)&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Outputs:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># Generated by confd Jan 23, 2015 at 1:34pm (EST)</div></pre></td></tr></table></figure>
+<p>See the time package for more usage: <a href="http://golang.org/pkg/time/" target="_blank" rel="external">http://golang.org/pkg/time/</a></p>
+<h3 id="split"><a href="#split" class="headerlink" title="split"></a>split</h3><p>Wrapper for <a href="http://golang.org/pkg/strings/#Split" target="_blank" rel="external">strings.Split</a>. Splits the input string on the separating string and returns a slice of substrings.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; $url := split (getv &quot;/deis/service&quot;) &quot;:&quot; &#125;&#125;</div><div class="line">    host: &#123;&#123;index $url 0&#125;&#125;</div><div class="line">    port: &#123;&#123;index $url 1&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="toUpper"><a href="#toUpper" class="headerlink" title="toUpper"></a>toUpper</h3><p>Alias for <a href="http://golang.org/pkg/strings/#ToUpper" target="_blank" rel="external">strings.ToUpper</a> Returns uppercased string.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">key: &#123;&#123;toUpper &quot;value&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="toLower"><a href="#toLower" class="headerlink" title="toLower"></a>toLower</h3><p>Alias for <a href="http://golang.org/pkg/strings/#ToLower" target="_blank" rel="external">strings.ToLower</a>. Returns lowercased string.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">key: &#123;&#123;toLower &quot;Value&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="json"><a href="#json" class="headerlink" title="json"></a>json</h3><p>Returns an map[string]interface{} of the json value.</p>
+<h3 id="lookupSRV"><a href="#lookupSRV" class="headerlink" title="lookupSRV"></a>lookupSRV</h3><p>Wrapper for <a href="https://golang.org/pkg/net/#LookupSRV" target="_blank" rel="external">net.LookupSRV</a>. The wrapper also sorts the SRV records alphabetically by combining all the fields of the net.SRV struct to reduce unnecessary config reloads.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range lookupSRV &quot;mail&quot; &quot;tcp&quot; &quot;example.com&quot;&#125;&#125;</div><div class="line">  target: &#123;&#123;.Target&#125;&#125;</div><div class="line">  port: &#123;&#123;.Port&#125;&#125;</div><div class="line">  priority: &#123;&#123;.Priority&#125;&#125;</div><div class="line">  weight: &#123;&#123;.Weight&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h4 id="Add-keys-to-etcd"><a href="#Add-keys-to-etcd" class="headerlink" title="Add keys to etcd"></a>Add keys to etcd</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">etcdctl set /services/zookeeper/host1 &apos;&#123;&quot;Id&quot;:&quot;host1&quot;, &quot;IP&quot;:&quot;192.168.10.11&quot;&#125;&apos;</div><div class="line">etcdctl set /services/zookeeper/host2 &apos;&#123;&quot;Id&quot;:&quot;host2&quot;, &quot;IP&quot;:&quot;192.168.10.12&quot;&#125;&apos;</div></pre></td></tr></table></figure>
+<h4 id="Create-the-template-resource"><a href="#Create-the-template-resource" class="headerlink" title="Create the template resource"></a>Create the template resource</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[template]</div><div class="line">src = &quot;services.conf.tmpl&quot;</div><div class="line">dest = &quot;/tmp/services.conf&quot;</div><div class="line">keys = [</div><div class="line">  &quot;/services/zookeeper/&quot;</div><div class="line">]</div></pre></td></tr></table></figure>
+<h4 id="Create-the-template"><a href="#Create-the-template" class="headerlink" title="Create the template"></a>Create the template</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range gets &quot;/services/zookeeper/*&quot;&#125;&#125;</div><div class="line">&#123;&#123;$data := json .Value&#125;&#125;</div><div class="line">  id: &#123;&#123;$data.Id&#125;&#125;</div><div class="line">  ip: &#123;&#123;$data.IP&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h4 id="Advanced-Map-Traversals"><a href="#Advanced-Map-Traversals" class="headerlink" title="Advanced Map Traversals"></a>Advanced Map Traversals</h4><p>Once you have parsed the JSON, it is possible to traverse it with normal Go<br>template functions such as <code>index</code>.</p>
+<p>A more advanced structure, like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;animals&quot;: [</div><div class="line">    &#123;&quot;type&quot;: &quot;dog&quot;, &quot;name&quot;: &quot;Fido&quot;&#125;,</div><div class="line">    &#123;&quot;type&quot;: &quot;cat&quot;, &quot;name&quot;: &quot;Misse&quot;&#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>It can be traversed like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;$data := json (getv &quot;/test/data/&quot;)&#125;&#125;</div><div class="line">type: &#123;&#123; (index $data.animals 1).type &#125;&#125;</div><div class="line">name: &#123;&#123; (index $data.animals 1).name &#125;&#125;</div><div class="line">&#123;&#123;range $data.animals&#125;&#125;</div><div class="line">&#123;&#123;.name&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="jsonArray"><a href="#jsonArray" class="headerlink" title="jsonArray"></a>jsonArray</h3><p>Returns a []interface{} from a json array such as <code>[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range jsonArray (getv &quot;/services/data/&quot;)&#125;&#125;</div><div class="line">val: &#123;&#123;.&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p>Returns all subkeys, []string, where path matches its argument. Returns an empty list if path is not found.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range ls &quot;/deis/services&quot;&#125;&#125;</div><div class="line">   value: &#123;&#123;.&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="lsdir"><a href="#lsdir" class="headerlink" title="lsdir"></a>lsdir</h3><p>Returns all subkeys, []string, where path matches its argument. It only returns subkeys that also have subkeys. Returns an empty list if path is not found.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range lsdir &quot;/deis/services&quot;&#125;&#125;</div><div class="line">   value: &#123;&#123;.&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="dir"><a href="#dir" class="headerlink" title="dir"></a>dir</h3><p>Returns the parent directory of a given key.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;with dir &quot;/services/data/url&quot;&#125;&#125;</div><div class="line">dir: &#123;&#123;.&#125;&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><p>Alias for the <a href="https://golang.org/pkg/strings/#Join" target="_blank" rel="external">strings.Join</a> function.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;$services := getvs &quot;/services/elasticsearch/*&quot;&#125;&#125;</div><div class="line">services: &#123;&#123;join $services &quot;,&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><p>Alias for the <a href="https://golang.org/pkg/strings/#Replace" target="_blank" rel="external">strings.Replace</a> function.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;$backend := getv &quot;/services/backend/nginx&quot;&#125;&#125;</div><div class="line">backend = &#123;&#123;replace $backend &quot;-&quot; &quot;_&quot; -1&#125;&#125;</div></pre></td></tr></table></figure>
+<h3 id="lookupIP"><a href="#lookupIP" class="headerlink" title="lookupIP"></a>lookupIP</h3><p>Wrapper for <a href="https://golang.org/pkg/net/#LookupIP" target="_blank" rel="external">net.LookupIP</a> function. The wrapper also sorts (alphabeticaly) the IP addresses. This is crucial since in dynamic environments DNS servers typically shuffle the addresses linked to domain name. And that would cause unnecessary config reloads.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range lookupIP &quot;some.host.local&quot;&#125;&#125;</div><div class="line">    server &#123;&#123;.&#125;&#125;;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<h2 id="Example-Usage"><a href="#Example-Usage" class="headerlink" title="Example Usage"></a>Example Usage</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">etcdctl <span class="built_in">set</span> /nginx/domain <span class="string">'example.com'</span></div><div class="line">etcdctl <span class="built_in">set</span> /nginx/root <span class="string">'/var/www/example_dotcom'</span></div><div class="line">etcdctl <span class="built_in">set</span> /nginx/worker_processes <span class="string">'2'</span></div><div class="line">etcdctl <span class="built_in">set</span> /app/upstream/app1 <span class="string">"10.0.1.100:80"</span></div><div class="line">etcdctl <span class="built_in">set</span> /app/upstream/app2 <span class="string">"10.0.1.101:80"</span></div></pre></td></tr></table></figure>
+<p><code>/etc/confd/templates/nginx.conf.tmpl</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">worker_processes &#123;&#123;getv &quot;/nginx/worker_processes&quot;&#125;&#125;;</div><div class="line"></div><div class="line">upstream app &#123;</div><div class="line">&#123;&#123;range getvs &quot;/app/upstream/*&quot;&#125;&#125;</div><div class="line">    server &#123;&#123;.&#125;&#125;;</div><div class="line">&#123;&#123;end&#125;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    listen 80;</div><div class="line">    server_name www.&#123;&#123;getv &quot;/nginx/domain&quot;&#125;&#125;;</div><div class="line">    access_log /var/log/nginx/&#123;&#123;getv &quot;/nginx/domain&quot;&#125;&#125;.access.log;</div><div class="line">    error_log /var/log/nginx/&#123;&#123;getv &quot;/nginx/domain&quot;&#125;&#125;.log;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">        root              &#123;&#123;getv &quot;/nginx/root&quot;&#125;&#125;;</div><div class="line">        index             index.html index.htm;</div><div class="line">		proxy_pass        http://app;</div><div class="line">        proxy_redirect    off;</div><div class="line">        proxy_set_header  Host             $host;</div><div class="line">        proxy_set_header  X-Real-IP        $remote_addr;</div><div class="line">        proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Output: <code>/etc/nginx/nginx.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">worker_processes 2;</div><div class="line"></div><div class="line">upstream app &#123;</div><div class="line">    server 10.0.1.100:80;</div><div class="line">    server 10.0.1.101:80;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    listen 80;</div><div class="line">    server_name www.example.com;</div><div class="line">    access_log /var/log/nginx/example.com.access.log;</div><div class="line">    error_log /var/log/nginx/example.com.error.log;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">        root              /var/www/example_dotcom;</div><div class="line">        index             index.html index.htm;</div><div class="line">        proxy_pass        http://app;</div><div class="line">        proxy_redirect    off;</div><div class="line">        proxy_set_header  Host             $host;</div><div class="line">        proxy_set_header  X-Real-IP        $remote_addr;</div><div class="line">        proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Complex-example"><a href="#Complex-example" class="headerlink" title="Complex example"></a>Complex example</h3><p>This examples show how to use a combination of the templates functions to do nested iteration.</p>
+<h4 id="Add-keys-to-etcd-1"><a href="#Add-keys-to-etcd-1" class="headerlink" title="Add keys to etcd"></a>Add keys to etcd</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">etcdctl mkdir /services/web/cust1/</div><div class="line">etcdctl mkdir /services/web/cust2/</div><div class="line">etcdctl set /services/web/cust1/2 &apos;&#123;&quot;IP&quot;: &quot;10.0.0.2&quot;&#125;&apos;</div><div class="line">etcdctl set /services/web/cust2/2 &apos;&#123;&quot;IP&quot;: &quot;10.0.0.4&quot;&#125;&apos;</div><div class="line">etcdctl set /services/web/cust2/1 &apos;&#123;&quot;IP&quot;: &quot;10.0.0.3&quot;&#125;&apos;</div><div class="line">etcdctl set /services/web/cust1/1 &apos;&#123;&quot;IP&quot;: &quot;10.0.0.1&quot;&#125;&apos;</div></pre></td></tr></table></figure>
+<h4 id="Create-the-template-resource-1"><a href="#Create-the-template-resource-1" class="headerlink" title="Create the template resource"></a>Create the template resource</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[template]</div><div class="line">src = &quot;services.conf.tmpl&quot;</div><div class="line">dest = &quot;/tmp/services.conf&quot;</div><div class="line">keys = [</div><div class="line">  &quot;/services/web&quot;</div><div class="line">]</div></pre></td></tr></table></figure>
+<h4 id="Create-the-template-1"><a href="#Create-the-template-1" class="headerlink" title="Create the template"></a>Create the template</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;range $dir := lsdir &quot;/services/web&quot;&#125;&#125;</div><div class="line">upstream &#123;&#123;base $dir&#125;&#125; &#123;</div><div class="line">    &#123;&#123;$custdir := printf &quot;/services/web/%s/*&quot; $dir&#125;&#125;&#123;&#123;range gets $custdir&#125;&#125;</div><div class="line">    server &#123;&#123;$data := json .Value&#125;&#125;&#123;&#123;$data.IP&#125;&#125;:80;</div><div class="line">    &#123;&#123;end&#125;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    server_name &#123;&#123;base $dir&#125;&#125;.example.com;</div><div class="line">    location / &#123;</div><div class="line">        proxy_pass &#123;&#123;base $dir&#125;&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&#123;&#123;end&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Output:<code>/tmp/services.conf</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">upstream cust1 &#123;</div><div class="line">    server 10.0.0.1:80;</div><div class="line">    server 10.0.0.2:80;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    server_name cust1.example.com;</div><div class="line">    location / &#123;</div><div class="line">        proxy_pass cust1;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">upstream cust2 &#123;</div><div class="line">    server 10.0.0.3:80;</div><div class="line">    server 10.0.0.4:80;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    server_name cust2.example.com;</div><div class="line">    location / &#123;</div><div class="line">        proxy_pass cust2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Go’s <a href="http://golang.org/pkg/text/template/" target="_blank" rel="external"><code>text/template</code></a> package is very powerful. For more details on it’s capabilities see its <a href="http://golang.org/pkg/text/template/" target="_blank" rel="external">documentation.</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/02/git命令/" rel="next" title="常用Git命令总结">
+                <i class="fa fa-chevron-left"></i> 常用Git命令总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg"
+               alt="Hai Feng" />
+          <p class="site-author-name" itemprop="name">Hai Feng</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dihaifeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/haifeng116" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Templates"><span class="nav-number">1.</span> <span class="nav-text">Templates</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Functions"><span class="nav-number">1.1.</span> <span class="nav-text">Template Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map"><span class="nav-number">1.1.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#base"><span class="nav-number">1.1.2.</span> <span class="nav-text">base</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exists"><span class="nav-number">1.1.3.</span> <span class="nav-text">exists</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get"><span class="nav-number">1.1.4.</span> <span class="nav-text">get</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gets"><span class="nav-number">1.1.5.</span> <span class="nav-text">gets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getv"><span class="nav-number">1.1.6.</span> <span class="nav-text">getv</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#With-a-default-value"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">With a default value</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getvs"><span class="nav-number">1.1.7.</span> <span class="nav-text">getvs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getenv"><span class="nav-number">1.1.8.</span> <span class="nav-text">getenv</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#With-a-default-value-1"><span class="nav-number">1.1.8.1.</span> <span class="nav-text">With a default value</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#datetime"><span class="nav-number">1.1.9.</span> <span class="nav-text">datetime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#split"><span class="nav-number">1.1.10.</span> <span class="nav-text">split</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toUpper"><span class="nav-number">1.1.11.</span> <span class="nav-text">toUpper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toLower"><span class="nav-number">1.1.12.</span> <span class="nav-text">toLower</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json"><span class="nav-number">1.1.13.</span> <span class="nav-text">json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lookupSRV"><span class="nav-number">1.1.14.</span> <span class="nav-text">lookupSRV</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Add-keys-to-etcd"><span class="nav-number">1.1.14.1.</span> <span class="nav-text">Add keys to etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-the-template-resource"><span class="nav-number">1.1.14.2.</span> <span class="nav-text">Create the template resource</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-the-template"><span class="nav-number">1.1.14.3.</span> <span class="nav-text">Create the template</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Advanced-Map-Traversals"><span class="nav-number">1.1.14.4.</span> <span class="nav-text">Advanced Map Traversals</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jsonArray"><span class="nav-number">1.1.15.</span> <span class="nav-text">jsonArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">1.1.16.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lsdir"><span class="nav-number">1.1.17.</span> <span class="nav-text">lsdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dir"><span class="nav-number">1.1.18.</span> <span class="nav-text">dir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join"><span class="nav-number">1.1.19.</span> <span class="nav-text">join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace"><span class="nav-number">1.1.20.</span> <span class="nav-text">replace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lookupIP"><span class="nav-number">1.1.21.</span> <span class="nav-text">lookupIP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-Usage"><span class="nav-number">1.2.</span> <span class="nav-text">Example Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Complex-example"><span class="nav-number">1.2.1.</span> <span class="nav-text">Complex example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Add-keys-to-etcd-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">Add keys to etcd</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-the-template-resource-1"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">Create the template resource</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-the-template-1"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">Create the template</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-Herb,Blog"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hai Feng</span>
+</div>
+
+
+<!--<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
