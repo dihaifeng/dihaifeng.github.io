@@ -119,7 +119,7 @@
 <meta property="og:site_name" content="Herb,Blog">
 <meta property="og:description" content="git基本使用 git clone http://git.intra.weibo.com/vad/fisher.git，克隆gitlab上项目到本地 echo &amp;quot;#django &amp;quot;&amp;gt; README.md ，添加一个文件 git status，查看当前状态，发现有未跟踪文件 git add .，当前目录所有文件添加到暂存区 git diff，比较当前工作区和暂存区有何不同">
 <meta property="og:image" content="http://img4.07net01.com/upload/images/2015/04/17/1570933171119451.png">
-<meta property="og:updated_time" content="2017-07-02T05:28:25.000Z">
+<meta property="og:updated_time" content="2017-07-02T14:26:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用Git命令总结">
 <meta name="twitter:description" content="git基本使用 git clone http://git.intra.weibo.com/vad/fisher.git，克隆gitlab上项目到本地 echo &amp;quot;#django &amp;quot;&amp;gt; README.md ，添加一个文件 git status，查看当前状态，发现有未跟踪文件 git add .，当前目录所有文件添加到暂存区 git diff，比较当前工作区和暂存区有何不同">
@@ -425,6 +425,7 @@
 <li>合并分支时必须使用<code>--no-ff</code>参数，以保留合并历史轨迹</li>
 </ul>
 <h4 id="分布模型"><a href="#分布模型" class="headerlink" title="分布模型"></a>分布模型</h4><h6 id="整体流程图"><a href="#整体流程图" class="headerlink" title="整体流程图"></a>整体流程图</h6><p><img src="http://img4.07net01.com/upload/images/2015/04/17/1570933171119451.png" alt="Git开发流程图"> </p>
+<h6 id="相关文档"><a href="#相关文档" class="headerlink" title="相关文档"></a>相关文档</h6><p><a href="http://git.oschina.net/progit/" target="_blank" rel="external">Pro Git</a><br><a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="external">Git WorkFLow</a><br><a href="https://www.gitlab.com.cn" target="_blank" rel="external">Gitlab</a></p>
 
       
     </div>
@@ -615,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git基本使用"><span class="nav-number">1.</span> <span class="nav-text">git基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git本地分支管理"><span class="nav-number">2.</span> <span class="nav-text">git本地分支管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-tag标签管理"><span class="nav-number">3.</span> <span class="nav-text">git tag标签管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合实例"><span class="nav-number">4.</span> <span class="nav-text">综合实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitLib权限管理"><span class="nav-number">5.</span> <span class="nav-text">GitLib权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GitLib有五种身份权限，分别是："><span class="nav-number">5.0.1.</span> <span class="nav-text">GitLib有五种身份权限，分别是：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名规则"><span class="nav-number">5.0.2.</span> <span class="nav-text">命名规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布模型"><span class="nav-number">5.0.3.</span> <span class="nav-text">分布模型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#整体流程图"><span class="nav-number">5.0.3.0.1.</span> <span class="nav-text">整体流程图</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git基本使用"><span class="nav-number">1.</span> <span class="nav-text">git基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git本地分支管理"><span class="nav-number">2.</span> <span class="nav-text">git本地分支管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-tag标签管理"><span class="nav-number">3.</span> <span class="nav-text">git tag标签管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合实例"><span class="nav-number">4.</span> <span class="nav-text">综合实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitLib权限管理"><span class="nav-number">5.</span> <span class="nav-text">GitLib权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GitLib有五种身份权限，分别是："><span class="nav-number">5.0.1.</span> <span class="nav-text">GitLib有五种身份权限，分别是：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名规则"><span class="nav-number">5.0.2.</span> <span class="nav-text">命名规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布模型"><span class="nav-number">5.0.3.</span> <span class="nav-text">分布模型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#整体流程图"><span class="nav-number">5.0.3.0.1.</span> <span class="nav-text">整体流程图</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#相关文档"><span class="nav-number">5.0.3.0.2.</span> <span class="nav-text">相关文档</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
