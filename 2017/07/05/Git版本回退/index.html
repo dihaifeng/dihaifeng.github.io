@@ -95,7 +95,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Herb,Blog" />
+  <meta name="keywords" content="git," />
 
 
 
@@ -111,16 +111,17 @@
 
 
 
-<meta name="description" content="Compose安装">
+<meta name="description" content="一、git提交代码规范使用git命令将本地项目上传到gitlab上，命令如下：12345678910git config --global user.name &amp;quot;haifeng&amp;quot;git config --global user,email &amp;quot;haifeng@126.com&amp;quot;git init">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Herb,Blog">
-<meta property="og:url" content="http://yoursite.com/2017/07/02/Docker-Compose使用/index.html">
+<meta property="og:title" content="Git版本回退">
+<meta property="og:url" content="http://yoursite.com/2017/07/05/git版本回退/index.html">
 <meta property="og:site_name" content="Herb,Blog">
-<meta property="og:description" content="Compose安装">
-<meta property="og:updated_time" content="2017-07-02T14:54:24.000Z">
+<meta property="og:description" content="一、git提交代码规范使用git命令将本地项目上传到gitlab上，命令如下：12345678910git config --global user.name &amp;quot;haifeng&amp;quot;git config --global user,email &amp;quot;haifeng@126.com&amp;quot;git init">
+<meta property="og:updated_time" content="2017-07-19T14:46:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Herb,Blog">
-<meta name="twitter:description" content="Compose安装">
+<meta name="twitter:title" content="Git版本回退">
+<meta name="twitter:description" content="一、git提交代码规范使用git命令将本地项目上传到gitlab上，命令如下：12345678910git config --global user.name &amp;quot;haifeng&amp;quot;git config --global user,email &amp;quot;haifeng@126.com&amp;quot;git init">
 
 
 
@@ -148,13 +149,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/02/Docker-Compose使用/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/05/git版本回退/"/>
 
 
 
 
 
-  <title> | Herb,Blog</title>
+  <title>Git版本回退 | Herb,Blog</title>
   
 
 
@@ -317,7 +318,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/02/Docker-Compose使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/05/git版本回退/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hai Feng">
@@ -334,7 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Git版本回退</h1>
         
 
         <div class="post-meta">
@@ -346,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T22:53:58+08:00">
-                2017-07-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T20:31:04+08:00">
+                2017-07-05
               </time>
             
 
@@ -381,7 +382,29 @@
       
 
       
-        <h2 id="Compose安装"><a href="#Compose安装" class="headerlink" title="Compose安装"></a>Compose安装</h2>
+        <h2 id="一、git提交代码规范"><a href="#一、git提交代码规范" class="headerlink" title="一、git提交代码规范"></a>一、git提交代码规范</h2><h4 id="使用git命令将本地项目上传到gitlab上，命令如下："><a href="#使用git命令将本地项目上传到gitlab上，命令如下：" class="headerlink" title="使用git命令将本地项目上传到gitlab上，命令如下："></a>使用git命令将本地项目上传到gitlab上，命令如下：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">git config --global user.name &quot;haifeng&quot;</div><div class="line">git config --global user,email &quot;haifeng@126.com&quot;</div><div class="line">git init                                     #创建本地版本库</div><div class="line">git remote add origin 远程项目连接(ssh、http)。 #关联远程仓库</div><div class="line">git add .</div><div class="line">git commit -m &quot;new project&quot; .</div><div class="line">#git config http.portBuffer 524288000 </div><div class="line">#此行是在本地设置缓存，有些项目文件较大，使用http无法上传，可设置此命令)</div><div class="line">git push -u origin master                    #将代码推送到gitlab端</div><div class="line">git checkout -b branch                       #创建分支</div></pre></td></tr></table></figure>
+<h4 id="使用-gitignorer过滤提交到文件"><a href="#使用-gitignorer过滤提交到文件" class="headerlink" title="使用.gitignorer过滤提交到文件"></a>使用.gitignorer过滤提交到文件</h4><p>当有些文件不需要我们提交到gitlab时，我们需要编写.gitignorer文件。进入到工程目录，然后vim .gitignorer，文件内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 以#开始的行，为注释行</div><div class="line"># 忽略掉所有的Log</div><div class="line">*.log</div><div class="line"># 忽略所有.o和.a文件</div><div class="line">*.[oa]</div></pre></td></tr></table></figure></p>
+<ul>
+<li>注意事项：如果之前没有使用.gitignorer做过滤，想清楚gitlab上的一些垃圾邮件，执行命令<code>git rm --cached yourfile具体路径</code> ,然后更新.gitignorer忽略掉目标文件，最后提交就可以解决了。</li>
+</ul>
+<h2 id="二、git如何修改已提交的commit"><a href="#二、git如何修改已提交的commit" class="headerlink" title="二、git如何修改已提交的commit"></a>二、git如何修改已提交的commit</h2><h4 id="本地回退"><a href="#本地回退" class="headerlink" title="本地回退"></a>本地回退</h4><p>由于以下修改本身是对版本历史的修改，在需要push到远程仓库时，往往是不成功的，只能强行push，这样会出现的一个问题就是，如果你是push到多人协作的远程仓库中，会对其他人的远程操作构成影响。通常情况下，建议与项目远程仓库的管理员进行沟通，在完成你强制push操作后，通知其他人同步。<br>回退操作通常有以下三种方式(check、reset、revert)：</p>
+<h6 id="1-checkout"><a href="#1-checkout" class="headerlink" title="1. checkout"></a>1. checkout</h6><p>对单个文件进行回退。不会修改当前的HEAD指针的位置，也就是提交并未回退。可以是某次提交的hash值，或者HEAD(缺省即默认)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">git reflog   #命令会记录每一次命令</div><div class="line">git  checkout  HEAD~1 README.md    #将README.md回退到第1个版本</div><div class="line">git checkout &lt;commit&gt; &lt;filename&gt;    #回退某个版本的某个文件</div><div class="line"></div><div class="line">[root@localhost dockerfile]# git reflog</div><div class="line">62b6ef8 HEAD@&#123;0&#125;: commit: update README</div><div class="line">9a024c5 HEAD@&#123;1&#125;: commit (amend): add README</div><div class="line">00d009e HEAD@&#123;2&#125;: commit: add README</div><div class="line">fbc54cd HEAD@&#123;3&#125;: clone: from http://git.intra.weibo.com/weiboinf/dockerfile.git</div><div class="line"></div><div class="line">[root@localhost dockerfile]# git checkout HEAD~1 README.md   #回滚版本</div><div class="line">[root@localhost dockerfile]# cat README.md </div><div class="line">## Dockerfile</div><div class="line">## first</div></pre></td></tr></table></figure></p>
+<p>######2.  reset<br>回退到某次提交。回退到的制定提交以后的提交都会从提交日志上消失。</p>
+<blockquote>
+<p>注意: 工作区和暂存区的内容都会被重置到制定提交的时候，如果不加–hard则只能移动HEAD的指针，不影响工作区和暂存区的内容。</p>
+</blockquote>
+<p><code>git  reset  --hard  &lt;commitid&gt;</code><br>结合<code>git reflog</code>找回提交日志上看不到的版本历史，撤回某次操作前的状态<br><code>git   reflog   #找到某次操作前的提交hash值
+  git    reset --hard &lt;commitid&gt;</code><br>这个方法可以对你的回退操作进行回退，因为这时候<code>git log</code>命令已经找不到历史提交的hash值了。</p>
+<blockquote>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">[root@localhost dockerfile]# cat README.md </div><div class="line">  ## Dockerfile</div><div class="line"> ## first</div><div class="line"> ## 2222</div><div class="line"> ## 3333</div><div class="line">[root@localhost dockerfile]# cat README.md    </div><div class="line"> ## Dockerfile</div><div class="line"> ## first</div><div class="line"> ## 2222</div><div class="line"> ## 3333</div><div class="line"> ## 6666666</div><div class="line">[root@localhost dockerfile]# git commit -m &quot;add 6666&quot; .  #修改提交</div><div class="line">[root@localhost dockerfile]# git reflog                   #查看历史版本</div><div class="line">1f6548b HEAD@&#123;0&#125;: commit: add 6666</div><div class="line">5955999 HEAD@&#123;1&#125;: reset: moving to 5955999</div><div class="line">e63274e HEAD@&#123;2&#125;: commit: 5555</div><div class="line">5955999 HEAD@&#123;3&#125;: clone: from http://git.intra.weibo.com/weiboinf/dockerfile.git</div><div class="line">[root@localhost dockerfile]# git reset --hard 5955999   #回退到最原始版本</div><div class="line">HEAD is now at 5955999 333</div><div class="line">[root@localhost dockerfile]# cat README.md </div><div class="line"> ## Dockerfile</div><div class="line"> ## first </div><div class="line"> ## 2222</div><div class="line"> ## 3333</div><div class="line"> 这时候就可以重新编辑提交新的文件了。</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h6 id="3-revert"><a href="#3-revert" class="headerlink" title="3. revert"></a>3. revert</h6><p>这个方法是最温和的，最受推荐的，因为本质上不是修改过去的版本历史，而是将回退版本历史作为一个新的提交，所以不会改变版本历史，在push到远程仓库的时候也不会影响到团队其他人。<br><code>git   revert  &lt;commit&gt;</code></p>
+<blockquote>
+<p>例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">[root@localhost dockerfile]# cat README.md </div><div class="line">## Dockerfile</div><div class="line">## first</div><div class="line">* `hello,world`</div><div class="line">[root@localhost dockerfile]# git reflog</div><div class="line">3079726 HEAD@&#123;0&#125;: commit: update readme</div><div class="line">1411c0a HEAD@&#123;1&#125;: commit: del 22 33</div><div class="line">5955999 HEAD@&#123;2&#125;: reset: moving to 5955999</div><div class="line">1f6548b HEAD@&#123;3&#125;: commit: add 6666</div><div class="line">5955999 HEAD@&#123;4&#125;: reset: moving to 5955999</div><div class="line">e63274e HEAD@&#123;5&#125;: commit: 5555</div><div class="line">5955999 HEAD@&#123;6&#125;: clone: from http://git.intra.weibo.com/weiboinf/dockerfile.git</div><div class="line">[root@localhost dockerfile]# git revert 3079726</div><div class="line">[root@localhost dockerfile]# git diff 3079726</div><div class="line">diff --git a/README.md b/README.md</div><div class="line">index 7dead56..5818cf8 100644</div><div class="line">--- a/README.md</div><div class="line">+++ b/README.md</div><div class="line">@@ -1,3 +1,2 @@</div><div class="line"> ## Dockerfile</div><div class="line"> ## first</div><div class="line">-* `hello,world`</div><div class="line">[root@localhost dockerfile]# cat README.md </div><div class="line"> ## Dockerfile</div><div class="line"> ## first</div><div class="line">git push origin master -f   #强制提交代码到远程仓库</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>根据deploy分支上传，分支打tag</p>
+<h2 id="三、相关知识介绍"><a href="#三、相关知识介绍" class="headerlink" title="三、相关知识介绍"></a>三、相关知识介绍</h2><p><a href="http://www.ruanyifeng.com/blog/2015/12/git-workflow.html" target="_blank" rel="external">git工作流程</a><br><a href="http://blog.csdn.net/M1026/article/details/52184124" target="_blank" rel="external">使用git命令将本地项目上传到Gitlab上</a><br><a href="https://ruby-china.org/topics/11637" target="_blank" rel="external">git 回退到某版本后,再在此版本上更新,无法 push</a><br><a href="https://berlin.gitbooks.io/jenkins/content/base/an_zhuang_shi_yong_cha_jian.html" target="_blank" rel="external">jenkins配置</a><br><a href="http://www.fblinux.com/?p=705" target="_blank" rel="external">jenkins构建</a><br><a href="http://blog.csdn.net/hwhua1986/article/details/53841741" target="_blank" rel="external">jenkins分支tag构建</a><br><a href="http://www.dockerinfo.net/2457.html" target="_blank" rel="external">jenkins+docker</a><br><a href="http://www.fblinux.com/?p=369" target="_blank" rel="external">wiki-confluence</a></p>
+
       
     </div>
 
@@ -407,6 +430,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+        </div>
       
 
       
@@ -497,7 +526,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -565,7 +594,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Compose安装"><span class="nav-number">1.</span> <span class="nav-text">Compose安装</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、git提交代码规范"><span class="nav-number">1.</span> <span class="nav-text">一、git提交代码规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用git命令将本地项目上传到gitlab上，命令如下："><span class="nav-number">1.0.1.</span> <span class="nav-text">使用git命令将本地项目上传到gitlab上，命令如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-gitignorer过滤提交到文件"><span class="nav-number">1.0.2.</span> <span class="nav-text">使用.gitignorer过滤提交到文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、git如何修改已提交的commit"><span class="nav-number">2.</span> <span class="nav-text">二、git如何修改已提交的commit</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地回退"><span class="nav-number">2.0.1.</span> <span class="nav-text">本地回退</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-checkout"><span class="nav-number">2.0.1.0.1.</span> <span class="nav-text">1. checkout</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-revert"><span class="nav-number">2.0.1.0.2.</span> <span class="nav-text">3. revert</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、相关知识介绍"><span class="nav-number">3.</span> <span class="nav-text">三、相关知识介绍</span></a></li></ol></div>
             
 
           </div>
