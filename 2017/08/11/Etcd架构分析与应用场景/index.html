@@ -122,7 +122,7 @@
 <meta property="og:image" content="https://i.loli.net/2017/08/11/598d677410760.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/08/11/598d65e6cc937.jpg">
 <meta property="og:image" content="https://i.loli.net/2017/08/11/598d671c60764.jpg">
-<meta property="og:updated_time" content="2017-08-11T09:11:27.000Z">
+<meta property="og:updated_time" content="2017-08-11T09:17:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Etcd架构分析与应用场景">
 <meta name="twitter:description" content="Etcd 介绍 Etcd is a distributed, consistent key-value store for shared configuration and service discovery    Etcd是一个高可用的键值存储系统，主要用于共享配置和服务发现。Etcd是由CoreOS开发并维护的，使用Go语言编写，并通过Raft一致性算法处理日志复制以保证强一致性。什么是Raf">
@@ -398,7 +398,7 @@
 <li>提供key的过期以及续约机制，客户端通过定制刷新实现续约。用于集群监控以及服务注册发现</li>
 <li>提供原子的CAS(Compare-and-Swap)和CAD(Compare-and-Delete)支持。用于分布式锁以及Leader选举</li>
 </ul>
-<p>##Etcd实现原理<br>我们先看一下Etcd内部架构图：<br><img src="https://i.loli.net/2017/08/11/598d695b316d8.jpg" alt="etcd架构图"><br>从etcd的架构图中我们可以看到，etcd主要分为四个部分：</p>
+<h2 id="Etcd实现原理"><a href="#Etcd实现原理" class="headerlink" title="Etcd实现原理"></a>Etcd实现原理</h2><p>我们先看一下Etcd内部架构图：<br><img src="https://i.loli.net/2017/08/11/598d695b316d8.jpg" alt="etcd架构图"><br>从etcd的架构图中我们可以看到，etcd主要分为四个部分：</p>
 <ul>
 <li><strong>HTTP Server</strong>：用于处理用户发送的API请求以及其它etcd节点的同步与心跳信息请求</li>
 <li><strong>Store</strong> ：用于处理etcd支持的各类功能的事务，包括数据索引、节点状态变更、监控与反馈、事件处理与执行等等，是etcd对用户提供的大多数API功能的具体实现</li>
@@ -406,8 +406,7 @@
 <li><strong>WAl</strong>：Write Ahead Log(预写式日志)，是etcd的数据存储方式。除了在内存中存有所有数据的状态以及节点的索引以外，etcd就通过WAL进行持久化存储。WAL中，所有的数据提交前都会事先记录日志。<strong>Snapshot是为了防止数据过多而进行的状态快照；Entry表示存储的具体日志内容</strong>。</li>
 </ul>
 <p>通常，一个用户的请求发送过来，会经过HTTP Server转发给Store进行具体的事务处理，如果涉及到节点的修改，则交给Raft模块进行状态的变更、日志的记录，然后再同步给别的etcd节点确认数据提交，最后进行数据的提交，再次同步。</p>
-<p>##Etcd概念词汇总</p>
-<ul>
+<h2 id="Etcd概念词汇总"><a href="#Etcd概念词汇总" class="headerlink" title="Etcd概念词汇总"></a>Etcd概念词汇总</h2><ul>
 <li>Raft：etcd所采用的保证分布式系统强一致性的算法</li>
 <li>Node：一个Raft状态机实例</li>
 <li>Member：一个etcd实例。它管理着一个Node，并且可以为客户端请求提供服务</li>
@@ -654,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Etcd-介绍"><span class="nav-number">1.</span> <span class="nav-text">Etcd 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Etcd"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Etcd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Etcd功能特性"><span class="nav-number">3.</span> <span class="nav-text">Etcd功能特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Etcd应用场景"><span class="nav-number">4.</span> <span class="nav-text">Etcd应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务发现"><span class="nav-number">4.0.1.</span> <span class="nav-text">服务发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息发布与订阅"><span class="nav-number">4.0.2.</span> <span class="nav-text">消息发布与订阅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#负载均衡"><span class="nav-number">4.0.3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式通知与协调"><span class="nav-number">4.0.4.</span> <span class="nav-text">分布式通知与协调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式锁"><span class="nav-number">4.0.5.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式队列"><span class="nav-number">4.0.6.</span> <span class="nav-text">分布式队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群监控与Leader竞选"><span class="nav-number">4.0.7.</span> <span class="nav-text">集群监控与Leader竞选</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Etcd-介绍"><span class="nav-number">1.</span> <span class="nav-text">Etcd 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用Etcd"><span class="nav-number">2.</span> <span class="nav-text">为什么使用Etcd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Etcd功能特性"><span class="nav-number">3.</span> <span class="nav-text">Etcd功能特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Etcd实现原理"><span class="nav-number">4.</span> <span class="nav-text">Etcd实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Etcd概念词汇总"><span class="nav-number">5.</span> <span class="nav-text">Etcd概念词汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Etcd应用场景"><span class="nav-number">6.</span> <span class="nav-text">Etcd应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务发现"><span class="nav-number">6.0.1.</span> <span class="nav-text">服务发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息发布与订阅"><span class="nav-number">6.0.2.</span> <span class="nav-text">消息发布与订阅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#负载均衡"><span class="nav-number">6.0.3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式通知与协调"><span class="nav-number">6.0.4.</span> <span class="nav-text">分布式通知与协调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式锁"><span class="nav-number">6.0.5.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式队列"><span class="nav-number">6.0.6.</span> <span class="nav-text">分布式队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群监控与Leader竞选"><span class="nav-number">6.0.7.</span> <span class="nav-text">集群监控与Leader竞选</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
