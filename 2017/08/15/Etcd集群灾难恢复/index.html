@@ -118,7 +118,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/15/Etcd集群灾难恢复/index.html">
 <meta property="og:site_name" content="Herb,Blog">
 <meta property="og:description" content="迁移节点迁移方式 删除旧节点，增加新节点； 迁移节点。当集群的数据超过50M的时候，建议通过迁移节点的方式来迁移节点。  迁移节点的核心就是数据目录的迁移。因为etcd的各个节点会将自己的ID存放在自己的数据目录下面，所以迁移节点不会改变节点的ID。 迁移步骤 停止需要迁移的节点的服务 从老机器上拷贝数据目录到新机器上 通过集群运行时的更改操作，改变节点的peerURLs值为新机器的IP:PORT">
-<meta property="og:updated_time" content="2017-08-15T10:41:25.000Z">
+<meta property="og:updated_time" content="2017-08-15T10:43:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Etcd集群灾难恢复">
 <meta name="twitter:description" content="迁移节点迁移方式 删除旧节点，增加新节点； 迁移节点。当集群的数据超过50M的时候，建议通过迁移节点的方式来迁移节点。  迁移节点的核心就是数据目录的迁移。因为etcd的各个节点会将自己的ID存放在自己的数据目录下面，所以迁移节点不会改变节点的ID。 迁移步骤 停止需要迁移的节点的服务 从老机器上拷贝数据目录到新机器上 通过集群运行时的更改操作，改变节点的peerURLs值为新机器的IP:PORT">
@@ -423,10 +423,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kill &quot;pgrep etcd&quot;</div></pre></td></tr></table></figure>
 </li>
 <li><p>从10.77.31.230拷贝的数据目录到10.77.31.233的机器上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tar -zcvf infra1.etcd.tar.gz %data_dir%</div><div class="line">nc 10.77.31.233 1234 &lt;  infra1.etcd.tar.gz</div><div class="line">``` </div><div class="line">* 变更infra1的peerURLs</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>curl <a href="http://10.77.31.230:2379/v2/members/d5212d281b31b234" target="_blank" rel="external">http://10.77.31.230:2379/v2/members/d5212d281b31b234</a> -XPUT -H “Content-Type:application/json” -d ‘{“peerURLs”:[“<a href="http://10.77.31.233:2380&quot;]}" target="_blank" rel="external">http://10.77.31.233:2380&quot;]}</a>‘<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">或者使用`etcdctl`：</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tar -zcvf infra1.etcd.tar.gz %data_dir%</div><div class="line">nc 10.77.31.233 1234 &lt;  infra1.etcd.tar.gz</div><div class="line">``` </div><div class="line"></div><div class="line">* 变更infra1的peerURLs</div></pre></td></tr></table></figure>
+<p>curl <a href="http://10.77.31.230:2379/v2/members/d5212d281b31b234" target="_blank" rel="external">http://10.77.31.230:2379/v2/members/d5212d281b31b234</a> -XPUT -H “Content-Type:application/json” -d ‘{“peerURLs”:[“<a href="http://10.77.31.233:2380&quot;]}" target="_blank" rel="external">http://10.77.31.233:2380&quot;]}</a>‘<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">或者使用`etcdctl`：</div></pre></td></tr></table></figure></p>
 <p>etcdctl member update d5212d281b31b234 <a href="http://10.7.31.233:2380" target="_blank" rel="external">http://10.7.31.233:2380</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 在新机器上使用infra1的数据和配置启动etcd</div></pre></td></tr></table></figure></p>
 <p>tar -xzvf infra1.etcd.tar.gz -C %data_dir%<br>$ etcd -name infra1 \</p>
 <blockquote>
