@@ -1,0 +1,1170 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Etcd," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Etcd的主要API是一个分层的关键空间。密钥空间由通常称为”节点”的目录和密钥组成 设置键的值设置数据存储区中的第一个键值对。键是/message和值是Hello，World 123456789101112131415curl -v http://127.0.0.1:2379/v2/keys/message -XPUT -d value=&amp;quot;Hello world&amp;quot;|pytho">
+<meta name="keywords" content="Etcd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Etcd APi 使用指南">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/Etcd_API使用/index.html">
+<meta property="og:site_name" content="Herb,Blog">
+<meta property="og:description" content="Etcd的主要API是一个分层的关键空间。密钥空间由通常称为”节点”的目录和密钥组成 设置键的值设置数据存储区中的第一个键值对。键是/message和值是Hello，World 123456789101112131415curl -v http://127.0.0.1:2379/v2/keys/message -XPUT -d value=&amp;quot;Hello world&amp;quot;|pytho">
+<meta property="og:updated_time" content="2017-08-21T11:51:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Etcd APi 使用指南">
+<meta name="twitter:description" content="Etcd的主要API是一个分层的关键空间。密钥空间由通常称为”节点”的目录和密钥组成 设置键的值设置数据存储区中的第一个键值对。键是/message和值是Hello，World 123456789101112131415curl -v http://127.0.0.1:2379/v2/keys/message -XPUT -d value=&amp;quot;Hello world&amp;quot;|pytho">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/21/Etcd_API使用/"/>
+
+
+
+
+
+  <title>Etcd APi 使用指南 | Herb,Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Herb,Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/Etcd_API使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hai Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Herb,Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Etcd APi 使用指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T19:50:04+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Etcd的主要API是一个分层的关键空间。密钥空间由通常称为”节点”的目录和密钥组成</p>
+<h4 id="设置键的值"><a href="#设置键的值" class="headerlink" title="设置键的值"></a>设置键的值</h4><p>设置数据存储区中的第一个键值对。键是/message和值是Hello，World</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">curl -v http://127.0.0.1:2379/v2/keys/message -XPUT -d value=&quot;Hello world&quot;|python -m json.tool</div><div class="line">......</div><div class="line">&lt; X-Etcd-Index: 15           #当前etcd索引</div><div class="line">&lt; X-Raft-Index: 16           #类似于etcd索引，但是勇于基础的Raft协议</div><div class="line">&lt; X-Raft-Term: 66            #是一个整数，当集群中的一个etcd主选举发生时，它将增加。如果这个数字迅速增加，可能需要调整选举超时，具体参数参考：https://coreos.com/etcd/docs/latest/v2/tuning.html</div><div class="line">......</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 15,</div><div class="line">        &quot;key&quot;: &quot;/message&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 15,</div><div class="line">        &quot;value&quot;: &quot;Hello world&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>响应对象包含几个属性：</p>
+<ul>
+<li><code>action</code>：刚刚提出的请求的动作。改请求尝试<code>node.value</code>通过<code>PUT</code>HTTP请求进行修改，因此操作的值为<code>set</code></li>
+<li><code>key</code>：请求的HTTp路径。我们设定了<code>/message</code>的值为<code>Hello world</code>。所以key为<code>/message</code>。etcd使用类似文件系统的结构来表示键值对。因此所有的键都以/开头。</li>
+<li><code>createdIndex</code>：一个索引是为每个更改创建的唯一的，单调递增的整数。该特定索引反映了在创建给定键的etcd状态成员中的一点。您可能会注意到，在此示例中，索引2即使是您发送到服务器的第一个请求。这是因为内部命令也改变了幕后的状态，比如添加和同步服务器。</li>
+<li><code>modifiedIndex</code>：like <code>node.createdIndex</code>，这个属性也是一个etcd索引。这使数值变化的行动包括<code>set</code>，<code>delete</code>，<code>update</code>，<code>create</code>，<code>compareAndSwap</code>和<code>compareAndDelete</code>。由于<code>get</code>和<code>watch</code>命令不改变存储中的状态，它们不会更改<code>modifiedIndex</code>。</li>
+</ul>
+<h4 id="获取一个键的值"><a href="#获取一个键的值" class="headerlink" title="获取一个键的值"></a>获取一个键的值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/message|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;get&quot;,               #通过发出get请求来获取设置的值</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 15,</div><div class="line">        &quot;key&quot;: &quot;/message&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 15,</div><div class="line">        &quot;value&quot;: &quot;Hello world&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="更改键的值"><a href="#更改键的值" class="headerlink" title="更改键的值"></a>更改键的值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/message -XPUT -d value=&quot;Hello etcd&quot;|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 16,</div><div class="line">        &quot;key&quot;: &quot;/message&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 16,</div><div class="line">        &quot;value&quot;: &quot;Hello etcd&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;prevNode&quot;: &#123;                   #prevNode：表示请求之前节点的状态</div><div class="line">        &quot;createdIndex&quot;: 15,</div><div class="line">        &quot;key&quot;: &quot;/message&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 15,</div><div class="line">        &quot;value&quot;: &quot;Hello world&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="删除键"><a href="#删除键" class="headerlink" title="删除键"></a>删除键</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/message -XDELETE|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;delete&quot;,      #通过DELETE请求来删除键</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 16,</div><div class="line">        &quot;key&quot;: &quot;/message&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 17</div><div class="line">    &#125;,</div><div class="line">    &quot;prevNode&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 16,</div><div class="line">        &quot;key&quot;: &quot;/message&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 16,</div><div class="line">        &quot;value&quot;: &quot;Hello etcd&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="使用键TTL生存时间"><a href="#使用键TTL生存时间" class="headerlink" title="使用键TTL生存时间"></a>使用键TTL生存时间</h4><p>etcd中的键可以设置为指定的秒数之后到期。可以通过在发送PUT请求时在键上设置TTL来实现目的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo -XPUT -d value=bar -d ttl=5|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 18,</div><div class="line">        &quot;expiration&quot;: &quot;2017-08-21T03:19:12.742794671Z&quot;,    #key到期时间，被删除的时间</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 18,</div><div class="line">        &quot;ttl&quot;: 5,             #指定的生存时间，以秒为单位</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果TTL已经过期，该key将被删除，将返回100<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;cause&quot;: &quot;/foo&quot;,</div><div class="line">    &quot;errorCode&quot;: 100,</div><div class="line">    &quot;index&quot;: 23,</div><div class="line">    &quot;message&quot;: &quot;Key not found&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>TTL可以取消设置，以避免通过更新操作过期<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo -XPUT -d value=bar -d ttl= -d prevExist=true|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;update&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 24,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 25,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;prevNode&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 24,</div><div class="line">        &quot;expiration&quot;: &quot;2017-08-21T03:25:10.832320349Z&quot;,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 24,</div><div class="line">        &quot;ttl&quot;: 4,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="刷新TTL"><a href="#刷新TTL" class="headerlink" title="刷新TTL"></a>刷新TTL</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo -XPUT -d value=bar -d ttl=5|python -m json.tool</div><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo -XPUT -d ttl=5 -d refresh=true -d prevExist=true|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;update&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 35,</div><div class="line">        &quot;expiration&quot;: &quot;2017-08-21T03:27:48.506308261Z&quot;,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 36,</div><div class="line">        &quot;ttl&quot;: 5,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;prevNode&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 35,</div><div class="line">        &quot;expiration&quot;: &quot;2017-08-21T03:27:47.179377792Z&quot;,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 35,</div><div class="line">        &quot;ttl&quot;: 4,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="waiting-for-a-change"><a href="#waiting-for-a-change" class="headerlink" title="waiting for a change"></a>waiting for a change</h4><p>我们可以观察一个关键字的更改，并通过使用长轮询接收通知。这也适用于子key递归查询<code>recursive=true</code><br>在一个终端，我们发送一个<code>GET</code>带<code>wait=true</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl http://127.0.0.1:2379/v2/keys/foo?wait=true|python -m json.tool     #现在正在等待路径上的任何更改/foo</div></pre></td></tr></table></figure></p>
+<p>在另一个终端，我们设置一个<code>/foo</code>值为<code>bar</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl http://127.0.0.1:2379/v2/keys/foo -XPUT -d value=bar</div></pre></td></tr></table></figure></p>
+<p>第一个终端应该得到通知并返回与设置请求相同的响应：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 39,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 39,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;prevNode&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 38,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 38,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但是，Watch命令可以做到这一点。使用索引，我们可以看到过去发生的命令。这对于确保不要错过Watch命令之间的事件。通常，我们从<code>modifiedIndex</code>获取的节点的+1再次查看。<br>下面试一次看一下索引39的set命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">curl &apos;http://127.0.0.1:2379/v2/keys/foo?wait=true&amp;waitIndex=39&apos;|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 39,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 39,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;prevNode&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 38,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 38,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Watch命令立即返回与以前相同的响应。<br>如果我们从索引40重新启动Watch：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://127.0.0.1:2379/v2/keys/foo?wait=true&amp;waitIndex=40&apos;|python -m json.tool</div></pre></td></tr></table></figure></p>
+<p>然后即使etcd在索引41或者800，/foo key 将发生的第一个事件在40和当前的索引之间将被返回</p>
+<blockquote>
+<p>注意：etcd只保留所有etcd键中最近1000个事件的响应。建议将响应发送到另一个线程以立即处理，而不是在处理结果时阻止Watch。</p>
+</blockquote>
+<h4 id="在原子上创建顺序键"><a href="#在原子上创建顺序键" class="headerlink" title="在原子上创建顺序键"></a>在原子上创建顺序键</h4><p>原子用于分布式锁以及Leader选举。<code>POST</code>在目录中使用，可以按顺序创建键和键名称。这可以用于各种有用的模式，如实现队列的钥匙需要严格的顺序处理。一个示例用例将确保客户获取公平的互斥锁<br>创建一个顺序键:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/queue -XPOST -d value=Job1|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;create&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 42,</div><div class="line">        &quot;key&quot;: &quot;/queue/00000000000000000042&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 42,</div><div class="line">        &quot;value&quot;: &quot;Job1&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果稍后在创建另一个条目，则保证键名大于之前的键。还要注意键名使用全局etcd索引，所以下一个键可以`previous + 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/queue -XPOST -d value=Job2|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;create&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 43,</div><div class="line">        &quot;key&quot;: &quot;/queue/00000000000000000043&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 43,</div><div class="line">        &quot;value&quot;: &quot;Job2&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>要将按顺序的键列举为排序的列表，可以使用<code>sorted</code>参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl -s &apos;http://127.0.0.1:2379/v2/keys/queue?recursive=true&amp;sorted=true&apos;|python  -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;get&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 41,</div><div class="line">        &quot;dir&quot;: true,</div><div class="line">        &quot;key&quot;: &quot;/queue&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 41,</div><div class="line">        &quot;nodes&quot;: [</div><div class="line">            &#123;</div><div class="line">                &quot;createdIndex&quot;: 41,</div><div class="line">                &quot;key&quot;: &quot;/queue/00000000000000000041&quot;,</div><div class="line">                &quot;modifiedIndex&quot;: 41,</div><div class="line">                &quot;value&quot;: &quot;Job1&quot;</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                &quot;createdIndex&quot;: 42,</div><div class="line">                &quot;key&quot;: &quot;/queue/00000000000000000042&quot;,</div><div class="line">                &quot;modifiedIndex&quot;: 42,</div><div class="line">                &quot;value&quot;: &quot;Job1&quot;</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                &quot;createdIndex&quot;: 43,</div><div class="line">                &quot;key&quot;: &quot;/queue/00000000000000000043&quot;,</div><div class="line">                &quot;modifiedIndex&quot;: 43,</div><div class="line">                &quot;value&quot;: &quot;Job2&quot;</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="目录使用TTL"><a href="#目录使用TTL" class="headerlink" title="目录使用TTL"></a>目录使用TTL</h4><p>和键一样，etcd中的目录可以设置为在指定的秒数之后到期。可以通过下面命令在创建目录时设置TTL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo -XPUT -d ttl=30 -d dir=true|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 45,</div><div class="line">        &quot;dir&quot;: true,</div><div class="line">        &quot;expiration&quot;: &quot;2017-08-21T09:19:44.900841736Z&quot;,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 45,</div><div class="line">        &quot;ttl&quot;: 30</div><div class="line">    &#125;,</div><div class="line">    &quot;prevNode&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 40,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 40,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以通过进行更新来刷新目录的TTL。可以用一个PUT<code>prevExist=true</code>和一个新的TTL来做到这一点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl http://127.0.0.1:2379/v2/keys/dir -XPUT -d ttl=30 -d dir=true -d prevExist=true</div></pre></td></tr></table></figure></p>
+<p>该目录下的key照常运行，但是当目录到期时，目录下的key上的观察者将获得到期事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl &apos;http://127.0.0.1:2379/v2/keys/foo?wait=true&apos;|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;expire&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 50,</div><div class="line">        &quot;dir&quot;: true,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 51</div><div class="line">    &#125;,</div><div class="line">    &quot;prevNode&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 50,</div><div class="line">        &quot;dir&quot;: true,</div><div class="line">        &quot;expiration&quot;: &quot;2017-08-21T09:24:37.276319231Z&quot;,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 50</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="原子比较和交换"><a href="#原子比较和交换" class="headerlink" title="原子比较和交换"></a>原子比较和交换</h4><p>etcd可以用集群中的集中式协调服务，<code>CompareAndSwap</code>(CAS)用于构建分布式锁服务最基本的操作。<br>只有当客户端提供的条件等于当前条件时，此命令才会设置键的值</p>
+<blockquote>
+<p>注意：<code>CompareAndSwap</code>对目录不起作用，如果尝试进行目录，将返回102，”不是文件的错误”</p>
+</blockquote>
+<p>目前的比较条件是：</p>
+<ul>
+<li><code>prevValue</code>：检查键的上一个值</li>
+<li><code>prevIndex</code>：检查以前的modifyIndex的key</li>
+<li><code>prevExist</code>：检查key是否存在。如果prevExist是真，它是一个update请求；如果prevExist是false，它是一个create请求。</li>
+</ul>
+<p><strong>例：</strong><br>我们先创建一个键值对：<code>foo=one</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo -XPUT -d value=one|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 54,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 54,</div><div class="line">        &quot;value&quot;: &quot;one&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>指定<code>noValueOnSuccess</code>选项跳过将节点返回为值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo?noValueOnSuccess=true -XPUT -d value=one|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在尝试一些无效的<code>CompareAndSwap</code>命令</p>
+<ul>
+<li>尝试将现有key设置为<code>prevExist=false</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo?prevExist=false -XPUT -d value=three|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;cause&quot;: &quot;/foo&quot;,</div><div class="line">    &quot;errorCode&quot;: 105,</div><div class="line">    &quot;index&quot;: 56,</div><div class="line">    &quot;message&quot;: &quot;Key already exists&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>现在来提供一个<code>prevValue</code>参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo?prevValue=two -XPUT -d value=three|python -m json.tool</div><div class="line">#这将尝试比较键的先前的值和我们提供的上一个值。如果相等，则键值将变为three</div><div class="line"></div><div class="line">&#123;</div><div class="line">    &quot;cause&quot;: &quot;[two != one]&quot;,</div><div class="line">    &quot;errorCode&quot;: 101,</div><div class="line">    &quot;index&quot;: 56,</div><div class="line">    &quot;message&quot;: &quot;Compare failed&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上意味着<code>CompareAndSwap</code>失败。cause解释了测试失败的原因。注意：<strong>条件previndex=0始终通过</strong><br>下面我们尝试一下有效的条件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/foo?prevValue=one -XPUT -d value=two|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;compareAndSwap&quot;,      #先给出了正确的上一个值之后，成功将值从one更改为two</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 56,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 57,</div><div class="line">        &quot;value&quot;: &quot;two&quot;</div><div class="line">    &#125;,   </div><div class="line">    &quot;prevNode&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 56,</div><div class="line">        &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 56,</div><div class="line">        &quot;value&quot;: &quot;one&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>原子的删除就不在这里详细实验，指定<code>-DELETE</code>参数即可。具体参考<a href="https://coreos.com/etcd/docs/latest/v2/api.html#atomic-compare-and-swap" target="_blank" rel="external">API文档</a></p>
+<h4 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h4><p>在大多数情况下，会自动创建key的目录。但是有些情况下需要创建一个目录或删除一个目录<br>创建一个目录就像一个键，除了不能提供一个值，必须添加<code>dir=true</code>参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">curl http://127.0.0.1:2379/v2/keys/dir -XPUT -d dir=true</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 30,</div><div class="line">        &quot;dir&quot;: true,</div><div class="line">        &quot;key&quot;: &quot;/dir&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 30</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="列出一个目录"><a href="#列出一个目录" class="headerlink" title="列出一个目录"></a>列出一个目录</h4><p>在etcd中，我们可以存储两种类型的东西：键和目录。键存储单个字符串值。目录存储一组键和/或其他目录。<br>在这个例子中，我们首先创建一些键：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">curl http://127.0.0.1:2379/v2/keys/foo_dir/foo -XPUT -d value=bar</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 59,</div><div class="line">        &quot;key&quot;: &quot;/foo_dir/foo&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 59,</div><div class="line">        &quot;value&quot;: &quot;bar&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在我们可以在root下面列出这些键<code>/</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/keys/|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;get&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;dir&quot;: true,</div><div class="line">        &quot;nodes&quot;: [</div><div class="line">            &#123;</div><div class="line">                &quot;createdIndex&quot;: 56,</div><div class="line">                &quot;key&quot;: &quot;/foo&quot;,</div><div class="line">                &quot;modifiedIndex&quot;: 57,</div><div class="line">                &quot;value&quot;: &quot;two&quot;</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                &quot;createdIndex&quot;: 41,</div><div class="line">                &quot;dir&quot;: true,</div><div class="line">                &quot;key&quot;: &quot;/queue&quot;,</div><div class="line">                &quot;modifiedIndex&quot;: 41</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                &quot;createdIndex&quot;: 58,</div><div class="line">                &quot;dir&quot;: true,</div><div class="line">                &quot;key&quot;: &quot;/dir&quot;,</div><div class="line">                &quot;modifiedIndex&quot;: 58</div><div class="line">            &#125;,</div><div class="line">            &#123;</div><div class="line">                &quot;createdIndex&quot;: 59,</div><div class="line">                &quot;dir&quot;: true,</div><div class="line">                &quot;key&quot;: &quot;/foo_dir&quot;,</div><div class="line">                &quot;modifiedIndex&quot;: 59</div><div class="line">            &#125;</div><div class="line">        ]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里我们可以看到/foo是/的一个键值对，/foo_dir是一个目录。我们还可以通过添加参数递归目录下所有内容<code>recursive=true</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">curl http://127.0.0.1:2379/v2/keys/?recursive=true|python -m json.tool</div><div class="line">            &#123;</div><div class="line">                &quot;createdIndex&quot;: 59,</div><div class="line">                &quot;dir&quot;: true,</div><div class="line">                &quot;key&quot;: &quot;/foo_dir&quot;,</div><div class="line">                &quot;modifiedIndex&quot;: 59,</div><div class="line">                &quot;nodes&quot;: [</div><div class="line">                    &#123;</div><div class="line">                        &quot;createdIndex&quot;: 59,</div><div class="line">                        &quot;key&quot;: &quot;/foo_dir/foo&quot;,</div><div class="line">                        &quot;modifiedIndex&quot;: 59,</div><div class="line">                        &quot;value&quot;: &quot;bar&quot;</div><div class="line">                    &#125;</div><div class="line">                ]</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+<h4 id="删除目录"><a href="#删除目录" class="headerlink" title="删除目录"></a>删除目录</h4><p>可以使用DELETE动词和dir=true参数删除空目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl &apos;http://127.0.0.1:2379/v2/keys/foo_dir?dir=true&apos; -XDELETE</div></pre></td></tr></table></figure></p>
+<p>如果需要删除<code>KEY</code>的目录，必须添加<code>recursive=true</code>参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl http://127.0.0.1:2379/v2/keys/dir?recursive=true -XDELETE</div></pre></td></tr></table></figure></p>
+<h4 id="创建一个隐藏节点"><a href="#创建一个隐藏节点" class="headerlink" title="创建一个隐藏节点"></a>创建一个隐藏节点</h4><p>可以通过添加<code>_</code>前缀来创建一个隐藏的键值对或目录。发送<code>GET</code>请求时，隐藏项目不会被列出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">curl http://127.0.0.1:2379/v2/keys/_message -XPUT -d value=&quot;Hello hidden world&quot;</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;set&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 3,</div><div class="line">        &quot;key&quot;: &quot;/_message&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 3,</div><div class="line">        &quot;value&quot;: &quot;Hello hidden world&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="从文件设置一个键"><a href="#从文件设置一个键" class="headerlink" title="从文件设置一个键"></a>从文件设置一个键</h4><p>可以使用etcd直接存储小型配置文件，JSON文档，XML文档等。例如，可以使用curl上传一个简单的文本文件并进行转码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">echo &quot;Hello\nWorld&quot; &gt; afile.txt</div><div class="line">curl http://127.0.0.1:2379/v2/keys/afile -XPUT --data-urlencode value@afile.txt</div><div class="line">&#123;</div><div class="line">    &quot;action&quot;: &quot;get&quot;,</div><div class="line">    &quot;node&quot;: &#123;</div><div class="line">        &quot;createdIndex&quot;: 2,</div><div class="line">        &quot;key&quot;: &quot;/afile&quot;,</div><div class="line">        &quot;modifiedIndex&quot;: 2,</div><div class="line">        &quot;value&quot;: &quot;Hello\nWorld\n&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="统计"><a href="#统计" class="headerlink" title="统计"></a>统计</h4><p>一个etcd集群跟踪一些统计数据，包括延迟，带宽和正常运行时间。这些通过统计端点公开，以了解集群的内部运行状况。</p>
+<ul>
+<li>leader统计</li>
+</ul>
+<p>leader可以看在到整个集群，并跟踪两个有趣的统计信息：集群中每个对等体的延迟以及失败和成功的Raft RPC请求数。可以从/v2/stats/leader端获取这些统计信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/stats/leader|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;followers&quot;: &#123;</div><div class="line">        &quot;5674316d41ede865&quot;: &#123;</div><div class="line">            &quot;counts&quot;: &#123;</div><div class="line">                &quot;fail&quot;: 0,</div><div class="line">                &quot;success&quot;: 1055</div><div class="line">            &#125;,</div><div class="line">            &quot;latency&quot;: &#123;</div><div class="line">                &quot;average&quot;: 0.002067575355450233,</div><div class="line">                &quot;current&quot;: 0.002488,</div><div class="line">                &quot;maximum&quot;: 0.012055,</div><div class="line">                &quot;minimum&quot;: 0.000383,</div><div class="line">                &quot;standardDeviation&quot;: 0.0013008028085344976</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        &quot;e22e0b280330388b&quot;: &#123;</div><div class="line">            &quot;counts&quot;: &#123;</div><div class="line">                &quot;fail&quot;: 1,</div><div class="line">                &quot;success&quot;: 1052</div><div class="line">            &#125;,</div><div class="line">            &quot;latency&quot;: &#123;</div><div class="line">                &quot;average&quot;: 0.002001136882129272,</div><div class="line">                &quot;current&quot;: 0.00161,</div><div class="line">                &quot;maximum&quot;: 0.018306,</div><div class="line">                &quot;minimum&quot;: 0.000432,</div><div class="line">                &quot;standardDeviation&quot;: 0.0012871008600140283</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    &quot;leader&quot;: &quot;d5212d281b31b234&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>Self统计</li>
+</ul>
+<p>每个节点保留一些内部统计信息：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">	•	id：成员的唯一标识符</div><div class="line">•	leaderInfo.leader：当前领导成员的ID</div><div class="line">•	leaderInfo.uptime：领导者领导的时间</div><div class="line">•	name：这个会员的名字</div><div class="line">•	recvAppendRequestCnt：此节点已处理的附加请求数</div><div class="line">•	recvBandwidthRate：该节点正在接收的每秒字节数（仅跟随者）</div><div class="line">•	recvPkgRate：每秒节点接收的请求数（仅跟随者）</div><div class="line">•	sendAppendRequestCnt：该节点发送的请求数</div><div class="line">•	sendBandwidthRate：该节点发送的每秒字节数（仅限于引导者）。该值在单个成员集群上未定义。</div><div class="line">•	sendPkgRate：每秒发送的请求数（仅限于引导者）。该值在单个成员集群上未定义。</div><div class="line">•	state：领导者或追随者</div><div class="line">•	startTime：此节点启动的时间</div></pre></td></tr></table></figure></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/stats/self|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;id&quot;: &quot;d5212d281b31b234&quot;,</div><div class="line">    &quot;leaderInfo&quot;: &#123;</div><div class="line">        &quot;leader&quot;: &quot;d5212d281b31b234&quot;,</div><div class="line">        &quot;startTime&quot;: &quot;2017-08-15T10:08:46.581898046+08:00&quot;,</div><div class="line">        &quot;uptime&quot;: &quot;153h30m35.27010847s&quot;</div><div class="line">    &#125;,</div><div class="line">    &quot;name&quot;: &quot;etcd1&quot;,</div><div class="line">    &quot;recvAppendRequestCnt&quot;: 0,</div><div class="line">    &quot;sendAppendRequestCnt&quot;: 2108,</div><div class="line">    &quot;startTime&quot;: &quot;2017-08-15T10:08:45.581594958+08:00&quot;,</div><div class="line">    &quot;state&quot;: &quot;StateLeader&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Store统计<br>Store统计信息包括有关节点处理的操作的信息。请注意，<strong>v2<code>store Statistics</code>存储在内存中</strong>。当成员停止时，重新启动时将重新存储统计信息。<br>整个集群都会看到修改Store的状态（如创建、删除、设置和更新）的操作，所有节点上的数量都会增加。像get和watch这样的本地操作时本地节点，只能在这个节点上看到。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/v2/stats/store|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;compareAndDeleteFail&quot;: 0,</div><div class="line">    &quot;compareAndDeleteSuccess&quot;: 0,</div><div class="line">    &quot;compareAndSwapFail&quot;: 2,</div><div class="line">    &quot;compareAndSwapSuccess&quot;: 1,</div><div class="line">    &quot;createFail&quot;: 1,</div><div class="line">    &quot;createSuccess&quot;: 6,</div><div class="line">    &quot;deleteFail&quot;: 5,</div><div class="line">    &quot;deleteSuccess&quot;: 3,</div><div class="line">    &quot;expireCount&quot;: 12,</div><div class="line">    &quot;getsFail&quot;: 96,</div><div class="line">    &quot;getsSuccess&quot;: 19,</div><div class="line">    &quot;setsFail&quot;: 2,</div><div class="line">    &quot;setsSuccess&quot;: 35,</div><div class="line">    &quot;updateFail&quot;: 3,</div><div class="line">    &quot;updateSuccess&quot;: 2,</div><div class="line">    &quot;watchers&quot;: 0</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="检查一个etcd成员节点的健康状况"><a href="#检查一个etcd成员节点的健康状况" class="headerlink" title="检查一个etcd成员节点的健康状况"></a>检查一个etcd成员节点的健康状况</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# curl http://127.0.0.1:2379/health|python -m json.tool</div><div class="line">&#123;</div><div class="line">    &quot;health&quot;: &quot;true&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="相关文档"><a href="#相关文档" class="headerlink" title="相关文档"></a>相关文档</h4><ul>
+<li><a href="https://coreos.com/etcd/docs/latest/v2/libraries-and-tools.html" target="_blank" rel="external">etcd相关工具</a></li>
+<li><a href="https://coreos.com/etcd/docs/latest/v2/admin_guide.html" target="_blank" rel="external">etcd管理员指南</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Etcd/" rel="tag"><i class="fa fa-tag"></i> Etcd</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/20/火焰图分析Nginx性能瓶颈/" rel="next" title="火焰图分析Nginx性能瓶颈">
+                <i class="fa fa-chevron-left"></i> 火焰图分析Nginx性能瓶颈
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg"
+               alt="Hai Feng" />
+          <p class="site-author-name" itemprop="name">Hai Feng</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dihaifeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/haifeng116" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置键的值"><span class="nav-number">1.</span> <span class="nav-text">设置键的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取一个键的值"><span class="nav-number">2.</span> <span class="nav-text">获取一个键的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更改键的值"><span class="nav-number">3.</span> <span class="nav-text">更改键的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除键"><span class="nav-number">4.</span> <span class="nav-text">删除键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用键TTL生存时间"><span class="nav-number">5.</span> <span class="nav-text">使用键TTL生存时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刷新TTL"><span class="nav-number">6.</span> <span class="nav-text">刷新TTL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#waiting-for-a-change"><span class="nav-number">7.</span> <span class="nav-text">waiting for a change</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在原子上创建顺序键"><span class="nav-number">8.</span> <span class="nav-text">在原子上创建顺序键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目录使用TTL"><span class="nav-number">9.</span> <span class="nav-text">目录使用TTL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子比较和交换"><span class="nav-number">10.</span> <span class="nav-text">原子比较和交换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建目录"><span class="nav-number">11.</span> <span class="nav-text">创建目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列出一个目录"><span class="nav-number">12.</span> <span class="nav-text">列出一个目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除目录"><span class="nav-number">13.</span> <span class="nav-text">删除目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个隐藏节点"><span class="nav-number">14.</span> <span class="nav-text">创建一个隐藏节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从文件设置一个键"><span class="nav-number">15.</span> <span class="nav-text">从文件设置一个键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计"><span class="nav-number">16.</span> <span class="nav-text">统计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查一个etcd成员节点的健康状况"><span class="nav-number">17.</span> <span class="nav-text">检查一个etcd成员节点的健康状况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相关文档"><span class="nav-number">18.</span> <span class="nav-text">相关文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-Herb,Blog"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hai Feng</span>
+</div>
+
+
+<!--<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
