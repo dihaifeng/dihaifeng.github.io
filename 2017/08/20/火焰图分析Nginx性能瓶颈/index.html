@@ -95,7 +95,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Herb,Blog" />
+  <meta name="keywords" content="性能分析," />
 
 
 
@@ -111,12 +111,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Herb,Blog">
-<meta property="og:url" content="http://yoursite.com/tags/Docker/index.html">
+<meta name="description" content="环境准备 安装Systemtap  12345678sudo yum install gcc gcc-c++ elfutils-develwget https://sourceware.org/systemtap/ftp/releases/systemtap-2.6.tar.gztar -xvf systemtap-2.6.tar.gzcd systemtap-2.6/./configure --">
+<meta name="keywords" content="性能分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="火焰图分析Nginx性能瓶颈">
+<meta property="og:url" content="http://yoursite.com/2017/08/20/火焰图分析Nginx性能瓶颈/index.html">
 <meta property="og:site_name" content="Herb,Blog">
+<meta property="og:description" content="环境准备 安装Systemtap  12345678sudo yum install gcc gcc-c++ elfutils-develwget https://sourceware.org/systemtap/ftp/releases/systemtap-2.6.tar.gztar -xvf systemtap-2.6.tar.gzcd systemtap-2.6/./configure --">
+<meta property="og:image" content="http://agentzh.org/misc/flamegraph/vfs-index-page-rw.svg">
+<meta property="og:updated_time" content="2017-08-21T02:26:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Herb,Blog">
+<meta name="twitter:title" content="火焰图分析Nginx性能瓶颈">
+<meta name="twitter:description" content="环境准备 安装Systemtap  12345678sudo yum install gcc gcc-c++ elfutils-develwget https://sourceware.org/systemtap/ftp/releases/systemtap-2.6.tar.gztar -xvf systemtap-2.6.tar.gzcd systemtap-2.6/./configure --">
+<meta name="twitter:image" content="http://agentzh.org/misc/flamegraph/vfs-index-page-rw.svg">
 
 
 
@@ -144,13 +151,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Docker/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/20/火焰图分析Nginx性能瓶颈/"/>
 
 
 
 
 
-  <title>标签: Docker | Herb,Blog</title>
+  <title>火焰图分析Nginx性能瓶颈 | Herb,Blog</title>
   
 
 
@@ -175,7 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -303,44 +310,167 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>Docker<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/20/火焰图分析Nginx性能瓶颈/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hai Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Herb,Blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">火焰图分析Nginx性能瓶颈</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T11:31:04+08:00">
+                2017-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><ul>
+<li><a href="http://openresty.org/en/build-systemtap.html" target="_blank" rel="external">安装Systemtap</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sudo yum install gcc gcc-c++ elfutils-devel</div><div class="line">wget https://sourceware.org/systemtap/ftp/releases/systemtap-2.6.tar.gz</div><div class="line">tar -xvf systemtap-2.6.tar.gz</div><div class="line">cd systemtap-2.6/</div><div class="line">./configure --prefix=/opt/stap --disable-docs \</div><div class="line">            --disable-publican --disable-refdocs CFLAGS=&quot;-g -O2&quot;</div><div class="line">make -j8   # the -j8 option assumes you have about 8 logical CPU cores available</div><div class="line">sudo make install</div></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://github.com/openresty/openresty-systemtap-toolkit/blob/master/README-CN.markdown" target="_blank" rel="external">采集数据工具openresty-systemtap-toolkit</a></li>
+</ul>
+<ul>
+<li><a href="https://github.com/brendangregg/FlameGraph" target="_blank" rel="external">FlameGraph采样数据绘制成SVG文件</a></li>
+</ul>
+<h4 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h4><ul>
+<li><a href="https://moonbingbing.gitbooks.io/openresty-best-practices/flame_graph/how.html" target="_blank" rel="external">定位问题</a></li>
+</ul>
+<blockquote>
+<p>一般来说一个正常的火焰图看起来像一座座连绵起伏的“山峰”，而一个异常的火焰图看起来像一座“平顶山”。</p>
+</blockquote>
+<ul>
+<li>结果</li>
+</ul>
+<p><img src="http://agentzh.org/misc/flamegraph/vfs-index-page-rw.svg" alt="火焰图"></p>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/07/02/Confd_Template/" itemprop="url">
-              
-                <span itemprop="name">Confd template 语法</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-02T22:31:04+08:00"
-              content="2017-07-02" >
-          07-02
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/性能分析/" rel="tag"><i class="fa fa-tag"></i> 性能分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/15/Etcd集群灾难恢复/" rel="next" title="Etcd集群灾难恢复">
+                <i class="fa fa-chevron-left"></i> Etcd集群灾难恢复
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -348,6 +478,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -367,8 +501,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg"
@@ -441,6 +584,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定位问题"><span class="nav-number">2.</span> <span class="nav-text">定位问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -567,10 +726,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
