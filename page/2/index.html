@@ -95,7 +95,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Etcd," />
+  <meta name="keywords" content="Herb,Blog" />
 
 
 
@@ -111,17 +111,12 @@
 
 
 
-<meta name="description" content="迁移节点迁移方式 删除旧节点，增加新节点； 迁移节点。当集群的数据超过50M的时候，建议通过迁移节点的方式来迁移节点。  迁移节点的核心就是数据目录的迁移。因为etcd的各个节点会将自己的ID存放在自己的数据目录下面，所以迁移节点不会改变节点的ID。 迁移步骤 停止需要迁移的节点的服务 从老机器上拷贝数据目录到新机器上 通过集群运行时的更改操作，改变节点的peerURLs值为新机器的IP:PORT">
-<meta name="keywords" content="Etcd">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Etcd集群灾难恢复">
-<meta property="og:url" content="http://yoursite.com/2017/08/15/Etcd集群灾难恢复/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Herb,Blog">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Herb,Blog">
-<meta property="og:description" content="迁移节点迁移方式 删除旧节点，增加新节点； 迁移节点。当集群的数据超过50M的时候，建议通过迁移节点的方式来迁移节点。  迁移节点的核心就是数据目录的迁移。因为etcd的各个节点会将自己的ID存放在自己的数据目录下面，所以迁移节点不会改变节点的ID。 迁移步骤 停止需要迁移的节点的服务 从老机器上拷贝数据目录到新机器上 通过集群运行时的更改操作，改变节点的peerURLs值为新机器的IP:PORT">
-<meta property="og:updated_time" content="2017-08-15T10:43:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Etcd集群灾难恢复">
-<meta name="twitter:description" content="迁移节点迁移方式 删除旧节点，增加新节点； 迁移节点。当集群的数据超过50M的时候，建议通过迁移节点的方式来迁移节点。  迁移节点的核心就是数据目录的迁移。因为etcd的各个节点会将自己的ID存放在自己的数据目录下面，所以迁移节点不会改变节点的ID。 迁移步骤 停止需要迁移的节点的服务 从老机器上拷贝数据目录到新机器上 通过集群运行时的更改操作，改变节点的peerURLs值为新机器的IP:PORT">
+<meta name="twitter:title" content="Herb,Blog">
 
 
 
@@ -149,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/15/Etcd集群灾难恢复/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
 
 
-  <title>Etcd集群灾难恢复 | Herb,Blog</title>
+  <title>Herb,Blog</title>
   
 
 
@@ -180,7 +175,9 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -307,9 +304,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -318,7 +315,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/Etcd集群灾难恢复/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/01/SaltStack_Client_API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hai Feng">
@@ -335,7 +332,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Etcd集群灾难恢复</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/01/SaltStack_Client_API/" itemprop="url">SaltStack_Client_API</a></h1>
         
 
         <div class="post-meta">
@@ -347,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T19:30:04+08:00">
-                2017-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T11:31:04+08:00">
+                2017-07-01
               </time>
             
 
@@ -382,134 +381,183 @@
       
 
       
-        <h4 id="迁移节点"><a href="#迁移节点" class="headerlink" title="迁移节点"></a>迁移节点</h4><h6 id="迁移方式"><a href="#迁移方式" class="headerlink" title="迁移方式"></a>迁移方式</h6><ul>
-<li>删除旧节点，增加新节点；</li>
-<li>迁移节点。当集群的数据超过50M的时候，建议通过迁移节点的方式来迁移节点。</li>
-</ul>
-<p>迁移节点的核心就是数据目录的迁移。因为etcd的各个节点会将自己的ID存放在自己的数据目录下面，所以迁移节点不会改变节点的ID。</p>
-<h6 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h6><ul>
-<li>停止需要迁移的节点的服务</li>
-<li>从老机器上拷贝数据目录到新机器上</li>
-<li>通过集群运行时的更改操作，改变节点的peerURLs值为新机器的IP:PORT</li>
-<li>在新机器上指定拷贝过来的数据目录，启动etcd的节点服务</li>
-</ul>
-<h6 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h6><p>我们现在的集群信息如下：</p>
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>peerURLs</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>infra0</td>
-<td>10.77.31.230:2380</td>
-</tr>
-<tr>
-<td>infra1</td>
-<td>10.77.31.231:2380</td>
-</tr>
-<tr>
-<td>infra2</td>
-<td>10.77.31.232:2380</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# etcdctl member list</div><div class="line">5674316d41ede865: name=etcd2 peerURLs=http://10.77.31.231:2380 clientURLs=http://10.77.31.231:2379 isLeader=false</div><div class="line">d5212d281b31b234: name=etcd1 peerURLs=http://10.77.31.230:2380 clientURLs=http://10.77.31.230:2379 isLeader=true</div><div class="line">e22e0b280330388b: name=etcd3 peerURLs=http://10.77.31.232:2380 clientURLs=http://10.77.31.232:2379 isLeader=false</div></pre></td></tr></table></figure>
-<p>现在需要将infra1从10.77.31.230迁移到10.77.31.233：</p>
-<ul>
-<li><p>停止infra1的etcd进程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kill &quot;pgrep etcd&quot;</div></pre></td></tr></table></figure>
-</li>
-<li><p>从10.77.31.230拷贝的数据目录到10.77.31.233的机器上</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tar -zcvf infra1.etcd.tar.gz %data_dir%</div><div class="line">nc 10.77.31.233 1234 &lt;  infra1.etcd.tar.gz</div><div class="line">``` </div><div class="line"></div><div class="line">* 变更infra1的peerURLs</div></pre></td></tr></table></figure>
-<p>curl <a href="http://10.77.31.230:2379/v2/members/d5212d281b31b234" target="_blank" rel="external">http://10.77.31.230:2379/v2/members/d5212d281b31b234</a> -XPUT -H “Content-Type:application/json” -d ‘{“peerURLs”:[“<a href="http://10.77.31.233:2380&quot;]}" target="_blank" rel="external">http://10.77.31.233:2380&quot;]}</a>‘<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">或者使用`etcdctl`：</div></pre></td></tr></table></figure></p>
-<p>etcdctl member update d5212d281b31b234 <a href="http://10.7.31.233:2380" target="_blank" rel="external">http://10.7.31.233:2380</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 在新机器上使用infra1的数据和配置启动etcd</div></pre></td></tr></table></figure></p>
-<p>tar -xzvf infra1.etcd.tar.gz -C %data_dir%<br>$ etcd -name infra1 \</p>
-<blockquote>
-<p>-listen-peer-urls <a href="http://10.77.31.233:2380" target="_blank" rel="external">http://10.77.31.233:2380</a> \<br>-listen-client-urls <a href="http://10.77.31.233:2379,http://127.0.0.1:2379" target="_blank" rel="external">http://10.77.31.233:2379,http://127.0.0.1:2379</a> \<br>-advertise-client-urls <a href="http://10.77.31.233:2379,http://127.0.0.1:2379" target="_blank" rel="external">http://10.77.31.233:2379,http://127.0.0.1:2379</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 灾难恢复</div><div class="line"></div><div class="line">etcd 集群还是相当可可靠的，但是也不能排除极端情况的出现。当出现灾难性的多数节点宕机，就不得不进行灾难恢复了。</div><div class="line"></div><div class="line">###### 灾难恢复步骤</div><div class="line"></div><div class="line">* 备份数据</div><div class="line"></div><div class="line">备份操作需要在一台还**活着**的节点上进行</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>$ etcdctl backup \<br>                 –data-dir %data_dir% \<br>                 –backup-dir %backup_data_dir%<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">这个命令会备份原数据到`%backup_data_dir%`目录下，并重新相关的元数据(例如 节点ID和集群的ID)</div><div class="line">这意味着在`%backup_data_dir%`中只包含原先的数据，而不包含原先的身份信息。</div><div class="line">接下来就可以基于备份的数据创建一个单节点的集群。</div><div class="line"></div><div class="line">* 从备份数据中重建单节点集群</div></pre></td></tr></table></figure></p>
-<p>$ etcd \<br>      -data-dir=%backup_data_dir% \<br>      -force-new-cluster \<br>      …<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">`....`部分省略了其他相关的参数，例如`--peer-urpls``--client-urls`等启动参数</div><div class="line"></div><div class="line">这时候，应该就成功创建了一个新的只包含一个节点的集群，并包含之前的所有数据。当确认新集群正常后，就可以删除原来集群的数据，暂停新集群，将新集群的数据目录拷贝回原先数据的位置，并重新启动。</div></pre></td></tr></table></figure></p>
-<p>$ pkill etcd<br>$ rm -rf %data_dir%<br>$ mv %backup_data_dir% %data_dir%<br>$ etcd \<br>    -data-dir=%data_dir% \<br>    …<br>```</p>
-<ul>
-<li>恢复集群</li>
-</ul>
-<p>现在已经有了一个拥有之前数据的单节点的集群了。接下来，你可以通过添加节点的操作，重建出一个同样大小的集群。<br>值得注意的是，如果你还是使用之前的其他机器来重建这个新的集群，一定杀掉之前的etcd 进程，并且清除掉之前的数据。</p>
-
+        
+          
+          文件追加操作12345678#!/usr/bin/env pythonimport salt.clientimport sys local = salt.client.LocalClient() #/etc/sudoers文件末尾追加用户local.cmd(sys.argv[1], &apos;fi
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/01/SaltStack_Client_API/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Etcd/" rel="tag"><i class="fa fa-tag"></i> Etcd</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/08/14/Etcd入门实践/" rel="next" title="Etcd入门实践">
-                <i class="fa fa-chevron-left"></i> Etcd入门实践
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/20/火焰图分析Nginx性能瓶颈/" rel="prev" title="火焰图分析Nginx性能瓶颈">
-                火焰图分析Nginx性能瓶颈 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+      
 
-    <div class="post-spread">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/01/Next主题配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hai Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Herb,Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/01/Next主题配置/" itemprop="url">Next主题配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T11:31:04+08:00">
+                2017-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Next主题使用文档
+使用文档
+
+Hexo Next 主题个性化配置
+个性化配置
+
+故障解决
+上传到GitHub上hexo主题样式不全的问题?解决办法:必须创建和自己GitHub名一致的地址,如:dihaifeng.github.io
+
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/01/Next主题配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
-  </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -517,10 +565,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -540,17 +584,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg"
@@ -623,22 +658,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#迁移节点"><span class="nav-number">1.</span> <span class="nav-text">迁移节点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#迁移方式"><span class="nav-number">1.0.1.</span> <span class="nav-text">迁移方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#迁移步骤"><span class="nav-number">1.0.2.</span> <span class="nav-text">迁移步骤</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#举例说明"><span class="nav-number">1.0.3.</span> <span class="nav-text">举例说明</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -765,10 +784,10 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-
+  
 
   
 

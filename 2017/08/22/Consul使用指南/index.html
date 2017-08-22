@@ -1,0 +1,1162 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Consul," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Consul介绍Consul具有多个组成部分，但总的来说，它是在基础设施中发现和配置服务的工具。它提供了几个关键特性：  服务发现(Service Discovery)：Consul的客户端可以提供一个服务，比如API或着Mysql，另外一些客户端可以使用Consul去发现一个指定服务的提供者。通过DNS或者HTTP应用程序可以很容易的找到它所以来的服务。  健康检查(Health Checkin">
+<meta name="keywords" content="Consul">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Consul使用指南">
+<meta property="og:url" content="http://yoursite.com/2017/08/22/Consul使用指南/index.html">
+<meta property="og:site_name" content="Herb,Blog">
+<meta property="og:description" content="Consul介绍Consul具有多个组成部分，但总的来说，它是在基础设施中发现和配置服务的工具。它提供了几个关键特性：  服务发现(Service Discovery)：Consul的客户端可以提供一个服务，比如API或着Mysql，另外一些客户端可以使用Consul去发现一个指定服务的提供者。通过DNS或者HTTP应用程序可以很容易的找到它所以来的服务。  健康检查(Health Checkin">
+<meta property="og:image" content="https://i.loli.net/2017/08/22/599bfa61e1141.jpg">
+<meta property="og:updated_time" content="2017-08-22T12:07:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Consul使用指南">
+<meta name="twitter:description" content="Consul介绍Consul具有多个组成部分，但总的来说，它是在基础设施中发现和配置服务的工具。它提供了几个关键特性：  服务发现(Service Discovery)：Consul的客户端可以提供一个服务，比如API或着Mysql，另外一些客户端可以使用Consul去发现一个指定服务的提供者。通过DNS或者HTTP应用程序可以很容易的找到它所以来的服务。  健康检查(Health Checkin">
+<meta name="twitter:image" content="https://i.loli.net/2017/08/22/599bfa61e1141.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/22/Consul使用指南/"/>
+
+
+
+
+
+  <title>Consul使用指南 | Herb,Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Herb,Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/22/Consul使用指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hai Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Herb,Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Consul使用指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T20:07:04+08:00">
+                2017-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Consul介绍"><a href="#Consul介绍" class="headerlink" title="Consul介绍"></a>Consul介绍</h4><p>Consul具有多个组成部分，但总的来说，它是在基础设施中发现和配置服务的工具。它提供了几个关键特性：</p>
+<ul>
+<li><p><strong>服务发现(Service Discovery)</strong>：Consul的客户端可以提供一个服务，比如API或着Mysql，另外一些客户端可以使用Consul去发现一个指定服务的提供者。通过DNS或者HTTP应用程序可以很容易的找到它所以来的服务。</p>
+</li>
+<li><p><strong>健康检查(Health Checking)</strong>：Consul客户端可以提供任意数量的健康检查，指定一个服务(比如：webserver是否返回了200 OK的状态码)。这个信息可由operator用来监视集群的健康。被服务发现组件用来避免流量发送到不健康的主机。</p>
+</li>
+<li><p><strong>KV Store</strong>：应用程序可以根据自己的需要使用Consul的层级的Key/Value存储。比如动态配置、功能标记、协调 、Leader选举等等，简单的HTTP API让他更易与使用。</p>
+</li>
+<li><p><strong>多数据中心(Multi Datacenter)</strong>：Consul支持开箱即用的多数据中心。这意味着用户不需要担心需要建立额外的抽象层让业务扩展到多个区域。</p>
+</li>
+</ul>
+<h4 id="Consul基础架构"><a href="#Consul基础架构" class="headerlink" title="Consul基础架构"></a>Consul基础架构</h4><ul>
+<li>每个提供服务给Consul的节点都运行了一个Consul Agent。发现其他服务或者设置和获取key/value存储的数据时不需要运行Agent，Agent负责对节点和节点本身的服务进行健康检查。</li>
+<li>Agent与一个和多个Consul Server进行交互。Consul Server用于存放和复制数据，Server自行选举一个Leader，虽让Consul可以运行在一台Server上，但是建议使用3～5台来避免失败情况下数据的丢失，每个数据中心建议配置一个Server集群。</li>
+<li>如果在基础设施中需要发现其他服务的组件可以查询任何一个Consul的Server或者Agent，Agent会自动转发请求到Server。</li>
+<li>每个数据中心运行一个Consul Server集群，当一个跨数据中心的服务发现和配置请求创建时，本地Consul Server会转发请求到远程的数据中心并返回结果。<br><img src="https://i.loli.net/2017/08/22/599bfa61e1141.jpg" alt=""></li>
+</ul>
+<h4 id="Consul应用场景"><a href="#Consul应用场景" class="headerlink" title="Consul应用场景"></a>Consul应用场景</h4><ul>
+<li>Docker实例的注册与配置共享</li>
+<li>Coreos实例的注册与配置共享</li>
+<li>VItess集群</li>
+<li>SaaS应用的配置共享</li>
+<li>与Confd服务集成，动态生成Nginx和HAproxy配置文件</li>
+</ul>
+<h4 id="Consul的优势"><a href="#Consul的优势" class="headerlink" title="Consul的优势"></a>Consul的优势</h4><ul>
+<li>使用Raft算法来保证一致性，比复杂的Paxos算法更直接。相比较而言，ZK采用的是Paxos，而Etcd使用的则是Raft</li>
+<li>支持多数据中心，内外网的服务采用不同的端口进行监听。多数据中心集群可以避免数据中心的单点故障，而其部署则需要考虑网络延迟，分片等情况。ZK、Etcd均不提供多数据中心功能支持</li>
+<li>支持健康检查</li>
+<li>支持HTTP和DNS协议，ZK的集成比较复杂，Etcd只支持HTTP协议</li>
+<li>官方提供Web管理界面</li>
+</ul>
+<h4 id="安装Consul"><a href="#安装Consul" class="headerlink" title="安装Consul"></a>安装Consul</h4><p>Consul集群的每个节点都必须按照Consul，Consul支持所有平台和架构的<a href="https://www.consul.io/downloads.html" target="_blank" rel="external">二进制包</a>分发。下载好适合自己系统的软件包后，拷贝Consul到系统的PATH路径中，在Unix系统中<code>~/bin</code>和<code>/usr/local/bin</code>是通常安装的目录。</p>
+<h4 id="运行Agent"><a href="#运行Agent" class="headerlink" title="运行Agent"></a>运行Agent</h4><ul>
+<li>完成Consul的安装后，必须运行agent。agent可以运行为Server或Client模式。每个数据中心至少必须拥有一个Server。建议在一个集群中有3～5个Server。部署单一的Server，在出现失败时会不可避免的造成数据丢失。</li>
+<li>其他的Agent运行为Client模式。一个Client是一个非常轻量级的进程。用于注册服务、运行健康检查和转发对Server的查询。Agent必须在集群中的每个主机上运行</li>
+<li>现在我们使用<code>consul agent -dev</code>命令来启动Consul Agent的开发模式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# consul agent -dev</div><div class="line">==&gt; Starting Consul agent...</div><div class="line">==&gt; Consul agent running!</div><div class="line">           Version: &apos;v0.9.2&apos;</div><div class="line">           Node ID: &apos;87f49d94-e22b-ec49-4fc0-83a00b1f5ea3&apos;</div><div class="line">         Node name: &apos;localhost.localdomain&apos;</div><div class="line">        Datacenter: &apos;dc1&apos;</div><div class="line">            Server: true (bootstrap: false)</div><div class="line">       Client Addr: 127.0.0.1 (HTTP: 8500, HTTPS: -1, DNS: 8600)</div><div class="line">      Cluster Addr: 127.0.0.1 (LAN: 8301, WAN: 8302)</div><div class="line">    Gossip encrypt: false, RPC-TLS: false, TLS-Incoming: false</div><div class="line">  </div><div class="line">    ==&gt; Log data will now stream in as it occurs:</div><div class="line">    ......</div><div class="line">    2017/08/22 18:54:31 [INFO] raft: Node at 127.0.0.1:8300 [Leader] entering Leader state</div><div class="line">    2017/08/22 18:54:31 [INFO] consul: cluster leadership acquired</div><div class="line">    2017/08/22 18:54:31 [INFO] consul: New leader elected: localhost.localdomain</div><div class="line">    2017/08/22 18:54:31 [INFO] consul: member &apos;localhost.localdomain&apos; joined, marking health alive</div><div class="line"> ......</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：Consul默认使用主机的Hostname来作为节点的名字。如果主机名包含时间的话，到这个节点的DNS查询将不会工作，为了避免这个情况，需要使用<code>-node</code>参数来明确的设置node名</p>
+</blockquote>
+<h4 id="注册服务"><a href="#注册服务" class="headerlink" title="注册服务"></a>注册服务</h4><ul>
+<li>定义一个服务<br>可以通过提供服务定义或者调用HTTP API来注册一个服务。服务定义文件是注册服务最通用的方式。下面我们就用这种方式来定义一个服务：<br>首先，为Consul配置创建一个目录，Consul会载入配置文件夹里的所有配置文件。在Unix系统中通常为<code>/etc/consul.d</code>（.d后缀意思是这个路径包含了一组配置文件）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# mkdir /etc/consul.d</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后，我们将编写服务定义配置文件。假设我们有一个名叫fisher的服务运行在80端口。另外，我们将给她设置一个标签，这样我们可以使用他作为额外的查询方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# echo &apos;&#123;&quot;service&quot;: &#123;&quot;name&quot;: &quot;fisher&quot;, &quot;tags&quot;: [&quot;core&quot;], &quot;port&quot;: 80&#125;&#125;&apos;     &gt;/etc/consul.d/fisher.json</div></pre></td></tr></table></figure></p>
+<p>现在重启Agent，设置配置目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# consul agent -dev -config-dir /etc/consul.d</div><div class="line">==&gt; Starting Consul agent...</div><div class="line">...</div><div class="line">[INFO] agent: Synced service &apos;fisher&apos;</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>最后会输出”synced”了fisher这个服务，意思就是这个Agent从配置文件中载入了服务定义，并且成功注册到服务目录。如果想注册多个服务，应该在Consul配置目录创建多个服务定义文件。</p>
+<ul>
+<li>DNS API 查询<br>首先使用DNS API来查询，在DNS API中，服务的DNS名字是<code>NAME.service.consul</code>。虽然是可配置的，但默认的所有DNS名字都会在Consul命名空间下。这个子域高手Consul，我们在查询服务，NAME则是服务的名称。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# dig @127.0.0.1 -p 8600 fisher.service.consul</div><div class="line"></div><div class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-18.el7 &lt;&lt;&gt;&gt; @127.0.0.1 -p 8600 fisher.service.consul</div><div class="line">; (1 server found)</div><div class="line">;; global options: +cmd</div><div class="line">;; Got answer:</div><div class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 21788</div><div class="line">;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1</div><div class="line">;; WARNING: recursion requested but not available</div><div class="line"></div><div class="line">;; OPT PSEUDOSECTION:</div><div class="line">; EDNS: version: 0, flags:; udp: 4096</div><div class="line">;; QUESTION SECTION:</div><div class="line">;fisher.service.consul.		IN	A</div><div class="line"></div><div class="line">;; ANSWER SECTION:</div><div class="line">fisher.service.consul.	0	IN	A	127.0.0.1</div><div class="line"></div><div class="line">;; Query time: 2 msec</div><div class="line">;; SERVER: 127.0.0.1#8600(127.0.0.1)</div><div class="line">;; WHEN: Tue Aug 22 19:19:11 CST 2017</div><div class="line">;; MSG SIZE  rcvd: 66</div></pre></td></tr></table></figure>
+<p>通过上面命令我们可以看到A记录只设置为IP地址，我们也可以用DNS API来接受包含地址和端口的SRV记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# dig @127.0.0.1 -p 8600 fisher.service.consul SRV</div><div class="line"></div><div class="line">; &lt;&lt;&gt;&gt; DiG 9.9.4-RedHat-9.9.4-18.el7 &lt;&lt;&gt;&gt; @127.0.0.1 -p 8600 fisher.service.consul SRV</div><div class="line">; (1 server found)</div><div class="line">;; global options: +cmd</div><div class="line">;; Got answer:</div><div class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 28371</div><div class="line">;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 2</div><div class="line">;; WARNING: recursion requested but not available</div><div class="line"></div><div class="line">;; OPT PSEUDOSECTION:</div><div class="line">; EDNS: version: 0, flags:; udp: 4096</div><div class="line">;; QUESTION SECTION:</div><div class="line">;fisher.service.consul.		IN	SRV</div><div class="line"></div><div class="line">;; ANSWER SECTION:</div><div class="line">fisher.service.consul.	0	IN	SRV	1 1 80 localhost.localdomain.node.dc1.consul.</div><div class="line"></div><div class="line">;; ADDITIONAL SECTION:</div><div class="line">localhost.localdomain.node.dc1.consul. 0 IN A	127.0.0.1</div><div class="line"></div><div class="line">;; Query time: 0 msec</div><div class="line">;; SERVER: 127.0.0.1#8600(127.0.0.1)</div><div class="line">;; WHEN: Tue Aug 22 19:19:55 CST 2017</div><div class="line">;; MSG SIZE  rcvd: 117</div></pre></td></tr></table></figure>
+<p>SRV记录告诉我们fisher这个服务运行与节点<code>localhost.localdomain.node.dc1.consul</code>的80端口，DNS额外返回了节点的A记录。<br>最后，我们还可以使用DNS API通过标签来过滤服务，基于标签的服务查询模式为<code>TAG.NAME.service.consul</code>。在下面的例子中，我们请求Consul返回有rails标签的fisher服务。我们成功获取了我们注册为这个标签的服务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# dig @127.0.0.1 -p 8600 rails.fisher.service.consul SRV</div><div class="line">```	</div><div class="line"></div><div class="line">* HTTP API 查询</div><div class="line">除了DNS APi之外，HTTP API也可以用来进行服务查询：</div></pre></td></tr></table></figure></p>
+<p>[root@localhost ~]# curl <a href="http://localhost:8500/v1/catalog/service/fisher" target="_blank" rel="external">http://localhost:8500/v1/catalog/service/fisher</a><br>[<br>    {<br>        “ID”: “ca227fb4-8566-ef6d-476c-42cc6fdf866e”,<br>        “Node”: “localhost.localdomain”,<br>        “Address”: “127.0.0.1”,<br>        “Datacenter”: “dc1”,<br>        “TaggedAddresses”: {<br>            “lan”: “127.0.0.1”,<br>            “wan”: “127.0.0.1”<br>        },<br>        “NodeMeta”: {},<br>        “ServiceID”: “fisher”,<br>        “ServiceName”: “fisher”,<br>        “ServiceTags”: [<br>            “core”<br>        ],<br>        “ServiceAddress”: “”,<br>        “ServicePort”: 80,<br>        “ServiceEnableTagOverride”: false,<br>        “CreateIndex”: 6,<br>        “ModifyIndex”: 6<br>    }<br>]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">下面我们带上健康检查进行查询，就像DNS内部处理的那样，只查看健康的实力的查询方法：</div></pre></td></tr></table></figure></p>
+<p>[root@localhost ~]# curl <a href="http://localhost:8500/v1/catalog/service/fisher?passing" target="_blank" rel="external">http://localhost:8500/v1/catalog/service/fisher?passing</a><br>[<br>    {<br>        “ID”: “ca227fb4-8566-ef6d-476c-42cc6fdf866e”,<br>        “Node”: “localhost.localdomain”,<br>        “Address”: “127.0.0.1”,<br>        “Datacenter”: “dc1”,<br>        “TaggedAddresses”: {<br>            “lan”: “127.0.0.1”,<br>            “wan”: “127.0.0.1”<br>        },<br>        “NodeMeta”: {},<br>        “ServiceID”: “fisher”,<br>        “ServiceName”: “fisher”,<br>        “ServiceTags”: [<br>            “core”<br>        ],<br>        “ServiceAddress”: “”,<br>        “ServicePort”: 80,<br>        “ServiceEnableTagOverride”: false,<br>        “CreateIndex”: 6,<br>        “ModifyIndex”: 6<br>    }<br>]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 更新服务</div><div class="line">服务定义可以通配置文件并发送`SIGHUP`给Agent来进行更新。这样可以在不关闭服务或者保持服务请求的情况下进行更新，下篇博客会详细介绍。</div><div class="line"></div><div class="line">#### 创建Consul集群</div><div class="line">环境准备：</div><div class="line"></div><div class="line">操作系统版本|IP地址|状态</div><div class="line">----|----|----|</div><div class="line">CentOS7|192.168.10.230|Server</div><div class="line">CentOS7|192.168.10.231|Client</div><div class="line"></div><div class="line">* Server启动命令</div></pre></td></tr></table></figure></p>
+<p>consul agent -server -bootstrap-expect=1 -data-dir=/tmp/consul -node=agent-one -bind=192.168.10.230 -enable-script-checks=true -config-dir=/etc/consul.d<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Client启动命令</div></pre></td></tr></table></figure></p>
+<p>consul agent -data-dir=/tmp/consul -node=agent-two -bind=192.168.10.231 -enable-script-checks=true -config-dir=/etc/consul.d<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 参数详解</div><div class="line">    * **-node**：Consul默认会使用机器的Hostname，我们可以使用-node手动覆盖它</div><div class="line">    * **-bind**：指定一个绑定的地址让Consul在这个地址上监听，这个地址必须可以被其他集群成员访问到。绑定地址不是必须提供。Consul选择第一个私有IP进行监听,不过最好还是指定一个.生产环境的服务器通常有多个网络接口.所以指定一个不会让Consul绑错网络接口。</div><div class="line">    * **-server**：指定集群中的Server</div><div class="line">    * **-bootstrap-expect**：提示我们Consul期待加入的server节点的数量.这个选项的作用是启动时推迟日志复制直到我们期望的server都成功加入时</div><div class="line">    * **-data-dir**：指定数据存储的目录</div><div class="line">    * **-config-dir**：指定配置文件目录</div><div class="line"> </div><div class="line">* 加入一个集群 </div><div class="line">现在我们告诉第一个Agent来加入第二个Agent，在Server端执行命令：</div></pre></td></tr></table></figure></p>
+<p>consul join 192.168.10.231<br>Successfully joined cluster by contacting 1 nodes.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt;如果出现`Error joining the cluster: dial tcp 10.0.0.53:8301: getsockopt: no route to host`可能是业务防火墙的原因,检查端口8301是否被允许</div><div class="line"></div><div class="line">下面我们在每个Agent运行`consul members`会看到类似下面的内容：</div></pre></td></tr></table></figure></p>
+<p>[root@localhost ~]# consul members<br>Node       Address            Status  Type    Build  Protocol  DC<br>agent-one  192.168.10.230:8301  alive   server  0.9.2  2         dc1<br>agent-two  192.168.10.231:8301  alive   client  0.9.2  2         dc1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">这个输出显示我们自己的节点运行的地址、健康状态、自己在集群中的角色、版本信息。添加``选项可以看到额外信息：</div></pre></td></tr></table></figure></p>
+<p>[root@localhost ~]# consul members -detailed<br>Node       Address            Status  Tags<br>agent-one  192.168.10.230:8301  alive   bootstrap=1,build=0.9.2:75ca2ca,dc=dc1,id=a639a513-d8f8-73b3-f755-0a2ea9181725,port=8300,raft_vsn=2,role=consul,vsn=2,vsn_max=3,vsn_min=2,wan_join_port=8302</p>
+<p>agent-two  192.168.10.231:8301  alive   build=0.9.2:75ca2ca,dc=dc1,id=c6816b5e-2892-244b-e90b-275ef31a7338,role=node,vsn=2,vsn_max=3,vsn_min=2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">member命令的输出是基于gossip协议是最终一致的。意味着,在任何时候,通过你本地agent看到的结果可能不是准确匹配server的状态.为了查看到一致的信息,使用HTTP API(将自动转发)到Consul Server上去进行查询:</div></pre></td></tr></table></figure></p>
+<p>[root@localhost ~]# curl localhost:8500/v1/catalog/nodes|python -m json.tool<br>[<br>    {<br>        “Address”: “192.168.10.230”,<br>        “CreateIndex”: 5,<br>        “Datacenter”: “dc1”,<br>        “ID”: “a639a513-d8f8-73b3-f755-0a2ea9181725”,<br>        “Meta”: {},<br>        “ModifyIndex”: 6,<br>        “Node”: “agent-one”,<br>        “TaggedAddresses”: {<br>            “lan”: “192.168.10.230”,<br>            “wan”: “192.168.10.230”<br>        }<br>    },<br>    {<br>        “Address”: “192.168.10.231”,<br>        “CreateIndex”: 222,<br>        “Datacenter”: “dc1”,<br>        “ID”: “c6816b5e-2892-244b-e90b-275ef31a7338”,<br>        “Meta”: {},<br>        “ModifyIndex”: 223,<br>        “Node”: “agent-two”,<br>        “TaggedAddresses”: {<br>            “lan”: “192.168.10.231”,<br>            “wan”: “192.168.10.231”<br>        }<br>    }<br>]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* 启动时自动加入集群</div><div class="line">理想的情况,当一个新的节点在数据中心启动时,他应该自动加入到Consul的集群中,而不需要人为干预.为了达到这个效果你可以使用[HashiCorp的Atlas](https://atlas.hashicorp.com/)和-atlas-join选项.示例如下:</div></pre></td></tr></table></figure></p>
+<p>consul agent -atlas-join \<br>  -atlas=ATLAS_USERNAME/infrastructure \<br>  -atlas-token=”YOUR_ATLAS_TOKEN”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Atlas的用户名和token可以通过创建Atlas账号获取.这样当新的节点启动后他会自动加入到你的Consul集群,不需要硬编码配置.</div><div class="line">另一种选择,你可以通过-join选项和start_join配置将其他已知的agent的地址进行硬编码来在启动时加入集群.</div><div class="line"></div><div class="line">#### Web界面</div></pre></td></tr></table></figure></p>
+<p>nohup consul agent -server -bootstrap-expect=1 -data-dir=/tmp/consul -node=agent-one -bind=192.168.10.230 -enable-script-checks=true -config-dir=/etc/consul.d -client 0.0.0.0 -ui &amp;<br>```</p>
+<h4 id="相关文档"><a href="#相关文档" class="headerlink" title="相关文档"></a>相关文档</h4><ul>
+<li><a href="https://www.consul.io/intro/vs/zookeeper.html" target="_blank" rel="external">Consul与其他软件对比</a></li>
+<li><a href="https://www.consul.io/intro/getting-started/install.html" target="_blank" rel="external">Consul入门指南</a></li>
+<li><a href="https://www.consul.io/docs/guides/index.html" target="_blank" rel="external">Consul指南</a></li>
+<li><a href="https://www.consul.io/docs/guides/index.html" target="_blank" rel="external">Consul常见问题</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Consul/" rel="tag"><i class="fa fa-tag"></i> Consul</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/21/awk使用指南/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg"
+               alt="Hai Feng" />
+          <p class="site-author-name" itemprop="name">Hai Feng</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dihaifeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/haifeng116" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Consul介绍"><span class="nav-number">1.</span> <span class="nav-text">Consul介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Consul基础架构"><span class="nav-number">2.</span> <span class="nav-text">Consul基础架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Consul应用场景"><span class="nav-number">3.</span> <span class="nav-text">Consul应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Consul的优势"><span class="nav-number">4.</span> <span class="nav-text">Consul的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Consul"><span class="nav-number">5.</span> <span class="nav-text">安装Consul</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行Agent"><span class="nav-number">6.</span> <span class="nav-text">运行Agent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册服务"><span class="nav-number">7.</span> <span class="nav-text">注册服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相关文档"><span class="nav-number">8.</span> <span class="nav-text">相关文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-Herb,Blog"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hai Feng</span>
+</div>
+
+
+<!--<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
