@@ -111,12 +111,16 @@
 
 
 
-<meta property="og:type" content="website">
+<meta name="description" content="Centos 7 安装Docker-CE(社区版)系统要求要安装Docker CE，需要64位版本的CentOS7系统。需要启用centos-extras库，默认情况喜爱此存储库使启用的，如果已禁用则需要重新启用 卸载旧版本较老版本的Docker被称为docker或docker-engine。如果这些已经安装，请卸载它们以及关联的依赖关系。1234[root@localhost ~]# sudo">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Herb,Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/08/30/重识Docker-基础篇/index.html">
 <meta property="og:site_name" content="Herb,Blog">
+<meta property="og:description" content="Centos 7 安装Docker-CE(社区版)系统要求要安装Docker CE，需要64位版本的CentOS7系统。需要启用centos-extras库，默认情况喜爱此存储库使启用的，如果已禁用则需要重新启用 卸载旧版本较老版本的Docker被称为docker或docker-engine。如果这些已经安装，请卸载它们以及关联的依赖关系。1234[root@localhost ~]# sudo">
+<meta property="og:updated_time" content="2017-08-30T07:37:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Herb,Blog">
+<meta name="twitter:description" content="Centos 7 安装Docker-CE(社区版)系统要求要安装Docker CE，需要64位版本的CentOS7系统。需要启用centos-extras库，默认情况喜爱此存储库使启用的，如果已禁用则需要重新启用 卸载旧版本较老版本的Docker被称为docker或docker-engine。如果这些已经安装，请卸载它们以及关联的依赖关系。1234[root@localhost ~]# sudo">
 
 
 
@@ -144,13 +148,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2017/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/30/重识Docker-基础篇/"/>
 
 
 
 
 
-  <title>归档 | Herb,Blog</title>
+  <title> | Herb,Blog</title>
   
 
 
@@ -175,7 +179,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -303,403 +307,188 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 13 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/30/重识Docker-基础篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hai Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Herb,Blog">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-30T10:42:01+08:00">
+                2017-08-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <h2 id="Centos-7-安装Docker-CE-社区版"><a href="#Centos-7-安装Docker-CE-社区版" class="headerlink" title="Centos 7 安装Docker-CE(社区版)"></a>Centos 7 安装Docker-CE(社区版)</h2><h4 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h4><p>要安装Docker CE，需要64位版本的CentOS7系统。需要启用centos-extras库，默认情况喜爱此存储库使启用的，如果已禁用则需要重新启用</p>
+<h4 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h4><p>较老版本的Docker被称为docker或docker-engine。如果这些已经安装，请卸载它们以及关联的依赖关系。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# sudo  yum remove docker \</div><div class="line">                                     docker-common \</div><div class="line">					                 docker-selinux \</div><div class="line">        				             docker-engine</div></pre></td></tr></table></figure></p>
+<h4 id="安装Docker-CE"><a href="#安装Docker-CE" class="headerlink" title="安装Docker CE"></a>安装Docker CE</h4><p>安装Docker CE有几种不同的方式：</p>
+<ul>
+<li>从Docker的存储库中安装，方便安装和升级任务。官网推荐</li>
+<li>下载RPM软件并手动安装，手动完成管理升级。这种方法用于没有访问互联网的环境下使用</li>
+<li>在测试和开发环境中，可以选择官网提供的自动化安装脚本</li>
+</ul>
+<h6 id="使用存储库安装"><a href="#使用存储库安装" class="headerlink" title="使用存储库安装"></a>使用存储库安装</h6><p>在新主机上首次安装Docker CE之前，需要设置Docker存储库。之后，就可以从存储库安装和更新Docker。</p>
+<ul>
+<li>安装所需软件包<code>yum-utils</code>提供了<code>yum-config-manager</code>功能，<code>device-mapper-persistent-data</code>和<code>lvm2</code>    提供了<code>devicemapper</code>存储驱动程序<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# yum install -y yum-utils device-mapper-persistent-data lvm2</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>使用以下命令设置稳定版本库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo</div></pre></td></tr></table></figure>
+<ul>
+<li>可选：启用edge和test库，这些存储库包含在docker.repo文件中，但默认情况下是禁用的，可以将它们与稳定版本库一起启用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# yum-config-manager --enable docker-ce-edge</div><div class="line"></div><div class="line">[root@localhost ~]# yum-config-manager --enable docker-ce-test</div><div class="line"></div><div class="line">#当然也可以用改命令来禁用edge和test库：</div><div class="line">[root@localhost ~]# yum-config-manager --disable docker-ce-edge</div></pre></td></tr></table></figure>
+<ul>
+<li>安装Docker CE</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#更新yum包索引</div><div class="line">[root@localhost ~]# yum makecache fast</div><div class="line"></div><div class="line">#安装最新版本Docker CE</div><div class="line">[root@localhost ~]# yum install docker-ce</div><div class="line"></div><div class="line">#安装指定版本的Docker CE</div><div class="line">[root@localhost ~]# yum list docker-ce.x86_64  --showduplicates | sort -r</div><div class="line">[root@localhost ~]# yum install docker-ce-&lt;VERSION&gt;</div><div class="line"></div><div class="line">#启动Docker CE</div><div class="line">[root@localhost ~]# systemctl start docker</div></pre></td></tr></table></figure>
+<h6 id="从包中安装"><a href="#从包中安装" class="headerlink" title="从包中安装"></a>从包中安装</h6><p>如果不能使用Docker的存储库安装Docker，可以下载.rpm版本的文件并手动安装。每次要升级Docker时，都需要下载一个新文件。</p>
+<ul>
+<li>转到 <a href="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/" target="_blank" rel="external">https://download.docker.com/linux/centos/7/x86_64/stable/Packages/</a>  并下载.rpm要安装的Docker版本的文件。</li>
+<li>安装Docker CE ，将下面的路径更改为已经下载Docker程序包的路径，安装并启动</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# yum install /tmp/docker-ce-17.03.0.ce-1.el7.centos.x86_64.rpm</div><div class="line"> </div><div class="line">[root@localhost ~]# systemctl start docker</div></pre></td></tr></table></figure>
+<ul>
+<li>升级Docker CE<br>要升级Docker CE，需要下载较新的软件包饼重复安装，使用<code>yum -y upgrade</code>更新安装</li>
+</ul>
+<h6 id="利用脚本进行安装"><a href="#利用脚本进行安装" class="headerlink" title="利用脚本进行安装"></a>利用脚本进行安装</h6><p> Docker在get.docker.com 和test.docker.com上提供了自动化安装脚本，用于将Docker CE的稳定和测试版本快速部署，非交互式安装到开发环境中。脚本的源代码位于 docker-install存储库中。 <strong>不建议在生产环境中使用这些脚本</strong> ，使用这些脚本具有一定潜在的风险：</p>
+<ul>
+<li>脚本需要root或sudo权限才能运行。因此，在运行脚本之前，应仔细检查和审核脚本。</li>
+<li>脚本尝试检测您的Linux发行版本和版本，并为您配置您的软件包管理系统。此外，脚本不允许您自定义任何安装参数。这可能导致不受支持的配置，无论是从Docker的角度还是从您自己的组织的指导方针和标准。</li>
+<li>脚本安装包管理器的所有依赖关系和建议，而不要求确认。这可能会安装大量的软件包，具体取决于您的主机的当前配置。</li>
+<li><p>如果Docker已经使用其他机制安装在主机上，则不要使用便利脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -fsSL get.docker.com -o get-docker.sh</div><div class="line">$ sudo sh get-docker.sh</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/22/Consul使用指南/" rel="next" title="Consul使用指南">
+                <i class="fa fa-chevron-left"></i> Consul使用指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/06/Django基础/" rel="prev" title="Django路由系统">
+                Django路由系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
         </div>
       
-      
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/06/Django基础/" itemprop="url">
-              
-                <span itemprop="name">Django路由系统</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-06T19:11:04+08:00"
-              content="2017-09-06" >
-          09-06
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/30/重识Docker-基础篇/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-30T10:42:01+08:00"
-              content="2017-08-30" >
-          08-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/22/Consul使用指南/" itemprop="url">
-              
-                <span itemprop="name">Consul使用指南</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-22T20:07:04+08:00"
-              content="2017-08-22" >
-          08-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/21/Etcd_API使用/" itemprop="url">
-              
-                <span itemprop="name">Etcd APi 使用指南</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-21T19:50:04+08:00"
-              content="2017-08-21" >
-          08-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/20/火焰图分析Nginx性能瓶颈/" itemprop="url">
-              
-                <span itemprop="name">火焰图分析Nginx性能瓶颈</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-20T11:31:04+08:00"
-              content="2017-08-20" >
-          08-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/15/Etcd集群灾难恢复/" itemprop="url">
-              
-                <span itemprop="name">Etcd集群灾难恢复</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-15T19:30:04+08:00"
-              content="2017-08-15" >
-          08-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/14/Etcd入门实践/" itemprop="url">
-              
-                <span itemprop="name">Etcd入门实践</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-14T19:11:04+08:00"
-              content="2017-08-14" >
-          08-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/11/Etcd架构分析与应用场景/" itemprop="url">
-              
-                <span itemprop="name">Etcd架构分析与应用场景</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-11T17:11:04+08:00"
-              content="2017-08-11" >
-          08-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/19/git版本回退/" itemprop="url">
-              
-                <span itemprop="name">Git版本回退</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-19T22:48:02+08:00"
-              content="2017-07-19" >
-          07-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/02/Confd_Template/" itemprop="url">
-              
-                <span itemprop="name">Confd template 语法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-02T22:31:04+08:00"
-              content="2017-07-02" >
-          07-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="extend next" rel="next" href="/archives/2017/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -707,6 +496,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -726,8 +519,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg"
@@ -800,6 +602,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Centos-7-安装Docker-CE-社区版"><span class="nav-number">1.</span> <span class="nav-text">Centos 7 安装Docker-CE(社区版)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#系统要求"><span class="nav-number">1.0.1.</span> <span class="nav-text">系统要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载旧版本"><span class="nav-number">1.0.2.</span> <span class="nav-text">卸载旧版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Docker-CE"><span class="nav-number">1.0.3.</span> <span class="nav-text">安装Docker CE</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用存储库安装"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">使用存储库安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#从包中安装"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">从包中安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#利用脚本进行安装"><span class="nav-number">1.0.3.0.3.</span> <span class="nav-text">利用脚本进行安装</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -926,11 +744,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   

@@ -1,0 +1,1196 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Django基本配置创建Django程序 终端命令：diango-admin startproject  sitename IDE创建Django程序时，执行的相关命令  123456python3 manage.py runserver. 0.0.0.0.      #启动Python程序python3 manage.py startapp appname        #创建功能APPpyth">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django路由系统">
+<meta property="og:url" content="http://yoursite.com/2017/09/06/Django基础/index.html">
+<meta property="og:site_name" content="Herb,Blog">
+<meta property="og:description" content="Django基本配置创建Django程序 终端命令：diango-admin startproject  sitename IDE创建Django程序时，执行的相关命令  123456python3 manage.py runserver. 0.0.0.0.      #启动Python程序python3 manage.py startapp appname        #创建功能APPpyth">
+<meta property="og:updated_time" content="2017-09-06T10:25:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django路由系统">
+<meta name="twitter:description" content="Django基本配置创建Django程序 终端命令：diango-admin startproject  sitename IDE创建Django程序时，执行的相关命令  123456python3 manage.py runserver. 0.0.0.0.      #启动Python程序python3 manage.py startapp appname        #创建功能APPpyth">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/06/Django基础/"/>
+
+
+
+
+
+  <title>Django路由系统 | Herb,Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Herb,Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/Django基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hai Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Herb,Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django路由系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T19:11:04+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Django基本配置"><a href="#Django基本配置" class="headerlink" title="Django基本配置"></a>Django基本配置</h2><h4 id="创建Django程序"><a href="#创建Django程序" class="headerlink" title="创建Django程序"></a>创建Django程序</h4><ul>
+<li>终端命令：<code>diango-admin startproject  sitename</code></li>
+<li>IDE创建Django程序时，执行的相关命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">python3 manage.py runserver. 0.0.0.0.      #启动Python程序</div><div class="line">python3 manage.py startapp appname        #创建功能APP</div><div class="line">python3 manage.py migrate                  #执行migrations文件夹中文件，创建数据库表</div><div class="line">python3 manage.py makemigrations          #提交将要进行的数据库操作，并返回一个文件，位于app的migrations文件夹中</div><div class="line">python3 manage.py createsuperuser         #创建超级用户</div><div class="line">python3 manage.py help                               #打印帮助信息</div></pre></td></tr></table></figure>
+<h4 id="程序目录"><a href="#程序目录" class="headerlink" title="程序目录"></a>程序目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@localhost mysite]# tree </div><div class="line">├── manage.py         #用于管理Django节点</div><div class="line">├── mysite            #项目目录</div><div class="line">│   ├── __init__.py   #用来告诉Python，当前目录是Python模块</div><div class="line">│   ├── settings.py  #项目所有的配置参数</div><div class="line">│   ├── urls.py           #URL根配置</div><div class="line">│   └── wsgi.py         #内置runserver命令的WSGI应用配置</div><div class="line">└── templates           #静态文件位置</div><div class="line"> requirements.txt           #项目依赖包</div></pre></td></tr></table></figure>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><ul>
+<li>数据库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">DATABASES = &#123;</div><div class="line">    &apos;default&apos;: &#123;</div><div class="line">    &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,</div><div class="line">    &apos;NAME&apos;:&apos;dbname&apos;,</div><div class="line">    &apos;USER&apos;: &apos;root&apos;,</div><div class="line">    &apos;PASSWORD&apos;: &apos;xxx&apos;,</div><div class="line">    &apos;HOST&apos;: &apos;&apos;,</div><div class="line">    &apos;PORT&apos;: &apos;&apos;,</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：由于Django内部连接MySQL时使用的是MySQLdb模块，而Python3中还无此模块，所以需要使用pymysql来代替</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 如下配置放置与project同名配置的__init__.py文件中</div><div class="line"></div><div class="line">import pymyqsl</div><div class="line">pymysql.install_as_MySQLdb()</div></pre></td></tr></table></figure>
+<ul>
+<li>模版</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TEMPLATE_DIRS = (</div><div class="line">        os.path.join(BASE_DIR,&apos;templates&apos;),</div><div class="line">    )</div></pre></td></tr></table></figure>
+<ul>
+<li>静态文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">STATICFILES_DIRS = (</div><div class="line">        os.path.join(BASE_DIR,&apos;static&apos;),</div><div class="line">    )</div></pre></td></tr></table></figure>
+<h2 id="路由系统"><a href="#路由系统" class="headerlink" title="路由系统"></a>路由系统</h2><h4 id="单一路由对应"><a href="#单一路由对应" class="headerlink" title="单一路由对应"></a>单一路由对应</h4><ul>
+<li>urls.py</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url(r&apos;^detail/&apos;, views.detail),</div></pre></td></tr></table></figure>
+<ul>
+<li>views.py</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">from django.shortcuts import render,HttpResponse,redirect</div><div class="line"></div><div class="line"># Create your views here.</div><div class="line"></div><div class="line">USER_DICT = &#123;</div><div class="line">    &apos;1&apos;: &#123;&apos;name&apos;:&apos;root&apos;,&apos;email&apos;:&apos;root.sina.com&apos;&#125;,</div><div class="line">    &apos;2&apos;: &#123;&apos;name&apos;:&apos;guest&apos;,&apos;email&apos;:&apos;guest.sina.com&apos;&#125;,</div><div class="line">    &apos;3&apos;: &#123;&apos;name&apos;:&apos;tom&apos;,&apos;email&apos;:&apos;tom.sina.com&apos;&#125;,</div><div class="line">    &apos;4&apos;: &#123;&apos;name&apos;:&apos;jack&apos;,&apos;email&apos;:&apos;jack.sina.com&apos;&#125;,</div><div class="line">    &apos;5&apos;: &#123;&apos;name&apos;:&apos;luce&apos;,&apos;email&apos;:&apos;luce.sina.com&apos;&#125;,</div><div class="line">&#125;</div><div class="line"></div><div class="line">def index(request):</div><div class="line">    return render(request, &apos;index.html&apos;, &#123;&apos;user_dict&apos;: USER_DICT&#125;)</div><div class="line"></div><div class="line">def detail(request):</div><div class="line">     nid = request.GET.get(&apos;nid&apos;)</div><div class="line">     detail_info = USER_DICT[nid]</div><div class="line">     return render(request, &apos;detail.html&apos;, &#123;&apos;detail_info&apos;:detail_info&#125; )</div></pre></td></tr></table></figure>
+<ul>
+<li>index.html</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% for k,v in user_dict.items %&#125;</div><div class="line">    &lt;li&gt;&lt;a target=&quot;_blank&quot; href=&quot;/detail/?nid=&#123;&#123; k &#125;&#125;&quot;&gt;&#123;&#123; v.name &#125;&#125;&lt;/a&gt;&lt;/li&gt;</div><div class="line">&#123;% endfor %&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>detail.html </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;h1&gt;详细信息：&lt;/h1&gt;</div><div class="line">    &lt;hr&gt;</div><div class="line">    &lt;h3&gt;用户名：&#123;&#123; detail_info.name &#125;&#125;&lt;/h3&gt;</div><div class="line">    &lt;h3&gt;邮箱：&#123;&#123; detail_info.email &#125;&#125;&lt;/h3&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
+<h4 id="基于正则的路由"><a href="#基于正则的路由" class="headerlink" title="基于正则的路由"></a>基于正则的路由</h4><ul>
+<li>URL路由规则</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">url(r&apos;^detail-(\d+).html&apos;, views.detail),</div><div class="line"></div><div class="line">#基于正则表达式分组，这样不会考虑先后顺序</div><div class="line">url(r&apos;^detail-(?P&lt;nid&gt;\d+)-(?P&lt;uid&gt;\d+).html&apos;, views.detail)</div><div class="line"></div><div class="line">#基于正则路由在视图函数中还可以使用*args、**kwargs</div><div class="line"> url(r&apos;^detail-(\d+).html&apos;, views.detail)：会放到*args</div><div class="line"> url(r&apos;^detail-(?P&lt;nid&gt;\d+)-(?P&lt;uid&gt;\d+).html&apos;, views.detail)：会放到**kwargs</div></pre></td></tr></table></figure>
+<ul>
+<li>Views视图</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def detail(request, nid):</div><div class="line">    detail_info = USER_DICT[nid]</div><div class="line">    return render(request, &apos;detail.html&apos;, &#123;&apos;detail_info&apos;:detail_info&#125; )</div></pre></td></tr></table></figure>
+<ul>
+<li>模版语言</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% for k,v in user_dict.items %&#125;</div><div class="line">    &lt;li&gt;&lt;a target=&quot;_blank&quot; href=&quot;/detail-&#123;&#123; k &#125;&#125;.html&quot;&gt;&#123;&#123; v.name &#125;&#125;&lt;/a&gt;&lt;/li&gt;</div><div class="line">&#123;% endfor %&#125;</div></pre></td></tr></table></figure>
+<h4 id="Name"><a href="#Name" class="headerlink" title="Name"></a>Name</h4><p>Name ：对URL路由关系进行命名，以后可以根据此名称生成自己想要的URL</p>
+<ul>
+<li>URL路由关系</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url(r&apos;^indexsdfsdfsdf/&apos;, views.index, name=&apos;indexx1&apos;)</div><div class="line">url(r&apos;^blog/(\d+)/(\d+)/&apos;, views.index, name=&apos;indexx2&apos;)</div><div class="line">url(r&apos;^buy/(?P&lt;nid&gt;\d+)/(?P&lt;uid&gt;\d+)/&apos;, views.index, name=&apos;indexx3&apos;)</div></pre></td></tr></table></figure>
+<ul>
+<li><p>通过reverse自动跳转URL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">def index(request,*args,**kwargs):</div><div class="line">    from django.urls import reverse</div><div class="line">    </div><div class="line">    url1 = reverse(&apos;indexx1&apos;) 	#等同于indexsdfsdfsdf/</div><div class="line">    url2 = reverse(&apos;indexx2&apos;,args=(2,99,))	 #等同于blog/2/99</div><div class="line">    url3 = reverse(&apos;indexx3&apos;,kwargs=&#123;&apos;nid&apos;:2,&apos;uid&apos;:99&#125;)   #等同于buy/2/99</div></pre></td></tr></table></figure>
+</li>
+<li><p>模版语言</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;&#123;% url &apos;indexx1&apos;  %&#125;&quot; method=&quot;POST&quot;&gt;</div><div class="line">&lt;form action=&quot;&#123;% url &apos;indexx2&apos; 2 99  %&#125;&quot; method=&quot;POST&quot;&gt;</div><div class="line">&lt;form action=&quot;&#123;% url &apos;indexx3&apos; nid=2  uid=99  %&#125;&quot; method=&quot;POST&quot;&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：<code>request.path_info</code>：表示当前的URL，操作完成后，还停留在当前页面。<br>在模版语言中使用<code>&lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;</code></p>
+</blockquote>
+<h4 id="路由分发"><a href="#路由分发" class="headerlink" title="路由分发"></a>路由分发</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^CMDB/&apos;, include(&quot;app01.url&quot;)),	#匹配App01的URL</div><div class="line">    url(r&apos;^Monitor/&apos;, include(&quot;app02.url&quot;)),	#匹配App02的URL</div><div class="line">]</div></pre></td></tr></table></figure>
+<h4 id="添加额外默认值"><a href="#添加额外默认值" class="headerlink" title="添加额外默认值"></a>添加额外默认值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url(r&apos;^manage/(?P&lt;name&gt;\w*)&apos;, views.manage,&#123;&apos;id&apos;:333&#125;),</div></pre></td></tr></table></figure>
+<h4 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h4><ul>
+<li><p>project.urls.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url,include</div><div class="line"> </div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^a/&apos;, include(&apos;app01.urls&apos;, namespace=&apos;author-polls&apos;)),</div><div class="line">    url(r&apos;^b/&apos;, include(&apos;app01.urls&apos;, namespace=&apos;publisher-polls&apos;)),</div><div class="line">]</div></pre></td></tr></table></figure>
+</li>
+<li><p>app01.urls.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url</div><div class="line">from app01 import views</div><div class="line"> </div><div class="line">app_name = &apos;app01&apos;</div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^(?P&lt;pk&gt;\d+)/$&apos;, views.detail, name=&apos;detail&apos;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>app01.views.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def detail(request, pk):</div><div class="line">    print(request.resolver_match)</div><div class="line">    return HttpResponse(pk)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以上定义命名空间的URL之后，使用name生成URL时，应该这样操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#views.py</div><div class="line">v = reverse(&apos;app01:detail&apos;, kwargs=&#123;&apos;pk&apos;:11&#125;)</div><div class="line"></div><div class="line">#模版语言</div><div class="line">&#123;% url &apos;app01:detail&apos; pk=12 pp=99 %&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><ul>
+<li>Render：Django模版渲染机制</li>
+<li>HttpReponse：是服务器接收到浏览器的请求后,处理返回结果常用的一个类</li>
+<li>Redirect： 将客户端重定向到新的 URL</li>
+</ul>
+<h4 id="FBV-Funcation-base-view-：视图里使用函数处理请求"><a href="#FBV-Funcation-base-view-：视图里使用函数处理请求" class="headerlink" title="FBV(Funcation base view)：视图里使用函数处理请求"></a>FBV(Funcation base view)：视图里使用函数处理请求</h4><ul>
+<li>urls.py</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url, include</div><div class="line"># from django.contrib import admin</div><div class="line">from mysite  import views</div><div class="line"> </div><div class="line">urlpatterns = [</div><div class="line">    # url(r‘^admin/‘, admin.site.urls),</div><div class="line">    url(r‘^index/‘, views.index),</div></pre></td></tr></table></figure>
+<ul>
+<li>views.py</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from django.shortcuts import render</div><div class="line"> </div><div class="line"> </div><div class="line">def index(req):</div><div class="line">    if req.method == ‘POST‘:</div><div class="line">        print(‘method is :‘ + req.method)</div><div class="line">    elif req.method == ‘GET‘:</div><div class="line">        print(‘method is :‘ + req.method)</div><div class="line">    return render(req, ‘index.html‘)</div></pre></td></tr></table></figure>
+<h4 id="CBV-Class-base-view-：视图里使用类处理请求"><a href="#CBV-Class-base-view-：视图里使用类处理请求" class="headerlink" title="CBV(Class base view)：视图里使用类处理请求"></a>CBV(Class base view)：视图里使用类处理请求</h4><ul>
+<li>urls.py</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url</div><div class="line">from django.contrib import admin</div><div class="line">from app01 import views</div><div class="line"></div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^admin/&apos;, admin.site.urls),</div><div class="line">    url(r&apos;^index/&apos;, views.index),</div><div class="line">    url(r&apos;^home/&apos;, views.Home.as_view()),   #CBV方式</div><div class="line">]</div></pre></td></tr></table></figure>
+<ul>
+<li>views.py</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">from django.views import View</div><div class="line">class Home(View):</div><div class="line">    </div><div class="line">    def dispatch(self, request, *args, **kwargs):</div><div class="line">        print(&apos;before&apos;)</div><div class="line">        #Super()：调用父类中的dispatch</div><div class="line">        result = super(Home, self).dispatch(request,*args,**kwargs)</div><div class="line">        print(&apos;after&apos;)</div><div class="line">        return result</div><div class="line"></div><div class="line">    def get(self,request):</div><div class="line">        return render(request, &apos;home.html&apos;)</div><div class="line">    </div><div class="line">    def post(self,request):</div><div class="line">        return render(request, &apos;home.html&apos;)</div></pre></td></tr></table></figure>
+<h4 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h4><ul>
+<li>request.method：判断是 <code>GET、POST</code>请求</li>
+<li>request.POST.get(“username”)：获取提交的单个值</li>
+<li>request.POST.getlist(“favor”)：针对用户使用例如<code>checkbox</code>提交多个值时，获取多个值的列表</li>
+<li>request.FILES.get ：前提需要在form表单中加入<code>enctype=&quot;multipart/form-data&quot;</code>字段，实现上传文件功能</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">obj = request.FILES.get(&quot;myfile&quot;)</div><div class="line"></div><div class="line">import os</div><div class="line">file_path = os.path.join(&apos;upload&apos;,obj.name)     #上传到指定位置</div><div class="line">f = open(file_path, mode=&quot;wb&quot;)</div><div class="line"></div><div class="line">#chunks()：通过chunks分片上传存储在服务器内存中,以64k为一组,循环写入到服务器中</div><div class="line">for i in obj.chunks():   </div><div class="line">    f.write(i)</div><div class="line">f.close()</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/30/重识Docker-基础篇/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg"
+               alt="Hai Feng" />
+          <p class="site-author-name" itemprop="name">Hai Feng</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dihaifeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/haifeng116" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django基本配置"><span class="nav-number">1.</span> <span class="nav-text">Django基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Django程序"><span class="nav-number">1.0.1.</span> <span class="nav-text">创建Django程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序目录"><span class="nav-number">1.0.2.</span> <span class="nav-text">程序目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件"><span class="nav-number">1.0.3.</span> <span class="nav-text">配置文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由系统"><span class="nav-number">2.</span> <span class="nav-text">路由系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单一路由对应"><span class="nav-number">2.0.1.</span> <span class="nav-text">单一路由对应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于正则的路由"><span class="nav-number">2.0.2.</span> <span class="nav-text">基于正则的路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Name"><span class="nav-number">2.0.3.</span> <span class="nav-text">Name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由分发"><span class="nav-number">2.0.4.</span> <span class="nav-text">路由分发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加额外默认值"><span class="nav-number">2.0.5.</span> <span class="nav-text">添加额外默认值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名空间"><span class="nav-number">2.0.6.</span> <span class="nav-text">命名空间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图"><span class="nav-number">3.</span> <span class="nav-text">视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模块"><span class="nav-number">3.0.1.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FBV-Funcation-base-view-：视图里使用函数处理请求"><span class="nav-number">3.0.2.</span> <span class="nav-text">FBV(Funcation base view)：视图里使用函数处理请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CBV-Class-base-view-：视图里使用类处理请求"><span class="nav-number">3.0.3.</span> <span class="nav-text">CBV(Class base view)：视图里使用类处理请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求"><span class="nav-number">3.0.4.</span> <span class="nav-text">请求</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-Herb,Blog"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hai Feng</span>
+</div>
+
+
+<!--<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
