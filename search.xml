@@ -9,9 +9,12 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>%2F2017%2F08%2F30%2F%E9%87%8D%E8%AF%86Docker-%E5%9F%BA%E7%A1%80%E7%AF%87%2F</url>
+    <title><![CDATA[Docker安装与升级]]></title>
+    <url>%2F2017%2F09%2F02%2FDocker%E5%AE%89%E8%A3%85%E5%8D%87%E7%BA%A7%2F</url>
     <content type="text"><![CDATA[Centos 7 安装Docker-CE(社区版)系统要求要安装Docker CE，需要64位版本的CentOS7系统。需要启用centos-extras库，默认情况喜爱此存储库使启用的，如果已禁用则需要重新启用 卸载旧版本较老版本的Docker被称为docker或docker-engine。如果这些已经安装，请卸载它们以及关联的依赖关系。1234[root@localhost ~]# sudo yum remove docker \ docker-common \ docker-selinux \ docker-engine 安装Docker CE安装Docker CE有几种不同的方式： 从Docker的存储库中安装，方便安装和升级任务。官网推荐 下载RPM软件并手动安装，手动完成管理升级。这种方法用于没有访问互联网的环境下使用 在测试和开发环境中，可以选择官网提供的自动化安装脚本 使用存储库安装在新主机上首次安装Docker CE之前，需要设置Docker存储库。之后，就可以从存储库安装和更新Docker。 安装所需软件包yum-utils提供了yum-config-manager功能，device-mapper-persistent-data和lvm2 提供了devicemapper存储驱动程序1[root@localhost ~]# yum install -y yum-utils device-mapper-persistent-data lvm2 使用以下命令设置稳定版本库 1[root@localhost ~]# yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo 可选：启用edge和test库，这些存储库包含在docker.repo文件中，但默认情况下是禁用的，可以将它们与稳定版本库一起启用 123456[root@localhost ~]# yum-config-manager --enable docker-ce-edge[root@localhost ~]# yum-config-manager --enable docker-ce-test#当然也可以用改命令来禁用edge和test库：[root@localhost ~]# yum-config-manager --disable docker-ce-edge 安装Docker CE 123456789101112#更新yum包索引[root@localhost ~]# yum makecache fast#安装最新版本Docker CE[root@localhost ~]# yum install docker-ce#安装指定版本的Docker CE[root@localhost ~]# yum list docker-ce.x86_64 --showduplicates | sort -r[root@localhost ~]# yum install docker-ce-&lt;VERSION&gt;#启动Docker CE[root@localhost ~]# systemctl start docker 从包中安装如果不能使用Docker的存储库安装Docker，可以下载.rpm版本的文件并手动安装。每次要升级Docker时，都需要下载一个新文件。 转到 https://download.docker.com/linux/centos/7/x86_64/stable/Packages/ 并下载.rpm要安装的Docker版本的文件。 安装Docker CE ，将下面的路径更改为已经下载Docker程序包的路径，安装并启动 123[root@localhost ~]# yum install /tmp/docker-ce-17.03.0.ce-1.el7.centos.x86_64.rpm [root@localhost ~]# systemctl start docker 升级Docker CE要升级Docker CE，需要下载较新的软件包饼重复安装，使用yum -y upgrade更新安装 利用脚本进行安装 Docker在get.docker.com 和test.docker.com上提供了自动化安装脚本，用于将Docker CE的稳定和测试版本快速部署，非交互式安装到开发环境中。脚本的源代码位于 docker-install存储库中。 不建议在生产环境中使用这些脚本 ，使用这些脚本具有一定潜在的风险： 脚本需要root或sudo权限才能运行。因此，在运行脚本之前，应仔细检查和审核脚本。 脚本尝试检测您的Linux发行版本和版本，并为您配置您的软件包管理系统。此外，脚本不允许您自定义任何安装参数。这可能导致不受支持的配置，无论是从Docker的角度还是从您自己的组织的指导方针和标准。 脚本安装包管理器的所有依赖关系和建议，而不要求确认。这可能会安装大量的软件包，具体取决于您的主机的当前配置。 如果Docker已经使用其他机制安装在主机上，则不要使用便利脚本。 12$ curl -fsSL get.docker.com -o get-docker.sh$ sudo sh get-docker.sh]]></content>
+      <tags>
+        <tag>Docker</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Consul使用指南]]></title>
