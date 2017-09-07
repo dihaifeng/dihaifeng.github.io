@@ -118,7 +118,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/09/06/Django基础/index.html">
 <meta property="og:site_name" content="Herb,Blog">
 <meta property="og:description" content="Django基本配置创建Django程序 终端命令：diango-admin startproject  sitename IDE创建Django程序时，执行的相关命令  123456python3 manage.py runserver. 0.0.0.0.      #启动Python程序python3 manage.py startapp appname        #创建功能APPpyth">
-<meta property="og:updated_time" content="2017-09-07T02:06:46.000Z">
+<meta property="og:updated_time" content="2017-09-07T02:28:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django路由系统">
 <meta name="twitter:description" content="Django基本配置创建Django程序 终端命令：diango-admin startproject  sitename IDE创建Django程序时，执行的相关命令  123456python3 manage.py runserver. 0.0.0.0.      #启动Python程序python3 manage.py startapp appname        #创建功能APPpyth">
@@ -448,7 +448,7 @@
 <blockquote>
 <p>注意：<code>request.path_info</code>：表示当前的URL，操作完成后，还停留在当前页面。<br>在模版语言中使用<code>&lt;form action=&quot;&quot; method=&quot;POST&quot;&gt;</code></p>
 </blockquote>
-<h4 id="路由分发"><a href="#路由分发" class="headerlink" title="路由分发"></a>路由分发</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^CMDB/&apos;, include(&quot;app01.url&quot;)),	#匹配App01的URL</div><div class="line">    url(r&apos;^Monitor/&apos;, include(&quot;app02.url&quot;)),	#匹配App02的URL</div><div class="line">]</div></pre></td></tr></table></figure>
+<h4 id="路由分发"><a href="#路由分发" class="headerlink" title="路由分发"></a>路由分发</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from django.conf.urls import url,include</div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^CMDB/&apos;, include(&quot;app01.url&quot;)),	#匹配App01的URL</div><div class="line">    url(r&apos;^Monitor/&apos;, include(&quot;app02.url&quot;)),	#匹配App02的URL</div><div class="line">]</div></pre></td></tr></table></figure>
 <h4 id="添加额外默认值"><a href="#添加额外默认值" class="headerlink" title="添加额外默认值"></a>添加额外默认值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url(r&apos;^manage/(?P&lt;name&gt;\w*)&apos;, views.manage,&#123;&apos;id&apos;:333&#125;),</div></pre></td></tr></table></figure>
 <h4 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h4><ul>
 <li><p>project.urls.py</p>
