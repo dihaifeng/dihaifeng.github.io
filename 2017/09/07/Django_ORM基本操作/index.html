@@ -1,0 +1,1137 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Django_ORM为Code First什么是Code First？使用Code First模式，你可以专注于领域设计，根据需要，为你一个领域的对象创建类集合，而不是首先来设计数据库，然后来根据数据库设计你的类，Code-First APis将会基于你的类和配置，为你创建数据库。 根据类自动创建数据库表 先写类 (在app中找到对应的models.py文件)  12345678910from d">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django  ORM基本操作">
+<meta property="og:url" content="http://yoursite.com/2017/09/07/Django_ORM基本操作/index.html">
+<meta property="og:site_name" content="Herb,Blog">
+<meta property="og:description" content="Django_ORM为Code First什么是Code First？使用Code First模式，你可以专注于领域设计，根据需要，为你一个领域的对象创建类集合，而不是首先来设计数据库，然后来根据数据库设计你的类，Code-First APis将会基于你的类和配置，为你创建数据库。 根据类自动创建数据库表 先写类 (在app中找到对应的models.py文件)  12345678910from d">
+<meta property="og:updated_time" content="2017-09-13T05:56:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django  ORM基本操作">
+<meta name="twitter:description" content="Django_ORM为Code First什么是Code First？使用Code First模式，你可以专注于领域设计，根据需要，为你一个领域的对象创建类集合，而不是首先来设计数据库，然后来根据数据库设计你的类，Code-First APis将会基于你的类和配置，为你创建数据库。 根据类自动创建数据库表 先写类 (在app中找到对应的models.py文件)  12345678910from d">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/07/Django_ORM基本操作/"/>
+
+
+
+
+
+  <title>Django  ORM基本操作 | Herb,Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Herb,Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/07/Django_ORM基本操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hai Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Herb,Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django  ORM基本操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T19:30:04+08:00">
+                2017-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Django-ORM为Code-First"><a href="#Django-ORM为Code-First" class="headerlink" title="Django_ORM为Code First"></a>Django_ORM为Code First</h4><p>什么是Code First？使用Code First模式，你可以专注于领域设计，根据需要，为你一个领域的对象创建类集合，而不是首先来设计数据库，然后来根据数据库设计你的类，Code-First APis将会基于你的类和配置，为你创建数据库。</p>
+<h4 id="根据类自动创建数据库表"><a href="#根据类自动创建数据库表" class="headerlink" title="根据类自动创建数据库表"></a>根据类自动创建数据库表</h4><ul>
+<li>先写类 (在app中找到对应的models.py文件)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from django.db import models</div><div class="line"></div><div class="line">class UserInfo(models.Model):</div><div class="line">    //此处隐藏自增id列</div><div class="line">    username = models.CharField(max_length=32)</div><div class="line">    password = models.CharField(max_length=64)</div><div class="line">    </div><div class="line">	//Django会自动创建一个自增id列，并且为主键</div><div class="line">	//CharField：字符串类型</div><div class="line">	//max_length：指定长度</div></pre></td></tr></table></figure>
+<ul>
+<li>注册app（将app01注册到项目中，修改project的settings.py文件）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">INSTALLED_APPS = [</div><div class="line">    &apos;django.contrib.admin&apos;,</div><div class="line">    &apos;django.contrib.auth&apos;,</div><div class="line">    &apos;django.contrib.contenttypes&apos;,</div><div class="line">    &apos;django.contrib.sessions&apos;,</div><div class="line">    &apos;django.contrib.messages&apos;,</div><div class="line">    &apos;django.contrib.staticfiles&apos;,</div><div class="line">    &apos;app01&apos;,</div><div class="line">]</div></pre></td></tr></table></figure>
+<ul>
+<li>创建数据库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">python3 manage.py makemigrations</div><div class="line"></div><div class="line">//makemigrations：相当于 在该app下建立 migrations目录，并记录下你所有的关于modes.py的改动，比如0001_initial.py， 但是这个改动还没有作用到数据库文件</div><div class="line"></div><div class="line">python3 manage.py migrate</div><div class="line"></div><div class="line">//migrate：将该改动作用到数据库文件，比如产生table之类</div></pre></td></tr></table></figure>
+<h4 id="数据库基本增删改查"><a href="#数据库基本增删改查" class="headerlink" title="数据库基本增删改查"></a>数据库基本增删改查</h4><ul>
+<li>增加</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">def create(request):</div><div class="line">    #创建数据第一种方式</div><div class="line">    models.UserInfo.objects.create(username=&apos;root&apos;,password=&apos;123&apos;) #推荐使用</div><div class="line"></div><div class="line">    # dic = &#123;&apos;username&apos;:&apos;eric&apos;,&apos;password&apos;:&apos;234&apos;&#125;  #基于第一种</div><div class="line">    # models.UserInfo.objects.create(**dic)</div><div class="line"></div><div class="line">    #第二种方式</div><div class="line">    # obj=models.UserInfo(username=&apos;jack&apos;,password=&apos;123&apos;)</div><div class="line">    # obj.save()</div></pre></td></tr></table></figure>
+<ul>
+<li>查询</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">result = models.UserInfo.objects.all()   #查找所有</div><div class="line">result = models.UserInfo.objects.filter(username=&apos;root&apos;,password=&apos;123&apos;)</div><div class="line"></div><div class="line"># filter方法中加一个逗号相当于and条件</div><div class="line"># result类型为QuerySet,Django中可以理解为列表</div><div class="line"></div><div class="line">for row in result:</div><div class="line">    print(row.id,row.username,row.password)</div><div class="line">print(result)</div><div class="line"># print出来的结果为：[obj(id,username,password),obj,obj]，内容为UserInfo的对象</div></pre></td></tr></table></figure>
+<ul>
+<li>删除</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">models.UserInfo.objects.filter(id=4).delete()</div></pre></td></tr></table></figure>
+<ul>
+<li>更新</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">models.UserInfo.objects.filter(id=3).update(password=&apos;123456&apos;)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>例 1：基于ORM实现用户登录（主要为views代码）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">def login(request):</div><div class="line"></div><div class="line">    if request.method == &quot;GET&quot;:</div><div class="line">        return render(request, &apos;login.html&apos;)</div><div class="line"></div><div class="line">    elif request.method == &quot;POST&quot;:</div><div class="line">        u = request.POST.get(&apos;user&apos;)</div><div class="line">        p = request.POST.get(&apos;pwd&apos;)</div><div class="line">	</div><div class="line">	    obj = models.UserInfo.objects.filter(username=u, password=p).first()</div><div class="line">          #推荐使用这样方法获取信息，方便使用</div><div class="line">       </div><div class="line"></div><div class="line">        # user_list = models.UserInfo.objects.all()</div><div class="line">        # print(user_list.query)       #打印SQL语句</div><div class="line"></div><div class="line">        #获取匹配的个数来进行判断</div><div class="line">        #obj = models.UserInfo.objects.filter(username=u, password=p).conut()</div><div class="line">        print(obj)   #打印obj，如果不匹配输出None，如果匹配输出UserInfo object对象</div><div class="line"></div><div class="line">        if obj:</div><div class="line">            return redirect(&apos;/CMDB/index/&apos;)</div><div class="line">        else:</div><div class="line">            return render(request, &apos;login.html&apos;)</div><div class="line"></div><div class="line">    else:</div><div class="line">        return redirect(&apos;/CMDB/index/&apos;)</div></pre></td></tr></table></figure>
+<h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><ul>
+<li>基本结构</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from django.db import models</div><div class="line"></div><div class="line">class UserInfo(models.Model):   //继承models类</div><div class="line">    name = models.CharField(max_length=30)</div><div class="line">    email = models.EmailField()	</div><div class="line">    //EmailField只应用于Django的Admin后台做字段校验，其他场景下为字符串</div><div class="line">    memo = models.TextField()</div></pre></td></tr></table></figure>
+<ul>
+<li>创建表时字段类型</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line">AutoField(Field)</div><div class="line">       # - int自增列，必须填入参数 primary_key=True</div><div class="line"></div><div class="line">整数：BigAutoField(AutoField)、SmallIntegerField(IntegerField)、</div><div class="line">     PositiveSmallIntegerField(PositiveIntegerRelDbTypeMixin, IntegerField)、IntegerField(Field)、                                                          </div><div class="line">     PositiveIntegerField(PositiveIntegerRelDbTypeMixin, IntegerField)、BigIntegerField(IntegerField)</div><div class="line">        </div><div class="line">      // - bigint自增列，必须填入参数 primary_key=True</div><div class="line"></div><div class="line">      // 注：当model中如果没有自增列，则自动会创建一个列名为id的列</div><div class="line">      // from django.db import models</div><div class="line"></div><div class="line">     // class UserInfo(models.Model):</div><div class="line">     // 自动创建一个列名为id的且为自增的整数列</div><div class="line">     //    username = models.CharField(max_length=32)</div><div class="line"></div><div class="line">      // class Group(models.Model):</div><div class="line">      // 自定义自增列</div><div class="line">      //     nid = models.AutoField(primary_key=True)</div><div class="line">      //     name = models.CharField(max_length=32)</div><div class="line">BooleanField(Field)</div><div class="line">      //  - 布尔值类型</div><div class="line"></div><div class="line">NullBooleanField(Field):</div><div class="line">      //  - 可以为空的布尔值</div><div class="line"></div><div class="line">CharField(Field)</div><div class="line">     //   - 字符类型</div><div class="line">     //   - 必须提供max_length参数， max_length表示字符长度</div><div class="line"></div><div class="line">TextField(Field)</div><div class="line">     //   - 文本类型</div><div class="line"></div><div class="line">EmailField(CharField)：</div><div class="line">    //    - 字符串类型，Django Admin以及ModelForm中提供验证机制</div><div class="line"></div><div class="line">IPAddressField(Field)</div><div class="line">     //   - 字符串类型，Django Admin以及ModelForm中提供验证 IPV4 机制，不推荐使用</div><div class="line"></div><div class="line">GenericIPAddressField(Field)</div><div class="line">     //   - 字符串类型，Django Admin以及ModelForm中提供验证 Ipv4和Ipv6，推荐使用</div><div class="line">     //   - 参数：</div><div class="line">         //   protocol，用于指定Ipv4或Ipv6， &apos;both&apos;,&quot;ipv4&quot;,&quot;ipv6&quot;</div><div class="line">         //   unpack_ipv4， 如果指定为True，则输入::ffff:192.0.2.1时候，可解析为192.0.2.1，开启刺功能，需要protocol=&quot;both&quot;</div><div class="line"></div><div class="line">URLField(CharField)</div><div class="line">     //   - 字符串类型，Django Admin以及ModelForm中提供验证 URL</div><div class="line"></div><div class="line">SlugField(CharField)</div><div class="line">    //    - 字符串类型，Django Admin以及ModelForm中提供验证支持 字母、数字、下划线、连接符（减号）</div><div class="line"></div><div class="line">CommaSeparatedIntegerField(CharField)</div><div class="line">     //   - 字符串类型，格式必须为逗号分割的数字</div><div class="line"></div><div class="line">UUIDField(Field)</div><div class="line">    //    - 字符串类型，Django Admin以及ModelForm中提供对UUID格式的验证</div><div class="line"></div><div class="line">FilePathField(Field)</div><div class="line">    //    - 字符串，Django Admin以及ModelForm中提供读取文件夹下文件的功能</div><div class="line">    //    - 参数：</div><div class="line">         //       path,                      文件夹路径</div><div class="line">         //       match=None,                正则匹配</div><div class="line">         //       recursive=False,           递归下面的文件夹</div><div class="line">         //       allow_files=True,          允许文件</div><div class="line">         //       allow_folders=False,       允许文件夹</div><div class="line"></div><div class="line">FileField(Field)</div><div class="line">    //    - 字符串，路径保存在数据库，文件上传到指定目录</div><div class="line">    //    - 参数：</div><div class="line">       //     upload_to = &quot;&quot;      上传文件的保存路径</div><div class="line">       //     storage = None      存储组件，默认django.core.files.storage.FileSystemStorage</div><div class="line"></div><div class="line">ImageField(FileField)</div><div class="line">    //    - 字符串，路径保存在数据库，文件上传到指定目录</div><div class="line">    //    - 参数：</div><div class="line">        //    upload_to = &quot;&quot;      上传文件的保存路径</div><div class="line">        //    storage = None      存储组件，默认django.core.files.storage.FileSystemStorage</div><div class="line">        //    width_field=None,   上传图片的高度保存的数据库字段名（字符串）</div><div class="line">        //	  height_field=None   上传图片的宽度保存的数据库字段名（字符串)</div><div class="line">DateTimeField(DateField)</div><div class="line">      //  - 日期+时间格式 YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]</div><div class="line"></div><div class="line">DateField(DateTimeCheckMixin, Field)</div><div class="line">      //  - 日期格式      YYYY-MM-DD</div><div class="line"></div><div class="line">TimeField(DateTimeCheckMixin, Field)</div><div class="line">      //  - 时间格式      HH:MM[:ss[.uuuuuu]]</div><div class="line"></div><div class="line">DurationField(Field)</div><div class="line">     //   - 长整数，时间间隔，数据库中按照bigint存储，ORM中获取的值为datetime.timedelta类型</div><div class="line"></div><div class="line">FloatField(Field)</div><div class="line">     //   - 浮点型</div><div class="line"></div><div class="line">DecimalField(Field)</div><div class="line">     //   - 10进制小数</div><div class="line">     //  - 参数：</div><div class="line">     //    max_digits，小数总长度</div><div class="line">     //       decimal_places，小数位长度</div><div class="line"></div><div class="line">BinaryField(Field)</div><div class="line">     //   - 二进制类型</div></pre></td></tr></table></figure>
+<ul>
+<li>字段类型参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">null：			数据库中字段是否可以为空</div><div class="line">default：		数据库中字段的默认值</div><div class="line">primary_key：	数据库中字段是否为主键</div><div class="line">db_column：		数据库中字段的列名</div><div class="line">db_index：		数据库中字段是否可以建立索引</div><div class="line">unique：			数据库中字段是否可以建立唯一索引</div><div class="line">unique_for_date：数据库中字段【日期】部分是否可以建立唯一索引</div><div class="line">unique_for_month：数据库中字段【月】部分是否可以建立唯一索引</div><div class="line">unique_for_year：数据库中字段【年】部分是否可以建立唯一索引</div><div class="line">add_now：	    创建时，自动生成时间</div><div class="line">add_now_add：	更新时，自动更新为当前时间</div><div class="line"></div><div class="line">	#class UserGroup(models.Model):</div><div class="line">	#	uid = model.AutoField(primary_key=True)</div><div class="line">	#	caption = models.CharField(max_lenth=32,unique=True)</div><div class="line">	#	ctime = models.DateTimeField(auto_now_add=True,null= True)</div><div class="line">	#	uptime = models.DateTimeField(auto_now= True,null=True)</div><div class="line">	</div><div class="line">	#Django使用此格式更新不生效</div><div class="line">	#obj = UserInfo.objects.filter(id=1).update(caption=&apos;CEO&apos;)</div><div class="line">	</div><div class="line">	#更新数据正常方法：</div><div class="line">	#obj = UserInfo.objects.filter(id=1).first()</div><div class="line">	#obj.caption=&apos;CEO&apos;</div><div class="line">	#obj.save()</div><div class="line"> choices：	Admin中显示选择框的内容，用不变动的数据放在内存中从而避免跨表操作</div><div class="line">              # user_type_choices = (   </div><div class="line">    		  # 		(1, &apos;超级用户&apos;),</div><div class="line">    	      #			(2, &apos;普通用户&apos;),</div><div class="line">    		  #			(3, &apos;Guest&apos;),</div><div class="line">		 	  #		)</div><div class="line">		 	  #    user_type_id = models.IntegerField(choices=user_type_choices,default=1)</div><div class="line">blank：			Admin中是否允许用户输入为空</div><div class="line">verbose_name：	Admin中显示的字段名称</div><div class="line">editable：		Admin中是否可以编辑</div><div class="line">error_messages：	自定义错误信息（字典类型），从而定制想要显示的错误信息；</div><div class="line">              # 字典健：null, blank, invalid, invalid_choice, unique, and unique_for_date</div><div class="line">              # 如：&#123;&apos;null&apos;: &quot;不能为空.&quot;, &apos;invalid&apos;: &apos;格式错误&apos;&#125;</div><div class="line"></div><div class="line"> help_text：		Admin中该字段的提示信息</div><div class="line"> validators：	自定义错误验证（列表类型），从而定制想要的验证规则</div><div class="line">             #           from django.core.validators import RegexValidator</div><div class="line">             #           from django.core.validators import EmailValidator,URLValidator,DecimalValidator,\</div><div class="line">             #           MaxLengthValidator,MinLengthValidator,MaxValueValidator,MinValueValidator</div><div class="line">             #           如：</div><div class="line">             #               test = models.CharField(</div><div class="line">             #                    max_length=32,</div><div class="line">             #                    error_messages=&#123;</div><div class="line">             #                       &apos;c1&apos;: &apos;优先错信息1&apos;,</div><div class="line">             #                      &apos;c2&apos;: &apos;优先错信息2&apos;,</div><div class="line">             #                       &apos;c3&apos;: &apos;优先错信息3&apos;,</div><div class="line">             #                   &#125;,</div><div class="line">             #                   validators=[</div><div class="line">             #                       RegexValidator(regex=&apos;root_\d+&apos;, message=&apos;错误了&apos;, code=&apos;c1&apos;),</div><div class="line">             #                       RegexValidator(regex=&apos;root_112233\d+&apos;, message=&apos;又错误了&apos;, code=&apos;c2&apos;),</div><div class="line">             #                      EmailValidator(message=&apos;又错误了&apos;, code=&apos;c3&apos;), ]</div><div class="line">             #               )</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/06/Django基础/" rel="next" title="Django路由系统">
+                <i class="fa fa-chevron-left"></i> Django路由系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/11/AWK命令使用/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ooo.0o0.ooo/2017/07/01/5956fc5a5ba70.jpg"
+               alt="Hai Feng" />
+          <p class="site-author-name" itemprop="name">Hai Feng</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dihaifeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/haifeng116" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Django-ORM为Code-First"><span class="nav-number">1.</span> <span class="nav-text">Django_ORM为Code First</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据类自动创建数据库表"><span class="nav-number">2.</span> <span class="nav-text">根据类自动创建数据库表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库基本增删改查"><span class="nav-number">3.</span> <span class="nav-text">数据库基本增删改查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建表"><span class="nav-number">4.</span> <span class="nav-text">创建表</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-Herb,Blog"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hai Feng</span>
+</div>
+
+
+<!--<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
