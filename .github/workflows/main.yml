@@ -25,8 +25,9 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           external_repository: dihaifeng/dihaifeng.github.io  # 替换成上文所创建的个人主页仓库
           publish_branch: main
           publish_dir: ./public
