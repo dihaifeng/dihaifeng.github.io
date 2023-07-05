@@ -33,7 +33,10 @@ hugo new site TraceThePeaks
 # 创建第一篇文章
 hugo new posts/first_post.md
 
-# hugo serve默认是deployment环境运行，改为生产环境运行 
+# 本地调试，默认是deployment环境运行，绑定的是127.0.0.1/localhost
+hugo serve
+
+# 本地调试，改为生产环境运行 
 hugo serve -e production --bind 0.0.0.0
 ```
 
