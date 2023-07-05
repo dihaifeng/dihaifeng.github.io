@@ -1,8 +1,13 @@
 ---
-title: "nsenter使用"
+title: "nsenter 使用"
 date: 2023-07-04T19:41:47+08:00
+tags: ["Linux"]
+categories: ["Liunx"]
 ---
+
 nsenter是一个命令行工具，可以帮助用户进入指定的Linux命名空间。使用nsenter命令，用户可以进入指定的命名空间，并在其中执行命令。
+
+## 语法
 
 使用nsenter命令的基本语法如下：
 
@@ -18,6 +23,9 @@ nsenter [options] [<pid>|<netns>]
 - `-u, --uts`：进入UTS命名空间。
 - `-i, --ipc`：进入IPC命名空间。
 - `-p, --preserve-credentials`：保留当前进程的用户和组标识。
+
+
+## 示例
 
 例如，要进入PID为1234的进程的PID命名空间，可以使用以下命令：
 
