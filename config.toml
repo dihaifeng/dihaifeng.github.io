@@ -270,7 +270,7 @@ noClasses = false
     Strava = ""
     Skype = ""
     Whatsapp = ""
-    Zhihu = ""
+    Zhihu = "https://www.zhihu.com/people/dihaifeng16"
     Douban = ""
     Angellist = ""
     Slidershare = ""
@@ -301,7 +301,7 @@ noClasses = false
     RootMe= ""
     Phone = ""
     Email = "dihaifeng01@gmail.com"
-    RSS = true # LoveIt 新增 | 0.2.0
+    RSS = false # LoveIt 新增 | 0.2.0
 
   # LoveIt 更改 | 0.2.0 文章页面全局配置
   [params.page]
