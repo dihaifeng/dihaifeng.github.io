@@ -4,7 +4,7 @@ baseURL = "https://dihaifeng.github.io"
 theme = "LoveIt"
 
 # 网站标题
-title = "Trace The Peaks,Blog"
+title = "TraceThePeaks,Blog"
 
 # 网站语言, 仅在这里 CN 大写 ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "zh-CN"
@@ -48,7 +48,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     name = "文章"
     url = "/posts/"
     # 当你将鼠标悬停在此菜单链接上时, 将显示的标题
-    title = "Trace The Peaks,Blog"
+    title = "TraceThePeaks,Blog"
   [[menu.main]]
     weight = 2
     identifier = "tags"
@@ -64,7 +64,27 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     post = ""
     name = "分类"
     url = "/categories/"
-    title = "Trace The Peaks,Blog"
+    title = "TraceThePeaks,Blog"
+  [[menu.main]]
+    weight = 4
+    identifier = "about"
+    pre = ""
+    post = ""
+    name = "关于我"
+    url = "/about/"
+    title = "关于我"
+
+[module]
+[module.hugoVersion]
+extended = true
+min = "0.87.0"
+
+# Hugo 解析文档的配置
+[markup]
+# 语法高亮设置 (https://gohugo.io/content-management/syntax-highlighting)
+[markup.highlight]
+# false 是必要的设置 (https://github.com/dillonzq/LoveIt/issues/158)
+noClasses = false
 
 [params]
   # 网站默认主题样式 ["auto", "light", "dark"]
@@ -73,11 +93,11 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   gitRepo = ""
   # LoveIt 新增 | 0.1.1 哪种哈希函数用来 SRI, 为空时表示不使用 SRI
   # ["sha256", "sha384", "sha512", "md5"]
-  fingerprint = ""
+  fingerprint = "sha256"
   # LoveIt 新增 | 0.2.0 日期格式
   dateFormat = "2006-01-02"
   # 网站标题, 用于 Open Graph 和 Twitter Cards
-  title = "Trace The Peaks,Blog"
+  title = "峰迹的个人博客"
   # 网站描述, 用于 RSS, SEO, Open Graph 和 Twitter Cards
   description = ""
   # 网站图片, 用于 Open Graph 和 Twitter Cards
@@ -94,7 +114,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # LOGO 的 URL
       logo = ""
       # 标题名称
-      name = "Trace The Peaks,Blog"
+      name = "TraceThePeaks,Blog"
       # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
       pre = ""
       # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
@@ -114,7 +134,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     # LoveIt 新增 | 0.2.0 是否显示作者
     author = true
     # 网站创立年份
-    since = 2019
+    since = 2022
     # ICP 备案信息，仅在中国使用 (支持 HTML 格式)
     icp = ""
     # 许可协议信息 (支持 HTML 格式)
@@ -141,7 +161,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # LoveIt 新增 | 0.2.0 应用图标配置
   [params.app]
     # 当添加到 iOS 主屏幕或者 Android 启动器时的标题, 覆盖默认标题
-    title = "Trace The Peaks,Blog"
+    title = "TraceThePeaks,Blog"
     # 是否隐藏网站图标资源链接
     noFavicon = false
     # 更现代的 SVG 网站图标, 可替代旧的 .png 和 .ico 文件
@@ -187,9 +207,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # 主页显示头像的 URL
       avatarURL = "/images/avatar.png"
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
-      title = "Trace The Peaks,Blog"
+      title = "峰迹的个人博客"
       # 主页显示的网站副标题 (允许 HTML 格式)
-      subtitle = ""
+      subtitle = "少年自当扶摇上,揽星街月逐月光"
       # 是否为副标题显示打字机动画
       typeit = true
       # 是否显示社交账号
@@ -207,12 +227,12 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
   # 作者的社交信息设置
   [params.social]
-    GitHub = "xxxx"
+    GitHub = "dihaifeng"
     Linkedin = ""
-    Twitter = "xxxx"
-    Instagram = "xxxx"
-    Facebook = "xxxx"
-    Telegram = "xxxx"
+    Twitter = ""
+    Instagram = ""
+    Facebook = ""
+    Telegram = ""
     Medium = ""
     Gitlab = ""
     Youtubelegacy = ""
@@ -280,7 +300,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     HackTheBox = ""
     RootMe= ""
     Phone = ""
-    Email = "xxxx@xxxx.com"
+    Email = "dihaifeng01@gmail.com"
     RSS = true # LoveIt 新增 | 0.2.0
 
   # LoveIt 更改 | 0.2.0 文章页面全局配置
@@ -508,3 +528,5 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # LoveIt 新增 | 0.2.0 网站分析配置
   [params.analytics]
     enable = false
+[outputs]
+home = ["HTML", "RSS", "JSON"]
