@@ -4,6 +4,7 @@ date: 2023-10-20T20:01:47+08:00
 tags: ["Linux"]
 categories: ["Liunx"]
 ---
+
 这次用下新工具smem，这是一个python写的小工具，可以统计系统中所有进程占用的物理内存RSS、以及去掉共享内存的PSS、以及程序本身的独占内存USS的情况。
 ```bash
 # centos 下
