@@ -1,10 +1,10 @@
 ---
-title: "排查内存泄漏工具smem"
-date: 2023-10-20T20:01:47+08:00
+title: "Smem排查内存泄露工具"
+date: 2023-10-23T10:57:28+08:00
+draft: true
 tags: ["Linux"]
 categories: ["Liunx"]
 ---
-
 这次用下新工具smem，这是一个python写的小工具，可以统计系统中所有进程占用的物理内存RSS、以及去掉共享内存的PSS、以及程序本身的独占内存USS的情况。
 ```bash
 # centos 下
@@ -84,3 +84,4 @@ Every 2.0s: smem -k -s uss -r                                                   
  1037 root     /usr/bin/consul agent -conf        0   138.7M   138.7M   138.7M
 ```
 小技巧，watch加在命令前面，5s执行一次命令，会高亮显示改变的部分。
+
