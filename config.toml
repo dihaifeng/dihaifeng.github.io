@@ -209,9 +209,9 @@ noClasses = false
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
       title = "海峰的个人博客"
       # 主页显示的网站副标题 (允许 HTML 格式)
-      subtitle = "Look up at the stars, while keeping our feet on the ground. Advocate for freedom, and seek truth."
+      subtitle = "Actions speak louder than words."
       # 是否为副标题显示打字机动画
-      typeit = false
+      typeit = true
       # 是否显示社交账号
       social = true
       # LoveIt 新增 | 0.2.0 免责声明 (支持 HTML 格式)
