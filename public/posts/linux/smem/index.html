@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>smem 排查内存泄露工具 - Haifeng,Blog</title><meta name="Description" content=""><meta property="og:title" content="smem 排查内存泄露工具" />
+<meta property="og:description" content="这次用下新工具smem，这是一个python写的小工具，可以统计系统中所有进程占用的物理内存RSS、以及去掉共享内存的PSS、以及程序本身的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dihaifeng.github.io/posts/linux/smem/" /><meta property="og:image" content="https://dihaifeng.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-23T10:57:28+08:00" />
+<meta property="article:modified_time" content="2023-10-23T11:00:33+08:00" /><meta property="og:site_name" content="海峰的个人博客" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dihaifeng.github.io/logo.png"/>
+
+<meta name="twitter:title" content="smem 排查内存泄露工具"/>
+<meta name="twitter:description" content="这次用下新工具smem，这是一个python写的小工具，可以统计系统中所有进程占用的物理内存RSS、以及去掉共享内存的PSS、以及程序本身的"/>
+<meta name="application-name" content="Haifeng,Blog">
+<meta name="apple-mobile-web-app-title" content="Haifeng,Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://dihaifeng.github.io/posts/linux/smem/" /><link rel="prev" href="https://dihaifeng.github.io/posts/linux/nsenter/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "smem 排查内存泄露工具",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/dihaifeng.github.io\/posts\/linux\/smem\/"
+        },"genre": "posts","keywords": "Linux","wordcount":  770 ,
+        "url": "https:\/\/dihaifeng.github.io\/posts\/linux\/smem\/","datePublished": "2023-10-23T10:57:28+08:00","dateModified": "2023-10-23T11:00:33+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "haifeng"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Haifeng,Blog">Haifeng,Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Haifeng,Blog"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/" title="Haifeng,Blog"> 分类 </a><a class="menu-item" href="/about/" title="关于我"> 关于我 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Haifeng,Blog">Haifeng,Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Haifeng,Blog">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="Haifeng,Blog">分类</a><a class="menu-item" href="/about/" title="关于我">关于我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">smem 排查内存泄露工具</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/dihaifeng" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>haifeng</a></span>&nbsp;<span class="post-category">included in <a href="/categories/liunx/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Liunx</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-23">2023-10-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;770 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>这次用下新工具smem，这是一个python写的小工具，可以统计系统中所有进程占用的物理内存RSS、以及去掉共享内存的PSS、以及程序本身的独占内存USS的情况。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># centos 下</span>
+</span></span><span class="line"><span class="cl">yum install epel-release
+</span></span><span class="line"><span class="cl">yum install smem python-matplotlib python-tk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ubuntu 下</span>
+</span></span><span class="line"><span class="cl">apt-get install smem
+</span></span></code></pre></div><p>常用命令：</p>
+<ul>
+<li>-k 带单位显示内存</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s haifeng18<span class="o">]</span><span class="c1"># smem -k</span>
+</span></span><span class="line"><span class="cl">  PID User     Command                         Swap      USS      PSS      RSS
+</span></span><span class="line"><span class="cl"><span class="m">270267</span> <span class="m">101</span>      /usr/bin/dumb-init -- /ngin        <span class="m">0</span>    64.0K    68.0K    72.0K
+</span></span><span class="line"><span class="cl"><span class="m">1372033</span> root     runsv bird                         <span class="m">0</span>    72.0K   168.0K     1.2M
+</span></span><span class="line"><span class="cl"><span class="m">1372036</span> root     runsv allocate-tunnel-addrs        <span class="m">0</span>    68.0K   172.0K     1.3M
+</span></span><span class="line"><span class="cl"><span class="m">1372039</span> root     runsv confd                        <span class="m">0</span>    72.0K   173.0K     1.3M
+</span></span><span class="line"><span class="cl"><span class="m">1372040</span> root     runsv bird6                        <span class="m">0</span>    72.0K   176.0K     1.3M
+</span></span><span class="line"><span class="cl"><span class="m">1372037</span> root     runsv felix                        <span class="m">0</span>    72.0K   179.0K     1.3M
+</span></span><span class="line"><span class="cl"><span class="m">1372038</span> root     runsv cni                          <span class="m">0</span>    72.0K   179.0K     1.3M
+</span></span><span class="line"><span class="cl"><span class="m">1371662</span> root     /usr/local/bin/runsvdir -P         <span class="m">0</span>   100.0K   188.0K     1.2M
+</span></span></code></pre></div><ul>
+<li>-u -k 带单位显示每个用户的内存占用：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s haifeng18<span class="o">]</span><span class="c1"># smem -u -k</span>
+</span></span><span class="line"><span class="cl">User     Count     Swap      USS      PSS      RSS
+</span></span><span class="line"><span class="cl"><span class="m">65535</span>        <span class="m">3</span>        <span class="m">0</span>   120.0K   695.0K     1.8M
+</span></span><span class="line"><span class="cl">lldpd        <span class="m">1</span>        <span class="m">0</span>   540.0K     1.1M     2.9M
+</span></span><span class="line"><span class="cl">nobody       <span class="m">1</span>        <span class="m">0</span>     1.1M     1.3M     5.1M
+</span></span><span class="line"><span class="cl">rpc          <span class="m">1</span>        <span class="m">0</span>     1.3M     1.7M     5.8M
+</span></span><span class="line"><span class="cl">dbus         <span class="m">2</span>        <span class="m">0</span>     1.6M     2.0M     7.5M
+</span></span><span class="line"><span class="cl">haifeng18     <span class="m">2</span>        <span class="m">0</span>     2.0M     4.1M    11.1M
+</span></span></code></pre></div><ul>
+<li>-w -k 显示系统整体内存情况类似free</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s haifeng18<span class="o">]</span><span class="c1"># smem -w -k</span>
+</span></span><span class="line"><span class="cl">Area                           Used      Cache   Noncache
+</span></span><span class="line"><span class="cl">firmware/hardware                 <span class="m">0</span>          <span class="m">0</span>          <span class="m">0</span>
+</span></span><span class="line"><span class="cl">kernel image                      <span class="m">0</span>          <span class="m">0</span>          <span class="m">0</span>
+</span></span><span class="line"><span class="cl">kernel dynamic memory         17.7G      14.8G       2.9G
+</span></span><span class="line"><span class="cl">userspace memory               7.5G       1.5G       6.0G
+</span></span><span class="line"><span class="cl">free memory                    5.9G       5.9G          <span class="m">0</span>
+</span></span></code></pre></div><ul>
+<li>-k -s uss -r 按照uss的占用从大到小排序的方式展示内存的占用情况 非常实用</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s haifeng18<span class="o">]</span><span class="c1"># smem  -k -s uss -r</span>
+</span></span><span class="line"><span class="cl">  PID User     Command                         Swap      USS      PSS      RSS
+</span></span><span class="line"><span class="cl"><span class="m">1216764</span> root     /usr/bin/kube-apiserver --v        <span class="m">0</span>     4.7G     4.7G     4.7G
+</span></span><span class="line"><span class="cl"> <span class="m">1097</span> root     /data0/prometheus/prometheu        <span class="m">0</span>   642.0M   642.0M   642.0M
+</span></span><span class="line"><span class="cl">  <span class="m">898</span> root     /usr/bin/etcd --config-file        <span class="m">0</span>   203.1M   203.1M   203.1M
+</span></span><span class="line"><span class="cl"> <span class="m">1095</span> root     /usr/share/grafana/bin/graf        <span class="m">0</span>   195.0M   195.1M   196.9M
+</span></span><span class="line"><span class="cl"> <span class="m">1037</span> root     /usr/bin/consul agent -conf        <span class="m">0</span>   138.7M   138.7M   138.7M
+</span></span></code></pre></div><ul>
+<li><strong>USS(User State Size)</strong>：用户状态大小或者用户状态占用大小，是指一个进程实际占用的物理内存的大小，仅包括用户态的部分</li>
+<li><strong>PSS(Page Status Size)</strong>：页面状态大小或者页面状态占用大小，是指一个进程实际占用的物理内存的大小，包括数据和指令。PSS不仅包括用户态状态，还包括内核态状态</li>
+<li><strong>RSS(Real Memory Size)</strong>：实际内存使用量或者实际内存占用大小，是指一个进程实际占用的物理内存的大小，包括数据、代码、堆栈等各种类型的内存占用。</li>
+</ul>
+<p>好了基本命令介绍完毕，那我们来看看如何查看内存是否泄漏吧，因为内存泄漏的程序占用的内存是一直再增加的（这不是废话嘛），这样我们就可以用上面的排序命令只观察上面几个进程了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s haifeng18<span class="o">]</span><span class="c1"># watch smem  -k -s uss -r</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Every 2.0s: smem -k -s uss -r                                                                                                                                                                         k8s.wq.2.20.30: Tue Sep <span class="m">12</span> 16:35:49 <span class="m">2023</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  PID User     Command                         Swap	 USS	  PSS	   RSS
+</span></span><span class="line"><span class="cl"><span class="m">1216764</span> root     /usr/bin/kube-apiserver --v        <span class="m">0</span>     4.7G     4.7G     4.7G
+</span></span><span class="line"><span class="cl"> <span class="m">1097</span> root     /data0/prometheus/prometheu        <span class="m">0</span>   642.0M   642.0M   642.0M
+</span></span><span class="line"><span class="cl">  <span class="m">898</span> root     /usr/bin/etcd --config-file        <span class="m">0</span>   203.1M   203.1M   203.1M
+</span></span><span class="line"><span class="cl"> <span class="m">1095</span> root     /usr/share/grafana/bin/graf        <span class="m">0</span>   195.0M   195.1M   196.9M
+</span></span><span class="line"><span class="cl"> <span class="m">1037</span> root     /usr/bin/consul agent -conf        <span class="m">0</span>   138.7M   138.7M   138.7M
+</span></span></code></pre></div><p>小技巧，watch加在命令前面，5s执行一次命令，会高亮显示改变的部分。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-10-23</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://dihaifeng.github.io/posts/linux/smem/" data-title="smem 排查内存泄露工具" data-hashtags="Linux"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://dihaifeng.github.io/posts/linux/smem/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://dihaifeng.github.io/posts/linux/smem/" data-title="smem 排查内存泄露工具"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://dihaifeng.github.io/posts/linux/smem/" data-title="smem 排查内存泄露工具"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://dihaifeng.github.io/posts/linux/smem/" data-title="smem 排查内存泄露工具"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/linux/nsenter/" class="prev" rel="prev" title="nsenter 使用"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>nsenter 使用</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/dihaifeng" target="_blank">haifeng</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js" integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script></body>
+</html>

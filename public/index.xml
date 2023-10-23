@@ -1,31 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>TraceThePeaks,Blog</title>
-    <link>https://dihaifeng.github.io/</link>
-    <description>Recent content on TraceThePeaks,Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <managingEditor>dihaifeng01@gmail.com (峰迹)</managingEditor>
-    <webMaster>dihaifeng01@gmail.com (峰迹)</webMaster>
-    <lastBuildDate>Mon, 23 Oct 2023 10:57:28 +0800</lastBuildDate><atom:link href="https://dihaifeng.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Smem排查内存泄露工具</title>
-      <link>https://dihaifeng.github.io/posts/linux/smem/</link>
-      <pubDate>Mon, 23 Oct 2023 10:57:28 +0800</pubDate>
-      <author>dihaifeng01@gmail.com (峰迹)</author>
-      <guid>https://dihaifeng.github.io/posts/linux/smem/</guid>
-      <description>这次用下新工具smem，这是一个python写的小工具，可以统计系统中所有进程占用的物理内存RSS、以及去掉共享内存的PSS、以及程序本身的</description>
-    </item>
-    
-    <item>
-      <title>nsenter 使用</title>
-      <link>https://dihaifeng.github.io/posts/linux/nsenter/</link>
-      <pubDate>Tue, 04 Jul 2023 19:41:47 +0800</pubDate>
-      <author>dihaifeng01@gmail.com (峰迹)</author>
-      <guid>https://dihaifeng.github.io/posts/linux/nsenter/</guid>
-      <description>nsenter是一个命令行工具，可以帮助用户进入指定的Linux命名空间。使用nsenter命令，用户可以进入指定的命名空间，并在其中执行命</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Haifeng,Blog</title>
+        <link>https://dihaifeng.github.io/</link>
+        <description>Haifeng,Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dihaifeng01@gmail.com (haifeng)</managingEditor>
+            <webMaster>dihaifeng01@gmail.com (haifeng)</webMaster><lastBuildDate>Mon, 23 Oct 2023 10:57:28 &#43;0800</lastBuildDate>
+            <atom:link href="https://dihaifeng.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>smem 排查内存泄露工具</title>
+    <link>https://dihaifeng.github.io/posts/linux/smem/</link>
+    <pubDate>Mon, 23 Oct 2023 10:57:28 &#43;0800</pubDate>
+    <author>haifeng</author>
+    <guid>https://dihaifeng.github.io/posts/linux/smem/</guid>
+    <description><![CDATA[这次用下新工具smem，这是一个python写的小工具，可以统计系统中所有进程占用的物理内存RSS、以及去掉共享内存的PSS、以及程序本身的]]></description>
+</item>
+<item>
+    <title>nsenter 使用</title>
+    <link>https://dihaifeng.github.io/posts/linux/nsenter/</link>
+    <pubDate>Tue, 04 Jul 2023 19:41:47 &#43;0800</pubDate>
+    <author>haifeng</author>
+    <guid>https://dihaifeng.github.io/posts/linux/nsenter/</guid>
+    <description><![CDATA[nsenter是一个命令行工具，可以帮助用户进入指定的Linux命名空间。使用nsenter命令，用户可以进入指定的命名空间，并在其中执行命]]></description>
+</item>
+</channel>
 </rss>

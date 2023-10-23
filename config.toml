@@ -4,7 +4,7 @@ baseURL = "https://dihaifeng.github.io"
 theme = "LoveIt"
 
 # 网站标题
-title = "TraceThePeaks,Blog"
+title = "Haifeng,Blog"
 
 # 网站语言, 仅在这里 CN 大写 ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "zh-CN"
@@ -32,7 +32,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
 # 作者配置
 [author]
-  name = "峰迹"
+  name = "haifeng"
   email = "dihaifeng01@gmail.com"
   link = "https://github.com/dihaifeng"
 
@@ -48,7 +48,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     name = "文章"
     url = "/posts/"
     # 当你将鼠标悬停在此菜单链接上时, 将显示的标题
-    title = "TraceThePeaks,Blog"
+    title = "Haifeng,Blog"
   [[menu.main]]
     weight = 2
     identifier = "tags"
@@ -64,7 +64,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     post = ""
     name = "分类"
     url = "/categories/"
-    title = "TraceThePeaks,Blog"
+    title = "Haifeng,Blog"
   [[menu.main]]
     weight = 4
     identifier = "about"
@@ -97,7 +97,7 @@ noClasses = false
   # LoveIt 新增 | 0.2.0 日期格式
   dateFormat = "2006-01-02"
   # 网站标题, 用于 Open Graph 和 Twitter Cards
-  title = "峰迹的个人博客"
+  title = "海峰的个人博客"
   # 网站描述, 用于 RSS, SEO, Open Graph 和 Twitter Cards
   description = ""
   # 网站图片, 用于 Open Graph 和 Twitter Cards
@@ -114,7 +114,7 @@ noClasses = false
       # LOGO 的 URL
       logo = ""
       # 标题名称
-      name = "TraceThePeaks,Blog"
+      name = "Haifeng,Blog"
       # 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标
       pre = ""
       # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
@@ -161,7 +161,7 @@ noClasses = false
   # LoveIt 新增 | 0.2.0 应用图标配置
   [params.app]
     # 当添加到 iOS 主屏幕或者 Android 启动器时的标题, 覆盖默认标题
-    title = "TraceThePeaks,Blog"
+    title = "Haifeng,Blog"
     # 是否隐藏网站图标资源链接
     noFavicon = false
     # 更现代的 SVG 网站图标, 可替代旧的 .png 和 .ico 文件
@@ -207,9 +207,9 @@ noClasses = false
       # 主页显示头像的 URL
       avatarURL = "/images/avatar.png"
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
-      title = "峰迹的个人博客"
+      title = "海峰的个人博客"
       # 主页显示的网站副标题 (允许 HTML 格式)
-      subtitle = "少年自当扶摇上,揽星街月逐月光"
+      subtitle = "景致高远，皋韵犹存。仰望星空，脚踏实地。崇尚自由，寻求真理。聆听内心，探寻生命。"
       # 是否为副标题显示打字机动画
       typeit = true
       # 是否显示社交账号
