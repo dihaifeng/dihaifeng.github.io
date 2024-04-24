@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Helm快速入门 - Haifeng,Blog</title><meta name="Description" content=""><meta property="og:title" content="Helm快速入门" />
+<meta property="og:description" content="Helm 是 Kubernetes 界的瑞士军刀，一个强大的包管理工具，它让部署和管理 Kubernetes 应用程序变得前所未有的简单。它通过 Helm Chart（一组预先配置的 Kubernetes 资源）来实现这一目" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" /><meta property="og:image" content="https://dihaifeng.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-04-24T17:26:08+08:00" />
+<meta property="article:modified_time" content="2024-04-24T17:26:08+08:00" /><meta property="og:site_name" content="海峰的个人博客" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dihaifeng.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Helm快速入门"/>
+<meta name="twitter:description" content="Helm 是 Kubernetes 界的瑞士军刀，一个强大的包管理工具，它让部署和管理 Kubernetes 应用程序变得前所未有的简单。它通过 Helm Chart（一组预先配置的 Kubernetes 资源）来实现这一目"/>
+<meta name="application-name" content="Haifeng,Blog">
+<meta name="apple-mobile-web-app-title" content="Haifeng,Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" /><link rel="prev" href="https://dihaifeng.github.io/posts/linux/smem/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Helm快速入门",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/dihaifeng.github.io\/posts\/kubernetes\/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8\/"
+        },"genre": "posts","wordcount":  1605 ,
+        "url": "https:\/\/dihaifeng.github.io\/posts\/kubernetes\/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8\/","datePublished": "2024-04-24T17:26:08+08:00","dateModified": "2024-04-24T17:26:08+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "haifeng"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Haifeng,Blog">Haifeng,Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Haifeng,Blog"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/" title="Haifeng,Blog"> 分类 </a><a class="menu-item" href="/about/" title="关于我"> 关于我 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Haifeng,Blog">Haifeng,Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Haifeng,Blog">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="Haifeng,Blog">分类</a><a class="menu-item" href="/about/" title="关于我">关于我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Helm快速入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/dihaifeng" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>haifeng</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-24">2024-04-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1605 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#helm工作流程">Helm工作流程</a></li>
+    <li><a href="#安装-helm">安装 Helm</a>
+      <ul>
+        <li><a href="#脚本安装">脚本安装</a></li>
+        <li><a href="#二进制安装">二进制安装</a></li>
+        <li><a href="#macos-安装">macOS 安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建-helm-chart快速入门">创建 Helm Chart：快速入门</a>
+      <ul>
+        <li><a href="#定制-helm-chart">定制 Helm Chart</a></li>
+        <li><a href="#部署-helm-chart">部署 Helm Chart</a></li>
+        <li><a href="#跟踪和升级-helm-部署">跟踪和升级 Helm 部署</a></li>
+      </ul>
+    </li>
+    <li><a href="#管理-helm-chart-仓库">管理 Helm Chart 仓库</a>
+      <ul>
+        <li><a href="#添加仓库">添加仓库</a></li>
+        <li><a href="#列出仓库">列出仓库</a></li>
+        <li><a href="#更新仓库">更新仓库</a></li>
+        <li><a href="#生成索引文件">生成索引文件</a></li>
+        <li><a href="#删除chart仓库">删除Chart仓库</a></li>
+        <li><a href="#结语">结语</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Helm 是 Kubernetes 界的瑞士军刀，一个强大的包管理工具，它让部署和管理 Kubernetes 应用程序变得前所未有的简单。它通过 Helm Chart（一组预先配置的 Kubernetes 资源）来实现这一目标。</p>
+<h2 id="helm工作流程">Helm工作流程</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/direct/c0f1c60d65964191a17174e55576d0d7.png"
+        data-srcset="https://img-blog.csdnimg.cn/direct/c0f1c60d65964191a17174e55576d0d7.png, https://img-blog.csdnimg.cn/direct/c0f1c60d65964191a17174e55576d0d7.png 1.5x, https://img-blog.csdnimg.cn/direct/c0f1c60d65964191a17174e55576d0d7.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/direct/c0f1c60d65964191a17174e55576d0d7.png"
+        title="在这里插入图片描述" />
+从这个架构图中，我们可以看到 Helm 如何与 Kubernetes 的各个组件协同工作，以便于部署和管理 Helm Charts。Helm 通过 Kubernetes API 与集群交互，使用 Helm CLI 来管理仓库中的 Charts，并通过 Releases 来跟踪和管理部署在 Kubernetes 集群上的应用程序。</p>
+<h2 id="安装-helm">安装 Helm</h2>
+<p>Helm 的安装非常简便，提供了多种方法以适应不同的操作系统和环境。</p>
+<h3 id="脚本安装">脚本安装</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#  chmod 700 get_helm.sh</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#  ./get_helm.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证安装结果，查看helm版本</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm version</span>
+</span></span><span class="line"><span class="cl">version.BuildInfo<span class="o">{</span>Version:<span class="s2">&#34;v3.14.2&#34;</span>, GitCommit:<span class="s2">&#34;c309b6f0ff63856811846ce18f3bdc93d2b4d54b&#34;</span>, GitTreeState:<span class="s2">&#34;clean&#34;</span>, GoVersion:<span class="s2">&#34;go1.21.7&#34;</span><span class="o">}</span>
+</span></span></code></pre></div><h3 id="二进制安装">二进制安装</h3>
+<p>下载地址：<a href="https://github.com/helm/helm/releases" target="_blank" rel="noopener noreffer ">https://github.com/helm/helm/releases</a>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/direct/be945617670c4ad1995e21565782b8c3.png"
+        data-srcset="https://img-blog.csdnimg.cn/direct/be945617670c4ad1995e21565782b8c3.png, https://img-blog.csdnimg.cn/direct/be945617670c4ad1995e21565782b8c3.png 1.5x, https://img-blog.csdnimg.cn/direct/be945617670c4ad1995e21565782b8c3.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/direct/be945617670c4ad1995e21565782b8c3.png"
+        title="在这里插入图片描述" /></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 下载二进制文件</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#  wget https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用命令提取二进制文件</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># tar -zxvf helm-v3.14.2-linux-amd64.tar.gz</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#mv linux-amd64/helm /usr/local/bin/helm</span>
+</span></span></code></pre></div><h3 id="macos-安装">macOS 安装</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install helm
+</span></span></code></pre></div><h2 id="创建-helm-chart快速入门">创建 Helm Chart：快速入门</h2>
+<p>创建一个基本的 Helm Chart，只需几个命令即可开始。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#  helm create helloworld</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master helloworld<span class="o">]</span><span class="c1"># tree</span>
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── charts
+</span></span><span class="line"><span class="cl">├── Chart.yaml
+</span></span><span class="line"><span class="cl">├── templates
+</span></span><span class="line"><span class="cl">│   ├── deployment.yaml
+</span></span><span class="line"><span class="cl">│   ├── _helpers.tpl
+</span></span><span class="line"><span class="cl">│   ├── hpa.yaml
+</span></span><span class="line"><span class="cl">│   ├── ingress.yaml
+</span></span><span class="line"><span class="cl">│   ├── NOTES.txt
+</span></span><span class="line"><span class="cl">│   ├── serviceaccount.yaml
+</span></span><span class="line"><span class="cl">│   ├── service.yaml
+</span></span><span class="line"><span class="cl">│   └── tests
+</span></span><span class="line"><span class="cl">│       └── test-connection.yaml
+</span></span><span class="line"><span class="cl">└── values.yaml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">3</span> directories, <span class="m">10</span> files
+</span></span></code></pre></div><p>这将在 <code>helloworld</code> 目录下生成一系列的文件和目录，包括 <code>deployment.yaml</code> 和 <code>values.yaml</code> 等，这些文件共同定义了部署的形态。</p>
+<h3 id="定制-helm-chart">定制 Helm Chart</h3>
+<p>定制 Helm Chart 常常涉及到修改 <code>values.yaml</code> 文件，如下所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@master helloworld]# cat values.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">NodePort</span><span class="w"> </span><span class="c"># 默认为ClusterIP类型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span></code></pre></div><p>通过这种方式，无需更改 Chart 的模板文件，就可以轻松调整部署的具体参数。</p>
+<h3 id="部署-helm-chart">部署 Helm Chart</h3>
+<p>部署一个 Helm Chart，可以使用以下命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm install myhelloworld helloworld</span>
+</span></span><span class="line"><span class="cl">NAME: myhelloworld
+</span></span><span class="line"><span class="cl">LAST DEPLOYED: Tue Apr <span class="m">23</span> 10:07:31 <span class="m">2024</span>
+</span></span><span class="line"><span class="cl">NAMESPACE: default
+</span></span><span class="line"><span class="cl">STATUS: deployed
+</span></span><span class="line"><span class="cl">REVISION: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">NOTES:
+</span></span><span class="line"><span class="cl">1. Get the application URL by running these commands:
+</span></span><span class="line"><span class="cl">  <span class="nb">export</span> <span class="nv">NODE_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.spec.ports[0].nodePort}&#34;</span> services myhelloworld<span class="k">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">export</span> <span class="nv">NODE_IP</span><span class="o">=</span><span class="k">$(</span>kubectl get nodes --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.items[0].status.addresses[0].address}&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> http://<span class="nv">$NODE_IP</span>:<span class="nv">$NODE_PORT</span>
+</span></span></code></pre></div><p>这个命令会将 <code>helloworld</code> Chart 部署到 Kubernetes，并命名为 <code>myhelloworld</code>。</p>
+<h3 id="跟踪和升级-helm-部署">跟踪和升级 Helm 部署</h3>
+<p>Helm 提供了全面的命令来跟踪和管理部署。</p>
+<h4 id="查看部署"><strong>查看部署</strong></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm list -a</span>
+</span></span><span class="line"><span class="cl">NAME        	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART           	APP VERSION
+</span></span><span class="line"><span class="cl">myhelloworld	default  	<span class="m">1</span>       	2024-04-23 10:07:31.873730017 +0800 CST	deployed	helloworld-0.1.0	1.16.0
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#</span>
+</span></span></code></pre></div><h4 id="获取服务信息">获取服务信息</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master helloworld<span class="o">]</span><span class="c1"># kubectl get svc myhelloworld</span>
+</span></span><span class="line"><span class="cl">NAME           TYPE       CLUSTER-IP     EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>        AGE
+</span></span><span class="line"><span class="cl">myhelloworld   NodePort   10.99.133.63   &lt;none&gt;        80:31814/TCP   14m
+</span></span></code></pre></div><blockquote>
+<p>注意：NodePort 端口号范围在30000-32767内变化，因此可能会得到不同的NodePort。</p>
+</blockquote>
+<p>集群IP + NodePort的端口31814，我们就可以访问 myhelloworld Helm Chart 的 Nginx 页面。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/direct/9bae0aaae2564c058c9087126d8fa15b.png"
+        data-srcset="https://img-blog.csdnimg.cn/direct/9bae0aaae2564c058c9087126d8fa15b.png, https://img-blog.csdnimg.cn/direct/9bae0aaae2564c058c9087126d8fa15b.png 1.5x, https://img-blog.csdnimg.cn/direct/9bae0aaae2564c058c9087126d8fa15b.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/direct/9bae0aaae2564c058c9087126d8fa15b.png"
+        title="在这里插入图片描述" /></p>
+<h2 id="管理-helm-chart-仓库">管理 Helm Chart 仓库</h2>
+<p>在 Linux 发行版中，我们有 apt、yum、dnf 等包管理器；类似地，Helm 依赖于如 bitnami 这样的 Chart 仓库。Chart 开发者可以创建 YAML 配置文件，并将它们打包成 Charts，然后发布为 Chart 仓库。</p>
+<p>例如 - 如果你想通过 Helm 仓库在 Kubernetes 集群中部署 Redis 内存缓存，你只需简单地运行以下命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#  helm install redis bitnami/redis</span>
+</span></span></code></pre></div><blockquote>
+<p><strong>注意：</strong> 上述命令将在 bitnami Chart 仓库中搜索 Redis Chart，然后将其安装到你的 Kubernetes 集群中。</p>
+</blockquote>
+<p>Helm 提供了五个与仓库相关的命令，它们可以用于添加、列出、移除、更新和索引 Chart 仓库。</p>
+<h3 id="添加仓库">添加仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master linux-amd64<span class="o">]</span><span class="c1"># helm repo add bitnami https://charts.bitnami.com/bitnami</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用helm search返回bitnami存储库中可用的所有Charts</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master linux-amd64<span class="o">]</span><span class="c1"># helm search repo bitnami</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">NAME                                        	CHART VERSION	APP VERSION  	DESCRIPTION
+</span></span><span class="line"><span class="cl">bitnami/airflow                             	13.0.0       	2.3.3        	Apache Airflow is a tool to express and execute...
+</span></span><span class="line"><span class="cl">bitnami/apache                              	9.1.14       	2.4.54       	Apache HTTP Server is an open-source HTTP serve...
+</span></span><span class="line"><span class="cl">bitnami/argo-cd                             	4.0.4        	2.4.8        	Argo CD is a continuous delivery tool <span class="k">for</span> Kuber...
+</span></span><span class="line"><span class="cl">bitnami/argo-workflows                      	2.3.7        	3.3.8        	Argo Workflows is meant to orchestrate Kubernet...
+</span></span><span class="line"><span class="cl">bitnami/aspnet-core                         	3.4.16       	6.0.7        	ASP.NET Core is an open-source framework <span class="k">for</span> we...
+</span></span><span class="line"><span class="cl">bitnami/cassandra                           	9.2.9        	4.0.5        	Apache Cassandra is an open <span class="nb">source</span> distributed ...
+</span></span><span class="line"><span class="cl">bitnami/cert-manager                        	0.7.5        	1.9.1        	Cert Manager is a Kubernetes add-on to automate...
+</span></span><span class="line"><span class="cl">bitnami/common                              	1.16.1       	1.16.0       	A Library Helm Chart <span class="k">for</span> grouping common logic ...
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></div><h3 id="列出仓库">列出仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master linux-amd64<span class="o">]</span><span class="c1"># helm repo list</span>
+</span></span><span class="line"><span class="cl">NAME                           	URL
+</span></span><span class="line"><span class="cl">brigade                        	https://brigadecore.github.io/charts
+</span></span><span class="line"><span class="cl">bitnami                        	https://charts.bitnami.com/bitnami
+</span></span><span class="line"><span class="cl">hashicorp                      	https://helm.releases.hashicorp.com
+</span></span><span class="line"><span class="cl">nfs-subdir-external-provisioner	https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+</span></span><span class="line"><span class="cl">harbor                         	https://helm.goharbor.io
+</span></span><span class="line"><span class="cl">stable                         	http://mirror.azure.cn/kubernetes/charts/
+</span></span></code></pre></div><h3 id="更新仓库">更新仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master linux-amd64<span class="o">]</span><span class="c1"># helm repo update</span>
+</span></span><span class="line"><span class="cl">Hang tight <span class="k">while</span> we grab the latest from your chart repositories...
+</span></span><span class="line"><span class="cl">...Successfully got an update from the <span class="s2">&#34;harbor&#34;</span> chart repository
+</span></span><span class="line"><span class="cl">...Successfully got an update from the <span class="s2">&#34;hashicorp&#34;</span> chart repository
+</span></span><span class="line"><span class="cl">...Successfully got an update from the <span class="s2">&#34;stable&#34;</span> chart repository
+</span></span><span class="line"><span class="cl">...Successfully got an update from the <span class="s2">&#34;nfs-subdir-external-provisioner&#34;</span> chart repository
+</span></span><span class="line"><span class="cl">...Successfully got an update from the <span class="s2">&#34;bitnami&#34;</span> chart repository
+</span></span><span class="line"><span class="cl">...Successfully got an update from the <span class="s2">&#34;brigade&#34;</span> chart repository
+</span></span><span class="line"><span class="cl">Update Complete. ⎈Happy Helming!⎈
+</span></span></code></pre></div><h3 id="生成索引文件">生成索引文件</h3>
+<p>用于生成的索引文件，为Helm Chart仓库提供了一个包含所有可用 Charts 及其元数据的中央索引，从而使得用户能够搜索、解析依赖、管理版本，并安全高效地与仓库交互。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm repo index helloworld</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># cat helloworld/index.yaml</span>
+</span></span><span class="line"><span class="cl">apiVersion: v1
+</span></span><span class="line"><span class="cl">entries: <span class="o">{}</span>
+</span></span><span class="line"><span class="cl">generated: <span class="s2">&#34;2024-04-23T11:17:42.043648173+08:00&#34;</span>
+</span></span></code></pre></div><h3 id="删除chart仓库">删除Chart仓库</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#  helm repo remove bitnami</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;bitnami&#34;</span> has been removed from your repositories 
+</span></span></code></pre></div><p>这些命令构建了 Helm 的仓库管理基础，允许用户轻松地在 Kubernetes 之上部署、扩展和管理复杂的应用程序集合。</p>
+<h3 id="结语">结语</h3>
+<p>通过本篇文章，我们深入探讨了 Helm 的工作机制、安装方法、Chart 创建和管理，以及 Helm Chart 仓库的使用。Helm 以其简洁、直接的方式，成为了管理 Kubernetes 应用程序不可或缺的工具。如果你是 Kubernetes 用户，Helm 绝对值得一试。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-04-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" data-title="Helm快速入门"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" data-title="Helm快速入门"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" data-title="Helm快速入门"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" data-title="Helm快速入门"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/linux/smem/" class="prev" rel="prev" title="smem 排查内存泄露工具"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>smem 排查内存泄露工具</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.114.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/dihaifeng" target="_blank">haifeng</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js" integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script></body>
+</html>
