@@ -120,7 +120,9 @@ myhelloworld	default  	1       	2024-04-23 10:07:31.873730017 +0800 CST	deployed
 NAME           TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 myhelloworld   NodePort   10.99.133.63   <none>        80:31814/TCP   14m
   ```
->注意：NodePort 端口号范围在30000-32767内变化，因此可能会得到不同的NodePort。
+{{< admonition type=tip title="注意" >}}
+NodePort 端口号范围在30000-32767内变化，因此可能会得到不同的NodePort。
+{{< /admonition >}}
 
 集群IP + NodePort的端口31814，我们就可以访问 myhelloworld Helm Chart 的 Nginx 页面。
 
