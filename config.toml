@@ -401,27 +401,6 @@ noClasses = false
         repo = ""
         clientId = ""
         clientSecret = ""
-      # Valine 评论系统设置
-      [params.page.comment.valine]
-        enable = true
-        appId = "zSxGmownu00QPVIUKJYzq5vq-MdYXbMMI"
-        appKey = "WLkkMBOVCbf72o7bD3LAtHjs"
-        placeholder = "说点什么吧"
-        avatar = "mp"
-        meta= ""
-        pageSize = 10
-        lang = ""
-        visitor = true
-        recordIP = true
-        highlight = true
-        enableQQ = false
-        serverURLs = "https://zsxgmown.api.lncldglobal.com"
-        # LoveIt 新增 | 0.2.6 emoji 数据文件名称, 默认是 "google.yml"
-        # ["apple.yml", "google.yml", "facebook.yml", "twitter.yml"]
-        # 位于 "themes/LoveIt/assets/lib/valine/emoji/" 目录
-        # 可以在你的项目下相同路径存放你自己的数据文件:
-        # "assets/lib/valine/emoji/"
-        emoji = ""
       # Facebook 评论系统设置
       [params.page.comment.facebook]
         enable = false
@@ -455,11 +434,11 @@ noClasses = false
       # giscus comment 评论系统设置 (https://giscus.app/zh-CN)
       [params.page.comment.giscus]
         # 你可以参考官方文档来使用下列配置
-        enable = false
-        repo = ""
-        repoId = ""
+        enable = true
+        repo = "dihaifeng/dihaifeng.github.io"
+        repoId = "R_kgDOJ3wrOA"
         category = "Announcements"
-        categoryId = ""
+        categoryId = "DIC_kwDOJ3wrOM4Ce61c"
         # 为空时自动适配当前主题 i18n 配置
         lang = ""
         mapping = "pathname"
