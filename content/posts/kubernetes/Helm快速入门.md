@@ -1,6 +1,6 @@
 ---
 title: "Helm快速入门"
-date: 2024-04-24T17:26:08+08:00
+date: 2024-04-24T17:57:56+08:00
 draft: true
 ---
 
@@ -185,7 +185,7 @@ generated: "2024-04-23T11:17:42.043648173+08:00"
 ### 删除Chart仓库
 ```bash
 [root@master ~]#  helm repo remove bitnami
-"bitnami" has been removed from your repositories 
+"bitnami" has been removed from your repositories
 ```
 
 这些命令构建了 Helm 的仓库管理基础，允许用户轻松地在 Kubernetes 之上部署、扩展和管理复杂的应用程序集合。
@@ -193,4 +193,3 @@ generated: "2024-04-23T11:17:42.043648173+08:00"
 ### 结语
 
 通过本篇文章，我们深入探讨了 Helm 的工作机制、安装方法、Chart 创建和管理，以及 Helm Chart 仓库的使用。Helm 以其简洁、直接的方式，成为了管理 Kubernetes 应用程序不可或缺的工具。如果你是 Kubernetes 用户，Helm 绝对值得一试。
-

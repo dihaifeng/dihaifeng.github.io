@@ -4,10 +4,10 @@
         <link>https://dihaifeng.github.io/posts/</link>
         <description>All Posts | Haifeng,Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dihaifeng01@gmail.com (haifeng)</managingEditor>
-            <webMaster>dihaifeng01@gmail.com (haifeng)</webMaster><lastBuildDate>Wed, 24 Apr 2024 17:26:08 &#43;0800</lastBuildDate><atom:link href="https://dihaifeng.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>dihaifeng01@gmail.com (haifeng)</webMaster><lastBuildDate>Wed, 24 Apr 2024 17:57:56 &#43;0800</lastBuildDate><atom:link href="https://dihaifeng.github.io/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Helm快速入门</title>
     <link>https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</link>
-    <pubDate>Wed, 24 Apr 2024 17:26:08 &#43;0800</pubDate>
+    <pubDate>Wed, 24 Apr 2024 17:57:56 &#43;0800</pubDate>
     <author>haifeng</author>
     <guid>https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</guid>
     <description><![CDATA[Helm 是 Kubernetes 界的瑞士军刀，一个强大的包管理工具，它让部署和管理 Kubernetes 应用程序变得前所未有的简单。它通过 Helm Chart（一组预先配置的 Kubernetes 资源）来实现这一目]]></description>
