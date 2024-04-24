@@ -1,16 +1,22 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Categories - Category - Haifeng,Blog</title>
-        <link>https://dihaifeng.github.io/categories/</link>
-        <description>Categories - Category - Haifeng,Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>dihaifeng01@gmail.com (haifeng)</managingEditor>
-            <webMaster>dihaifeng01@gmail.com (haifeng)</webMaster><lastBuildDate>Mon, 23 Oct 2023 10:57:28 &#43;0800</lastBuildDate><atom:link href="https://dihaifeng.github.io/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>Liunx</title>
-    <link>https://dihaifeng.github.io/categories/liunx/</link>
-    <pubDate>Mon, 23 Oct 2023 10:57:28 &#43;0800</pubDate>
-    <author>haifeng</author>
-    <guid>https://dihaifeng.github.io/categories/liunx/</guid>
-    <description><![CDATA[]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Haifeng,Blog</title>
+    <link>https://dihaifeng.github.io/categories/</link>
+    <description>Recent content in Categories on Haifeng,Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>dihaifeng01@gmail.com (haifeng)</managingEditor>
+    <webMaster>dihaifeng01@gmail.com (haifeng)</webMaster>
+    <lastBuildDate>Mon, 23 Oct 2023 10:57:28 +0800</lastBuildDate><atom:link href="https://dihaifeng.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Liunx</title>
+      <link>https://dihaifeng.github.io/categories/liunx/</link>
+      <pubDate>Mon, 23 Oct 2023 10:57:28 +0800</pubDate>
+      <author>dihaifeng01@gmail.com (haifeng)</author>
+      <guid>https://dihaifeng.github.io/categories/liunx/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
 </rss>
