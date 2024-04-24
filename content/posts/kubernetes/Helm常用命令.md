@@ -2,6 +2,7 @@
 title: "Helm常用命令"
 date: 2024-04-24T18:08:31+08:00
 tags: ["Helm"]
+comment: true
 categories: ["Kubernetes"]
 ---
 ## 引言

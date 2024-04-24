@@ -1,6 +1,7 @@
 ---
 title: "smem 排查内存泄露工具"
 date: 2023-10-23T10:57:28+08:00
+comment: true
 tags: ["Linux"]
 categories: ["Liunx"]
 ---

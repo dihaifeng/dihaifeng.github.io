@@ -1,6 +1,7 @@
 ---
 title: "nsenter 使用"
 date: 2023-07-04T19:41:47+08:00
+comment: true
 tags: ["Linux"]
 categories: ["Liunx"]
 ---
