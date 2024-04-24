@@ -4,6 +4,7 @@ date: {{ .Date }}
 author: ["haifeng"]
 tags: [""]
 categories: [""]
+comment: true
 draft: false
 ---
 

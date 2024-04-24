@@ -432,10 +432,10 @@ noClasses = false
         lightTheme = "github-light"
         darkTheme = "github-dark"
       [params.page.comment.valine]
-        appId = "Yg4c0ZRF9azNT5aR2LdlL3ec-MdYXbMMI"  #参看上面步骤
-        appKey = "v40n55oi0KXPKSVsyBEVfIZS"  #参看上面步骤
+        appId = ""  #参看上面步骤
+        appKey = ""  #参看上面步骤
         avatar = "monsterid" #评论者gravatar头像，参看全球头像那篇文章
-        enable = true
+        enable = false
         enableQQ = true  
         highlight = true
         lang = "zh-CN"  
@@ -443,7 +443,7 @@ noClasses = false
         pageSize = 10 
         placeholder = "欢迎交流！匿名昵称留空即可，已开启邮箱留言自动通知提醒。" #评论区提醒文字
         recordIP = true  #是否记录ip
-        serverURLs = "https://yg4c0zrf.api.lncldglobal.com"  #参看上面步骤
+        serverURLs = ""  #参看上面步骤
         visitor = true  #是否开启访问量统计
         #  emoji 数据文件名称，默认是 "google.yml"
         # ("apple.yml", "google.yml", "facebook.yml", "twitter.yml")
@@ -455,7 +455,7 @@ noClasses = false
       # giscus comment 评论系统设置 (https://giscus.app/zh-CN)
       [params.page.comment.giscus]
         # 你可以参考官方文档来使用下列配置
-        enable = false
+        enable = true
         repo = "dihaifeng/dihaifeng.github.io"
         repoId = "R_kgDOJ3wrOA"
         category = "Announcements"
