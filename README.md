@@ -1,5 +1,8 @@
 # dihaifeng.github.io
 
+## 我的公众号
+![公众号](https://github.com/dihaifeng/dihaifeng.github.io/raw/main/static/images/qrcode_for_gh_027d39279844_430.jpg)
+
 ## Mac 环境安装
 
 ### 切换HOMEBREW源
