@@ -59,6 +59,7 @@ $ git add
 $ git commit -m 'add second_post.md'
 $ git push origin main
 ```
+> 通过new创建的新文章引用了默认的模块，里面包含了`draft: true`草稿标志，正式发布是要去除掉
 
 ##  自动发布
 本博客源码仓库和博客仓库在一起维护
