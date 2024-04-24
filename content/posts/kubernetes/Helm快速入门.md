@@ -1,7 +1,7 @@
 ---
 title: "Helm快速入门"
 date: 2024-04-24T17:57:56+08:00
-
+comment: true
 tags: ["Helm"]
 categories: ["Kubernetes"]
 ---
