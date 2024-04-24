@@ -1,7 +1,9 @@
 ---
 title: "Helm快速入门"
 date: 2024-04-24T17:57:56+08:00
-draft: true
+
+tags: ["Kubernetes"]
+categories: ["Kubernetes"]
 ---
 
 Helm 是 Kubernetes 界的瑞士军刀，一个强大的包管理工具，它让部署和管理 Kubernetes 应用程序变得前所未有的简单。它通过 Helm Chart（一组预先配置的 Kubernetes 资源）来实现这一目标。

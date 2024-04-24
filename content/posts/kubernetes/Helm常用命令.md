@@ -1,7 +1,8 @@
 ---
 title: "Helm常用命令"
 date: 2024-04-24T18:08:31+08:00
-draft: true
+tags: ["Kubernetes"]
+categories: ["Kubernetes"]
 ---
 ## 引言
 Helm 是 Kubernetes 的包管理器，它通过提供一种称为 Helm Chart 的方式来简化 Kubernetes 应用的配置、部署和管理。本文将详细介绍 Helm 的常用命令及其使用场景，帮助用户更高效地利用 Helm 进行 Kubernetes 应用的生命周期管理。
