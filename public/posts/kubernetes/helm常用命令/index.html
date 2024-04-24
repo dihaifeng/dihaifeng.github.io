@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Helm常用命令 - Haifeng,Blog</title><meta name="Description" content=""><meta property="og:title" content="Helm常用命令" />
+<meta property="og:description" content="引言 Helm 是 Kubernetes 的包管理器，它通过提供一种称为 Helm Chart 的方式来简化 Kubernetes 应用的配置、部署和管理。本文将详细介绍 Helm 的常用命令及其使用场景，帮助用户更高效地利" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dihaifeng.github.io/posts/kubernetes/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" /><meta property="og:image" content="https://dihaifeng.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-04-24T18:08:31+08:00" />
+<meta property="article:modified_time" content="2024-04-24T18:08:31+08:00" /><meta property="og:site_name" content="海峰的个人博客" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://dihaifeng.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Helm常用命令"/>
+<meta name="twitter:description" content="引言 Helm 是 Kubernetes 的包管理器，它通过提供一种称为 Helm Chart 的方式来简化 Kubernetes 应用的配置、部署和管理。本文将详细介绍 Helm 的常用命令及其使用场景，帮助用户更高效地利"/>
+<meta name="application-name" content="Haifeng,Blog">
+<meta name="apple-mobile-web-app-title" content="Haifeng,Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://dihaifeng.github.io/posts/kubernetes/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" /><link rel="prev" href="https://dihaifeng.github.io/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" /><link rel="stylesheet" href="/css/style.min.cf6878db51c51b2d04ae155284a4403dbee8db33e16c066f954c95279c271fcd.css" integrity="sha256-z2h421HFGy0ErhVShKRAPb7o2zPhbAZvlUyVJ5wnH80="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Helm常用命令",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/dihaifeng.github.io\/posts\/kubernetes\/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4\/"
+        },"genre": "posts","wordcount":  1545 ,
+        "url": "https:\/\/dihaifeng.github.io\/posts\/kubernetes\/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4\/","datePublished": "2024-04-24T18:08:31+08:00","dateModified": "2024-04-24T18:08:31+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "haifeng"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Haifeng,Blog">Haifeng,Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="Haifeng,Blog"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/" title="Haifeng,Blog"> 分类 </a><a class="menu-item" href="/about/" title="关于我"> 关于我 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Haifeng,Blog">Haifeng,Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="Haifeng,Blog">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="Haifeng,Blog">分类</a><a class="menu-item" href="/about/" title="关于我">关于我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Helm常用命令</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/dihaifeng" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>haifeng</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-24">2024-04-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1545 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#引言">引言</a></li>
+    <li><a href="#常用的-helm-命令">常用的 Helm 命令</a>
+      <ul>
+        <li><a href="#helm-create">helm create</a></li>
+        <li><a href="#helm-install">helm install</a></li>
+        <li><a href="#helm-upgrade">helm upgrade</a></li>
+        <li><a href="#helm-rollback">helm rollback</a></li>
+        <li><a href="#helm-install---debug---dry-run">helm install &ndash;debug &ndash;dry-run</a></li>
+        <li><a href="#helm-template">helm template</a></li>
+        <li><a href="#helm-lint">helm lint</a></li>
+        <li><a href="#helm-show">helm show</a></li>
+        <li><a href="#helm-pull">helm pull</a></li>
+        <li><a href="#helm-dependency">helm dependency</a></li>
+        <li><a href="#helm-uninstall">helm uninstall</a></li>
+      </ul>
+    </li>
+    <li><a href="#命令速查表">命令速查表</a></li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="引言">引言</h2>
+<p>Helm 是 Kubernetes 的包管理器，它通过提供一种称为 Helm Chart 的方式来简化 Kubernetes 应用的配置、部署和管理。本文将详细介绍 Helm 的常用命令及其使用场景，帮助用户更高效地利用 Helm 进行 Kubernetes 应用的生命周期管理。</p>
+<h2 id="常用的-helm-命令">常用的 Helm 命令</h2>
+<h3 id="helm-create">helm create</h3>
+<p>该命令用于初始化一个新的 Helm Chart。Helm Chart 是 Kubernetes 应用的包，包含了运行应用所需的所有资源定义。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1">#  helm create helloworld</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master helloworld<span class="o">]</span><span class="c1"># tree</span>
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── charts
+</span></span><span class="line"><span class="cl">├── Chart.yaml
+</span></span><span class="line"><span class="cl">├── templates
+</span></span><span class="line"><span class="cl">│   ├── deployment.yaml
+</span></span><span class="line"><span class="cl">│   ├── _helpers.tpl
+</span></span><span class="line"><span class="cl">│   ├── hpa.yaml
+</span></span><span class="line"><span class="cl">│   ├── ingress.yaml
+</span></span><span class="line"><span class="cl">│   ├── NOTES.txt
+</span></span><span class="line"><span class="cl">│   ├── serviceaccount.yaml
+</span></span><span class="line"><span class="cl">│   ├── service.yaml
+</span></span><span class="line"><span class="cl">│   └── tests
+</span></span><span class="line"><span class="cl">│       └── test-connection.yaml
+</span></span><span class="line"><span class="cl">└── values.yaml
+</span></span></code></pre></div><h3 id="helm-install">helm install</h3>
+<p>用于将 Helm Chart 安装到 Kubernetes 集群中。它会创建所有定义在 Chart 中的资源。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm install myhelloworld helloworld</span>
+</span></span><span class="line"><span class="cl">NAME: myhelloworld
+</span></span><span class="line"><span class="cl">LAST DEPLOYED: Tue Apr <span class="m">23</span> 10:07:31 <span class="m">2024</span>
+</span></span><span class="line"><span class="cl">NAMESPACE: default
+</span></span><span class="line"><span class="cl">STATUS: deployed
+</span></span><span class="line"><span class="cl">REVISION: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">NOTES:
+</span></span><span class="line"><span class="cl">1. Get the application URL by running these commands:
+</span></span><span class="line"><span class="cl">  <span class="nb">export</span> <span class="nv">NODE_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.spec.ports[0].nodePort}&#34;</span> services myhelloworld<span class="k">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">export</span> <span class="nv">NODE_IP</span><span class="o">=</span><span class="k">$(</span>kubectl get nodes --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.items[0].status.addresses[0].address}&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> http://<span class="nv">$NODE_IP</span>:<span class="nv">$NODE_PORT</span>
+</span></span></code></pre></div><h3 id="helm-upgrade">helm upgrade</h3>
+<p>用于升级已安装的 Helm Chart 到新版本。可以修改 Chart 的配置和资源。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 将helloworld的副本调整为2个副本</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># cat helloworld/values.yaml |head</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Default values for helloworld.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This is a YAML-formatted file.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Declare variables to be passed into your templates.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">replicaCount: <span class="m">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">image:
+</span></span><span class="line"><span class="cl">  repository: nginx
+</span></span><span class="line"><span class="cl">  pullPolicy: IfNotPresent
+</span></span><span class="line"><span class="cl">  <span class="c1"># Overrides the image tag whose default is the chart appVersion.</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 将已有的 release 升级到一个新版本的 chart</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm upgrade myhelloworld helloworld</span>
+</span></span><span class="line"><span class="cl">Release <span class="s2">&#34;myhelloworld&#34;</span> has been upgraded. Happy Helming!
+</span></span><span class="line"><span class="cl">NAME: myhelloworld
+</span></span><span class="line"><span class="cl">LAST DEPLOYED: Tue Apr <span class="m">23</span> 13:56:52 <span class="m">2024</span>
+</span></span><span class="line"><span class="cl">NAMESPACE: default
+</span></span><span class="line"><span class="cl">STATUS: deployed
+</span></span><span class="line"><span class="cl">REVISION: <span class="m">2</span>
+</span></span><span class="line"><span class="cl">NOTES:
+</span></span><span class="line"><span class="cl">1. Get the application URL by running these commands:
+</span></span><span class="line"><span class="cl">  <span class="nb">export</span> <span class="nv">NODE_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.spec.ports[0].nodePort}&#34;</span> services myhelloworld<span class="k">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">export</span> <span class="nv">NODE_IP</span><span class="o">=</span><span class="k">$(</span>kubectl get nodes --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.items[0].status.addresses[0].address}&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> http://<span class="nv">$NODE_IP</span>:<span class="nv">$NODE_PORT</span>
+</span></span></code></pre></div><h3 id="helm-rollback">helm rollback</h3>
+<p>当 Helm Chart 升级后出现问题时，可以使用该命令回滚到之前的版本。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm rollback myhelloworld 1</span>
+</span></span><span class="line"><span class="cl">Rollback was a success! Happy Helming!
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># kubectl get pod -l app.kubernetes.io/name=helloworld</span>
+</span></span><span class="line"><span class="cl">NAME                            READY   STATUS    RESTARTS   AGE
+</span></span><span class="line"><span class="cl">myhelloworld-768888cf49-xd64t   1/1     Running   <span class="m">0</span>          3h54m
+</span></span></code></pre></div><h3 id="helm-install---debug---dry-run">helm install &ndash;debug &ndash;dry-run</h3>
+<p>在实际安装之前，可以使用该命令查看 Helm 将如何安装 Chart。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm install myhelloworld --debug --dry-run helloworld</span>
+</span></span><span class="line"><span class="cl">install.go:214: <span class="o">[</span>debug<span class="o">]</span> Original chart version: <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">install.go:231: <span class="o">[</span>debug<span class="o">]</span> CHART PATH: /root/helloworld
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">NAME: myhelloworld
+</span></span><span class="line"><span class="cl">LAST DEPLOYED: Tue Apr <span class="m">23</span> 14:02:46 <span class="m">2024</span>
+</span></span><span class="line"><span class="cl">NAMESPACE: default
+</span></span><span class="line"><span class="cl">STATUS: pending-install
+</span></span><span class="line"><span class="cl">REVISION: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">USER-SUPPLIED VALUES:
+</span></span><span class="line"><span class="cl"><span class="o">{}</span>
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></div><h3 id="helm-template">helm template</h3>
+<p>该命令用于渲染 Helm Chart 的模板，但不执行安装操作。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm template helloworld</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行完毕后，会在helloworld目录下生成templates目录</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master helloworld<span class="o">]</span><span class="c1"># tree templates/</span>
+</span></span><span class="line"><span class="cl">templates/
+</span></span><span class="line"><span class="cl">├── deployment.yaml
+</span></span><span class="line"><span class="cl">├── _helpers.tpl
+</span></span><span class="line"><span class="cl">├── hpa.yaml
+</span></span><span class="line"><span class="cl">├── ingress.yaml
+</span></span><span class="line"><span class="cl">├── NOTES.txt
+</span></span><span class="line"><span class="cl">├── serviceaccount.yaml
+</span></span><span class="line"><span class="cl">├── service.yaml
+</span></span><span class="line"><span class="cl">└── tests
+</span></span><span class="line"><span class="cl">    └── test-connection.yaml
+</span></span></code></pre></div><h3 id="helm-lint">helm lint</h3>
+<p>对 Helm Chart 进行静态分析，检查可能存在的问题。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm lint helloworld</span>
+</span></span><span class="line"><span class="cl"><span class="o">==</span>&gt; Linting helloworld
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> Chart.yaml: icon is recommended
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">1</span> chart<span class="o">(</span>s<span class="o">)</span> linted, <span class="m">0</span> chart<span class="o">(</span>s<span class="o">)</span> failed
+</span></span><span class="line"><span class="cl"><span class="c1"># 对1个chart进行了linting（代码审查），并且在审查过程中没有发现任何失败的问题</span>
+</span></span></code></pre></div><h3 id="helm-show">helm show</h3>
+<p>用于查看 Helm Chart 的内容，包括模板、配置文件和其他资源的定义。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 显示Chart的信息和元数据</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm show chart helloworld</span>
+</span></span><span class="line"><span class="cl">apiVersion: v2
+</span></span><span class="line"><span class="cl">appVersion: 1.16.0
+</span></span><span class="line"><span class="cl">dependencies:
+</span></span><span class="line"><span class="cl">- name: mysql
+</span></span><span class="line"><span class="cl">  repository: https://charts.helm.sh/stable
+</span></span><span class="line"><span class="cl">  version: 1.6.1
+</span></span><span class="line"><span class="cl">description: A Helm chart <span class="k">for</span> Kubernetes
+</span></span><span class="line"><span class="cl">name: helloworld
+</span></span><span class="line"><span class="cl">type: application
+</span></span><span class="line"><span class="cl">version: 0.1.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看 Helm Chart的所有内容，包括模板、配置文件和其他资源的定义</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm show all helloworld</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示 Helm Chart的 values.yaml 文件内容，这个文件包含了图表的默认配置值</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm show values helloworld</span>
+</span></span></code></pre></div><h3 id="helm-pull">helm pull</h3>
+<p>从远程仓库下载或拉取一个 Helm Chart 到本地。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm repo add stable https://charts.helm.sh/stable</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm pull stable/mysql --version 1.6.9</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm env</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HELM_BIN</span><span class="o">=</span><span class="s2">&#34;helm&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HELM_BURST_LIMIT</span><span class="o">=</span><span class="s2">&#34;100&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HELM_CACHE_HOME</span><span class="o">=</span><span class="s2">&#34;/root/.cache/helm&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HELM_CONFIG_HOME</span><span class="o">=</span><span class="s2">&#34;/root/.config/helm&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">HELM_DATA_HOME</span><span class="o">=</span><span class="s2">&#34;/root/.local/share/helm&#34;</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># ls /root/.cache/helm/repository/|grep mysql</span>
+</span></span><span class="line"><span class="cl">mysql-1.6.9.tgz
+</span></span></code></pre></div><p><strong>常用参数</strong>：</p>
+<ul>
+<li><code>--version</code>：允许指定一个版本约束，用于下载特定版本的 Helm 图表。默认使用latest版本；</li>
+<li><code>--untar</code>：下载Chart后是否自动解压缩。如果设置为true，则Helm会在下载后自动解压缩</li>
+<li><code>--untardir</code>：指定图表提取到的目录；</li>
+<li><code>--repo</code>：指定从中下载图表的存储库的 URL；</li>
+<li><code>--username</code>和<code>--password</code>：提供访问私人存储库的凭证；</li>
+<li><code>--verify</code>：可以在使用图表之前对其进行验证，确保图表的完整性和安全性。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 拉取Package到本地</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm pull stable/nginx-ingress --version 1.2.3 --untar</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># tree nginx-ingress/</span>
+</span></span><span class="line"><span class="cl">nginx-ingress/
+</span></span><span class="line"><span class="cl">├── Chart.yaml
+</span></span><span class="line"><span class="cl">├── ci
+</span></span><span class="line"><span class="cl">│   └── psp-values.yaml
+</span></span><span class="line"><span class="cl">├── OWNERS
+</span></span><span class="line"><span class="cl">├── README.md
+</span></span><span class="line"><span class="cl">├── templates
+</span></span><span class="line"><span class="cl">│   ├── clusterrolebinding.yaml
+</span></span><span class="line"><span class="cl">│   ├── clusterrole.yaml
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></div><h3 id="helm-dependency">helm dependency</h3>
+<p>管理 chart 的依赖关系。</p>
+<p>修改helloworld目录中Chart.yaml文件，文件末尾追加依赖关系，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">root@master ~]# cat helloworld/Chart.yaml |tail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">appVersion</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1.16.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">dependencies</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">1.6.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l">https://charts.helm.sh/stable</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 列出当前helloworld chart的依赖项</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="l">root@master ~]# helm dependency list helloworld</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">load.go:120: Warning</span><span class="p">:</span><span class="w"> </span><span class="l">Dependencies are handled in Chart.yaml since apiVersion &#34;v2&#34;. We recommend migrating dependencies to Chart.yaml.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">NAME 	VERSION	REPOSITORY                   	STATUS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">mysql	1.6.1  	https://charts.helm.sh/stable	missing</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="l">root@master ~]# helm dependency update helloworld</span><span class="w">
+</span></span></span></code></pre></div><h3 id="helm-uninstall">helm uninstall</h3>
+<p>移除已安装的 Helm Chart。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@master ~<span class="o">]</span><span class="c1"># helm uninstall myhelloworld</span>
+</span></span><span class="line"><span class="cl">release <span class="s2">&#34;myhelloworld&#34;</span> uninstalled
+</span></span></code></pre></div><h2 id="命令速查表">命令速查表</h2>
+<p>为了便于快速查阅，Helm 提供了一个<a href="https://helm.sh/zh/docs/intro/cheatsheet/" target="_blank" rel="noopener noreffer ">命令速查表</a>。</p>
+<h2 id="结语">结语</h2>
+<p>本文详细介绍了 Helm 的常用命令，旨在帮助用户更深入地理解 Helm 的使用和 Kubernetes 应用的管理。通过掌握这些命令，用户可以更高效地进行 Kubernetes 应用的部署、升级和维护。同时，本文也提供了一些最佳实践和技巧，以提高用户的工作效率。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-04-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-title="Helm常用命令"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-title="Helm常用命令"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-title="Helm常用命令"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://dihaifeng.github.io/posts/kubernetes/helm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-title="Helm常用命令"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/kubernetes/helm%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="prev" rel="prev" title="Helm快速入门"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Helm快速入门</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.114.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/dihaifeng" target="_blank">haifeng</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>/*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js" integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script>*/
+    </body>
+</html>
