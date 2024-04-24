@@ -8,7 +8,9 @@ categories: ["Kubernetes"]
 
 Helm 是 Kubernetes 界的瑞士军刀，一个强大的包管理工具，它让部署和管理 Kubernetes 应用程序变得前所未有的简单。它通过 Helm Chart（一组预先配置的 Kubernetes 资源）来实现这一目标。
 ## Helm工作流程
+
 ![在这里插入图片描述](https://github.com/dihaifeng/dihaifeng.github.io/raw/main/static/images/Helm-chart-architecture.png)
+
 从这个架构图中，我们可以看到 Helm 如何与 Kubernetes 的各个组件协同工作，以便于部署和管理 Helm Charts。Helm 通过 Kubernetes API 与集群交互，使用 Helm CLI 来管理仓库中的 Charts，并通过 Releases 来跟踪和管理部署在 Kubernetes 集群上的应用程序。
 ## 安装 Helm
 
@@ -26,7 +28,8 @@ version.BuildInfo{Version:"v3.14.2", GitCommit:"c309b6f0ff63856811846ce18f3bdc93
 ```
 ### 二进制安装
 下载地址：[https://github.com/helm/helm/releases](https://github.com/helm/helm/releases)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/be945617670c4ad1995e21565782b8c3.png)
+
+![在这里插入图片描述](https://github.com/dihaifeng/dihaifeng.github.io/raw/main/static/images/be945617670c4ad1995e21565782b8c3.png)
 
 ```bash
 # 下载二进制文件
@@ -120,7 +123,9 @@ myhelloworld   NodePort   10.99.133.63   <none>        80:31814/TCP   14m
 >注意：NodePort 端口号范围在30000-32767内变化，因此可能会得到不同的NodePort。
 
 集群IP + NodePort的端口31814，我们就可以访问 myhelloworld Helm Chart 的 Nginx 页面。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/9bae0aaae2564c058c9087126d8fa15b.png)
+
+![在这里插入图片描述](https://github.com/dihaifeng/dihaifeng.github.io/raw/main/static/images/9bae0aaae2564c058c9087126d8fa15b.png)
+
 ## 管理 Helm Chart 仓库
 在 Linux 发行版中，我们有 apt、yum、dnf 等包管理器；类似地，Helm 依赖于如 bitnami 这样的 Chart 仓库。Chart 开发者可以创建 YAML 配置文件，并将它们打包成 Charts，然后发布为 Chart 仓库。
 
