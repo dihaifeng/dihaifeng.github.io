@@ -9,7 +9,7 @@ categories: ["Kubernetes"]
 Helm 是 Kubernetes 界的瑞士军刀，一个强大的包管理工具，它让部署和管理 Kubernetes 应用程序变得前所未有的简单。它通过 Helm Chart（一组预先配置的 Kubernetes 资源）来实现这一目标。
 ## Helm工作流程
 
-![在这里插入图片描述](https://github.com/dihaifeng/dihaifeng.github.io/raw/main/static/images/Helm-chart-architecture.png)
+{{< figure src="https://github.com/dihaifeng/dihaifeng.github.io/raw/main/static/images/Helm-chart-architecture.png" title="工作流程" >}}
 
 从这个架构图中，我们可以看到 Helm 如何与 Kubernetes 的各个组件协同工作，以便于部署和管理 Helm Charts。Helm 通过 Kubernetes API 与集群交互，使用 Helm CLI 来管理仓库中的 Charts，并通过 Releases 来跟踪和管理部署在 Kubernetes 集群上的应用程序。
 ## 安装 Helm
